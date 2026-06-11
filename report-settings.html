@@ -1440,26 +1440,26 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .so-comments-totals { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
 .so-comments-col { flex: 1; font-size: 11.5px; }
 .so-comments-col-lbl { font-weight: 600; margin-bottom: 4px; color: rgba(47,51,55,0.7); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
-.so-table { border-collapse: collapse; margin-bottom: 20px; font-size: 10px; table-layout: fixed; }
-.so-sep-section-label { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: rgba(47,51,55,.38); padding: 0 0 4px 0; margin-top: 4px; }
-.so-sep-section-label:first-child { margin-top: 0; }
-.so-table th { background: #1d4ed8; color: white; padding: 8px 10px; text-align: left; font-size: var(--tbl-th-size, 8.5px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; overflow: hidden; white-space: nowrap; }
+.so-table { border-collapse: separate; border-spacing: 0; margin-bottom: 20px; font-size: 10px; width: 100%; }
+.so-table .td-r { white-space: nowrap; }
+.so-table th { background: rgba(0,0,0,0.06); color: #000; padding: 5px 10px; text-align: left; font-size: var(--tbl-th-size, 8.5px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; vertical-align: middle; border-top: 1px solid rgba(0,0,0,0.18); border-bottom: 1px solid rgba(0,0,0,0.18); }
+.so-table th:first-child { padding-left: 18px; border-left: 1px solid rgba(0,0,0,0.18); border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.so-table th:last-child  { padding-right: 18px; border-right: 1px solid rgba(0,0,0,0.18); border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
 .so-table th:not(:first-child) { text-align: right; }
-.so-table th:first-child { padding-left: 18px; }
-.so-table th:last-child  { padding-right: 18px; }
 .so-table td { padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); color: #2f3337; overflow-wrap: normal; word-break: normal; }
 .so-table td:first-child { padding-left: 18px; }
 .so-table td:last-child  { padding-right: 18px; }
 .so-line-comment td { padding: 2px 10px 6px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 9px; color: rgba(47,51,55,0.5); font-style: italic; }
 .so-line-comment td:first-child { padding-left: 18px; }
-.so-table td:not(:first-child) { text-align: right; }
+.so-table td.td-r { text-align: right; }
 .so-table tr:last-child td { border-bottom: none; }
 /* ── WO multi-row line items ─────────────────────────────────────────────── */
 .wo-items { margin-bottom: 20px; font-size: 10px; color: #2f3337; }
 .wo-items-hdr {
   display: flex;
-  border-top: 1px solid rgba(0,0,0,0.22);
-  border-bottom: 1px solid rgba(0,0,0,0.22);
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.18);
+  border-radius: 4px;
   padding: 5px 18px;
   margin-bottom: 2px;
 }
@@ -1485,14 +1485,12 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wc-lamt   { width: 80px; flex-shrink: 0; text-align: right; }
 /* Paired right-side columns (Qty / Price / Total) */
 .wc-spacer    { flex: 1; min-width: 0; }
-.wc-col-qty   { width: 52px; flex-shrink: 0; text-align: right; font-size: 10px; }
-.wc-col-units { width: 40px; flex-shrink: 0; text-align: right; font-size: 10px; color: rgba(47,51,55,.6); }
+.wc-col-qty   { width: 80px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-price { width: 60px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-total { width: 70px; flex-shrink: 0; text-align: right; font-size: 10px; font-weight: 500; }
 .wo-hdr-spacer { flex: 1; }
 .wo-hdr-col    { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #2f3337; text-align: right; padding: 0 1px; }
-.wo-hdr-col.wc-col-qty   { width: 52px; }
-.wo-hdr-col.wc-col-units { width: 40px; }
+.wo-hdr-col.wc-col-qty   { width: 80px; }
 .wo-hdr-col.wc-col-price { width: 60px; }
 .wo-hdr-col.wc-col-total { width: 70px; }
 /* Field editor — locked fields + paired column groups */
@@ -1506,7 +1504,7 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 
 /* ── PO multi-row card layout ── */
 .po-items { margin-bottom: 20px; font-size: 10px; color: #2f3337; }
-.po-items-hdr { display: flex; align-items: baseline; border-top: 1px solid rgba(0,0,0,.22); border-bottom: 1px solid rgba(0,0,0,.22); padding: 5px 18px; margin-bottom: 2px; }
+.po-items-hdr { display: flex; align-items: baseline; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.18); border-radius: 4px; padding: 5px 18px; margin-bottom: 2px; }
 .po-group { border-bottom: 1px solid rgba(0,0,0,.07); padding: 2px 0 4px; }
 .po-group:last-child { border-bottom: none; }
 .po-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; gap: 6px; }
@@ -2104,14 +2102,14 @@ const TYPE_CONFIG = {
     fields: {
       'ms-company': { label:'Company information', all:['Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
       'ms-address': { label:'Address & contact',   all:['Sold To','Ship To','Custom Field'], sel:['Sold To','Ship To'] },
-      'ms-dates':   { label:'Dates & references',  all:['Sales Order #','Order Date','Timestamp','Bill Date','Net Due','Terms','PO #'], sel:['Sales Order #','Order Date','Bill Date','Net Due'] },
+      'ms-dates':   { label:'Dates & references',  all:['Sales Order #','Order Date','Timestamp','Bill Date','Net Due','Terms','PO #','Invoice #','Sale Date','Next Install','Sales Rep'], sel:['Sales Order #','Order Date','Bill Date','Net Due'] },
       'ms-totals':  { label:'Totals & comments',   all:['Subtotal','Tax Box','Total','Payments','Balance','Comments'], sel:['Subtotal','Tax Box','Total','Payments','Balance'] },
       'ms-footer':  { label:'Footer elements',     all:['Notes','Terms and Conditions','Terms Start on New Page','Force Terms to Bottom','Footer Phone/Email','Signature Block'], sel:['Notes','Terms and Conditions','Footer Phone/Email','Signature Block'] },
     },
     fieldZones: {
       'Company Header':'zone-company','Location Header':'zone-company','Company Phone/Email':'zone-company',
       'Sold To':'zone-sold-to','Ship To':'zone-ship-to','Custom Field':'zone-company',
-      'Sales Order #':'zone-dates','Order Date':'zone-dates','Timestamp':'zone-dates','Bill Date':'zone-dates','Net Due':'zone-dates','Terms':'zone-dates','PO #':'zone-dates',
+      'Sales Order #':'zone-dates','Order Date':'zone-dates','Timestamp':'zone-dates','Bill Date':'zone-dates','Net Due':'zone-dates','Terms':'zone-dates','PO #':'zone-dates','Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates',
       'Subtotal':'zone-totals','Tax Box':'zone-totals','Total':'zone-totals','Payments':'zone-totals','Balance':'zone-totals','Comments':'zone-totals',
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
@@ -2126,14 +2124,13 @@ const TYPE_CONFIG = {
       { key:'Split Material',  hdr:'Split',       w:'50px',  r:true  },
       { key:'Installer Name',  hdr:'Installer',   w:'100px', r:false },
       { key:'Labor Type',      hdr:'Type',        w:'76px',  r:false },
-      { key:'Units',           hdr:'Units',       w:'48px',  r:true  },
-      { key:'Qty',             hdr:'Qty',         w:'50px',  r:true  },
+      { key:'Qty',             hdr:'Qty',         w:'80px',  r:true  },
       { key:'Price',           hdr:'Price',       w:'76px',  r:true  },
       { key:'Total',           hdr:'Total',       w:'76px',  r:true  },
       { key:'Status',          hdr:'Status',      w:'56px', r:false },
       { key:'Line Comments',   hdr:'Comments',    w:'140px', r:false, subRow:true },
     ],
-    defaultActiveCols: ['Line Number','Description','Color','Qty','Units','Price','Total','Installer Name','Labor Type'],
+    defaultActiveCols: ['Line Number','Description','Color','Qty','Price','Total','Installer Name','Labor Type'],
     footerTerms: true,
   },
 
@@ -2144,44 +2141,40 @@ const TYPE_CONFIG = {
         fieldGroups: [
           { id:'wo-job',      label:'Job information',
             fields: [
+              { name:'Line #',    locked:true  },
               { name:'Status',    locked:false },
               { name:'Comments',  locked:false },
             ]
           },
           { id:'wo-material', label:'Material',
             fields: [
-              { name:'Style',      locked:false },
-              { name:'Color',      locked:false },
-              { name:'Material #', locked:false },
-              { name:'Product #',  locked:false },
-              { name:'Dimensions', locked:false },
+              { name:'Style',           locked:false },
+              { name:'Color',           locked:false },
+              { name:'Material #',      locked:false },
+              { name:'Product #',       locked:false },
+              { name:'Dimensions',      locked:false },
+              { name:'Material Qty',    paired:'Qty',   locked:false },
+              { name:'Material Units',  paired:'Units', locked:false },
+              { name:'Material Price',  paired:'Price', locked:false },
+              { name:'Material Total',  paired:'Total', locked:false },
             ]
           },
           { id:'wo-labor',    label:'Labor',
             fields: [
-              { name:'Labor Type', locked:false },
-            ]
-          },
-          { id:'wo-cols',     label:'Columns',
-            fields: [
-              { name:'Line #',          locked:true  },
-              { name:'Units',           locked:true  },
-              { name:'Material Qty',    paired:'Qty',   locked:false },
-              { name:'Labor Qty',       paired:'Qty',   locked:false },
-              { name:'Material Price',  paired:'Price', locked:false },
-              { name:'Labor Price',     paired:'Price', locked:false },
-              { name:'Material Total',  paired:'Total', locked:false },
-              { name:'Labor Total',     paired:'Total', locked:false },
+              { name:'Labor Type',   locked:false },
+              { name:'Labor Qty',    paired:'Qty',   locked:false },
+              { name:'Labor Units',  paired:'Units', locked:false },
+              { name:'Labor Price',  paired:'Price', locked:false },
+              { name:'Labor Total',  paired:'Total', locked:false },
             ]
           },
         ],
         defaultActiveFields: {
+          'Line #':true,
           'Status':true,'Comments':true,'Style':true,'Color':true,'Material #':true,
           'Product #':true,'Dimensions':true,'Labor Type':true,
-          'Line #':true,'Units':true,
-          'Material Qty':true,'Labor Qty':true,
-          'Material Price':false,'Labor Price':false,
-          'Material Total':true,'Labor Total':true,
+          'Material Qty':true,'Material Units':true,'Material Price':false,'Material Total':true,
+          'Labor Qty':true,'Labor Units':true,'Labor Price':false,'Labor Total':true,
         },
       },
       { id:'sec-totals', title:'Totals & Signature', badgeKey:'totals', colPicker:false, styleToggle:false, groups:['ms-wo-totals'] },
@@ -2189,13 +2182,13 @@ const TYPE_CONFIG = {
     fields: {
       'ms-wo-company': { label:'Company information', all:['Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
       'ms-wo-address': { label:'Address & contact',   all:['Sold To','Ship To','Custom Field'], sel:['Sold To','Ship To'] },
-      'ms-wo-refs':    { label:'References',           all:['Timestamp','PO #'], sel:['PO #'] },
+      'ms-wo-refs':    { label:'References',           all:['Invoice #','Sale Date','Next Install','Sales Rep','Timestamp','PO #'], sel:['PO #'] },
       'ms-wo-totals':  { label:'Totals & signature',  all:['Labor Total','Balance','Comments','Signature Line'], sel:['Labor Total','Balance','Signature Line'] },
     },
     fieldZones: {
       'Company Header':'zone-company','Location Header':'zone-company','Company Phone/Email':'zone-company',
       'Sold To':'zone-sold-to','Ship To':'zone-ship-to','Custom Field':'zone-company',
-      'Timestamp':'zone-dates','PO #':'zone-dates',
+      'Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates','Timestamp':'zone-dates','PO #':'zone-dates',
       'Labor Total':'zone-totals','Balance':'zone-totals','Comments':'zone-totals','Signature Line':'zone-totals',
     },
     colPool: [],
@@ -2210,6 +2203,7 @@ const TYPE_CONFIG = {
         fieldGroups: [
           { id:'po-description', label:'Description',
             fields: [
+              { name:'Line #',       locked:true  },
               { name:'Manufacturer', locked:false },
               { name:'Style',        locked:false },
               { name:'Style #',      locked:false },
@@ -2221,38 +2215,36 @@ const TYPE_CONFIG = {
             fields: [
               { name:'SKU',      locked:false },
               { name:'Sidemark', locked:false },
-              { name:'Comments', locked:false },
             ]
           },
           { id:'po-cols',        label:'Columns',
             fields: [
-              { name:'Line #',      locked:true  },
-              { name:'Qty',         locked:false },
-              { name:'Units',       locked:false },
-              { name:'Price',       locked:false },
-              { name:'Total',       locked:false },
-              { name:'Qty Detail',  locked:false },
+              { name:'Qty',        locked:false },
+              { name:'Units',      locked:false },
+              { name:'Price',      locked:false },
+              { name:'Total',      locked:false },
+              { name:'Qty Detail', locked:false },
             ]
           },
         ],
         defaultActiveFields: {
-          'Manufacturer':true,'Style':true,'Color':true,
+          'Line #':true,'Manufacturer':true,'Style':true,'Color':true,
           'Style #':false,'Color #':false,
-          'SKU':false,'Sidemark':false,'Comments':false,
-          'Line #':true,'Qty':true,'Units':true,'Price':true,'Total':true,'Qty Detail':false,
+          'SKU':false,'Sidemark':false,
+          'Qty':true,'Units':true,'Price':true,'Total':true,'Qty Detail':false,
         },
       },
       { id:'sec-footer', title:'Notes & Footer', badgeKey:'footer', colPicker:false, styleToggle:false, groups:['ms-po-footer'] },
     ],
     fields: {
       'ms-po-address': { label:'Header fields', all:['Bill To','Vendor','Ship To','Timestamp','Comments','Location Name – Ship To'], sel:['Bill To','Vendor','Ship To'] },
-      'ms-po-dates':   { label:'Dates & references', all:['PO #','Order Date','Expected Date','PO Terms'], sel:['PO #','Order Date'] },
+      'ms-po-dates':   { label:'Dates & references', all:['PO #','Order Date','Account #','Ship Date','Expected Date','PO Terms'], sel:['PO #','Order Date'] },
       'ms-po-footer':  { label:'Footer elements', all:['Notes','Terms and Conditions','Footer Phone/Email','Authorized'], sel:['Notes','Authorized'] },
     },
     fieldZones: {
       'Bill To':'zone-sold-to','Vendor':'zone-company','Ship To':'zone-ship-to',
       'Timestamp':'zone-dates','Comments':'zone-company','Location Name – Ship To':'zone-ship-to',
-      'PO #':'zone-dates','Order Date':'zone-dates','Expected Date':'zone-dates','PO Terms':'zone-dates',
+      'PO #':'zone-dates','Order Date':'zone-dates','Account #':'zone-dates','Ship Date':'zone-dates','Expected Date':'zone-dates','PO Terms':'zone-dates',
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Footer Phone/Email':'zone-footer','Authorized':'zone-footer',
     },
     colPool: [],
@@ -2294,7 +2286,7 @@ let activeFieldSets = {}; // { [groupId]: Set<fieldName> } — for fieldEditor s
 let PAIRED_COL      = {}; // { [fieldName]: pairedKey }  e.g. {'Material Qty':'Qty'}
 // SO columns that are positionally locked (can't be dragged or removed)
 const SO_COL_LOCKED_LEFT  = new Set(['Line Number']);
-const SO_COL_LOCKED_RIGHT = new Set(['Units','Qty','Price','Total']);
+const SO_COL_LOCKED_RIGHT = new Set(['Qty','Price','Total']);
 function _isSoLocked(key) { return SO_COL_LOCKED_LEFT.has(key) || SO_COL_LOCKED_RIGHT.has(key); }
 function _enforceSOLockedPositions() {
   if (activeType !== 'Sales Order') return;
@@ -2581,7 +2573,7 @@ function buildSectionsHTML(sections, footerTerms) {
       <div class="radio-group-label">Table style</div>
       <div class="toggle-slider" data-group="style">
         <div class="toggle-slider-opt" data-value="classic" onclick="selectToggle(this)">Classic</div>
-        <div class="toggle-slider-opt active" data-value="separated" onclick="selectToggle(this)">Separated (Product/Labor)</div>
+        <div class="toggle-slider-opt active" data-value="separated" onclick="selectToggle(this)">Separated</div>
         <div class="toggle-slider-opt" data-value="groups" onclick="selectToggle(this)">Groups</div>
       </div>
     </div>`;
@@ -2623,6 +2615,9 @@ function buildSectionsHTML(sections, footerTerms) {
           <input type="checkbox" class="check-box" id="chk-comments-only" onchange="toggleCommentsOnly(this.checked)">
           <span class="cb-label-text">Sales order comments only – hide line items, show totals</span>
         </label>`;
+      const fieldEditorHTML = sec.fieldEditor
+        ? buildFieldEditorHTML(sec.fieldGroups, sec.defaultActiveFields || {})
+        : '';
       body = `${subtotalsChk}${commentsOnlyChk}${toggle}
         <div id="cp-locked-cols"></div>
         <p class="cp-helper">Drag items between panels to add or remove columns. Drag within Active to reorder.</p>
@@ -2641,7 +2636,8 @@ function buildSectionsHTML(sections, footerTerms) {
                  ondrop="cpListDrop(event)"
                  ondragleave="cpListDragLeave(event)"></div>
           </div>
-        </div>`;
+        </div>
+        ${fieldEditorHTML}`;
     } else if (sec.tagGlobal) {
       body = `
         <div class="field">
@@ -2743,37 +2739,11 @@ function buildLockedColsHTML(pool) {
   };
   const leftHTML = [...SO_COL_LOCKED_LEFT].map(renderSimpleCb).join('');
 
-  // Right sections: flat checkboxes per fieldGroup (so-material-cols, so-labor-cols)
-  const soFieldGroups = (TYPE_CONFIG['Sales Order']?.sections || [])
-    .find(s => s.id === 'sec-lines')?.fieldGroups || [];
-  let rightSections = '';
-  if (soFieldGroups.length) {
-    rightSections = soFieldGroups.map(grp => {
-      const grpSet = activeFieldSets[grp.id] || new Set();
-      const fieldsHTML = grp.fields.map(f => `
-        <label class="cb-row" data-field="${f.name}" data-group="${grp.id}">
-          <input type="checkbox" class="check-box" data-group="${grp.id}" data-field="${f.name}"
-            ${grpSet.has(f.name) ? 'checked' : ''}>
-          <span class="cb-label-text">${f.name}</span>
-        </label>`).join('');
-      return `<div class="cb-subsection" id="${grp.id}" data-cb-group="${grp.id}">
-        <div class="cb-subsection-label">${grp.label}</div>
-        <div class="cb-grid">${fieldsHTML}</div>
-      </div>`;
-    }).join('');
-  } else {
-    rightSections = `<div class="cb-subsection">
-      <div class="cb-subsection-label">Quantity &amp; value columns</div>
-      <div class="cb-grid">${[...SO_COL_LOCKED_RIGHT].map(renderSimpleCb).join('')}</div>
-    </div>`;
-  }
-
   return `
     <div class="cb-subsection">
       <div class="cb-subsection-label">Line number</div>
       <div class="cb-grid">${leftHTML}</div>
-    </div>
-    ${rightSections}`;
+    </div>`;
 }
 
 function lockedColToggle(key, checked) {
@@ -3488,42 +3458,20 @@ function initFromParams() {
 /* ── Mount checkbox group ───────────────────────────────────────────────── */
 function buildFieldEditorHTML(fieldGroups, defaultActive) {
   return fieldGroups.map(grp => {
-    // Separate plain fields from paired sub-fields
-    const plain  = grp.fields.filter(f => !f.paired);
-    // Collect paired groups: { pairedKey: [field, field] }
-    const pairedMap = {};
-    grp.fields.filter(f => f.paired).forEach(f => {
-      if (!pairedMap[f.paired]) pairedMap[f.paired] = [];
-      pairedMap[f.paired].push(f);
-    });
 
-    const plainHTML = plain.map(f => {
+    const allHTML = grp.fields.map(f => {
       const active = defaultActive[f.name] !== false;
+      const locked = f.locked ? ' disabled' : '';
       return `<label class="cb-row" data-field="${f.name}" data-group="${grp.id}">
         <input type="checkbox" class="check-box" data-group="${grp.id}" data-field="${f.name}"
-          ${active ? 'checked' : ''}>
+          ${active ? 'checked' : ''}${locked}>
         <span class="cb-label-text">${f.name}</span>
       </label>`;
     }).join('');
 
-    const pairedHTML = Object.entries(pairedMap).map(([pKey, fields]) => {
-      const subHTML = fields.map(f => {
-        const active = defaultActive[f.name] !== false;
-        return `<label class="cb-row cb-row-sub" data-field="${f.name}" data-group="${grp.id}">
-          <input type="checkbox" class="check-box" data-group="${grp.id}" data-field="${f.name}"
-            ${active ? 'checked' : ''}>
-          <span class="cb-label-text">${f.name}</span>
-        </label>`;
-      }).join('');
-      return `<div class="cb-paired-group">
-        <div class="cb-paired-label">${pKey}</div>
-        ${subHTML}
-      </div>`;
-    }).join('');
-
     return `<div class="cb-subsection" id="${grp.id}" data-cb-group="${grp.id}">
       <div class="cb-subsection-label">${grp.label}</div>
-      <div class="cb-grid">${plainHTML}${pairedHTML}</div>
+      <div class="cb-grid">${allHTML}</div>
     </div>`;
   }).join('');
 }
@@ -4146,8 +4094,12 @@ function buildWOPreviewHTML() {
   const showShipTo = hasSel('Ship To'); const ghostShipTo = isGhost('Ship To');
 
   const DATE_VALS = {
-    'Timestamp': ['Timestamp', '06/01/2026 08:30'],
-    'PO #':      ['PO #',      'PO-8821'],
+    'Invoice #':    ['Invoice #',   'INV-2026-0042'],
+    'Sale Date':    ['Sale Date',   '05/15/2026'],
+    'Next Install': ['Next Install','06/15/2026'],
+    'Sales Rep':    ['Sales Rep',   'Maria Davis'],
+    'Timestamp':    ['Timestamp',   '06/01/2026 08:30'],
+    'PO #':         ['PO #',        'PO-8821'],
   };
   const dateRows = Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false }));
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
@@ -4156,22 +4108,23 @@ function buildWOPreviewHTML() {
   const WO_GROUPS = cycleWOGroups(previewLineCount);
 
   const showQty   = pairedColVisible('Qty');
-  const showUnits = wof('Units');
+  const showUnits = pairedColVisible('Units');
   const showPrice = pairedColVisible('Price');
   const showTotal = pairedColVisible('Total');
 
-  const rightCols = (qtyVal, unitVal, priceVal, totalVal) => `
+  const rightCols = (qtyVal, unitVal, priceVal, totalVal) => {
+    const qtyDisplay = showUnits && qtyVal && unitVal ? `${qtyVal} ${unitVal}` : qtyVal;
+    return `
     <span class="wc-spacer"></span>
-    ${showQty   ? `<span class="wc-col-qty">${qtyVal}</span>`     : ''}
-    ${showUnits ? `<span class="wc-col-units">${unitVal}</span>`  : ''}
+    ${showQty   ? `<span class="wc-col-qty">${qtyDisplay}</span>` : ''}
     ${showPrice ? `<span class="wc-col-price">${priceVal}</span>` : ''}
     ${showTotal ? `<span class="wc-col-total">${totalVal}</span>` : ''}`;
+  };
 
   const linesHTML = `<div class="wo-items" data-zone="zone-table">
     <div class="wo-items-hdr">
       <span class="wo-hdr-spacer"></span>
       ${showQty   ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`     : ''}
-      ${showUnits ? `<span class="wo-hdr-col wc-col-units">Unit</span>`  : ''}
       ${showPrice ? `<span class="wo-hdr-col wc-col-price">Price</span>` : ''}
       ${showTotal ? `<span class="wo-hdr-col wc-col-total">Total</span>` : ''}
     </div>
@@ -4187,10 +4140,10 @@ function buildWOPreviewHTML() {
         ${wof('Color')      ? `<span class="wc-color">${g.color}</span>`   : ''}
         ${wof('Material #') ? `<span class="wc-matnum">${g.matNum}</span>` : ''}
         ${rightCols(
-          wof('Material Qty')   ? String(g.matQty) : '',
-          g.matUnit,
-          wof('Material Price') ? g.matPrice : '',
-          wof('Material Total') ? g.matTotal : ''
+          wof('Material Qty')    ? String(g.matQty) : '',
+          wof('Material Units')  ? g.matUnit : '',
+          wof('Material Price')  ? g.matPrice : '',
+          wof('Material Total')  ? g.matTotal : ''
         )}
       </div>`;
       const showProdRef  = wof('Product #');
@@ -4204,10 +4157,10 @@ function buildWOPreviewHTML() {
         <span class="wc-lgap"></span>
         ${wof('Labor Type') ? `<span class="wc-labor">${g.laborType}</span>` : ''}
         ${rightCols(
-          wof('Labor Qty')   ? String(g.lQty) : '',
-          g.lUnit,
-          wof('Labor Price') ? g.lPrice : '',
-          wof('Labor Total') ? g.lAmt   : ''
+          wof('Labor Qty')    ? String(g.lQty) : '',
+          wof('Labor Units')  ? g.lUnit : '',
+          wof('Labor Price')  ? g.lPrice : '',
+          wof('Labor Total')  ? g.lAmt   : ''
         )}
       </div>`;
       return `<div class="wo-group">${commentRow}${materialRow}${productRow}${laborRow}</div>`;
@@ -4251,20 +4204,29 @@ function buildWOPreviewHTML() {
 
   // Labor total — sum of numeric totals rows for prototype
   const woTotalAmt = fmtDollar(previewLineCount * 312.50 + 1048.75);
-  const headerHTML = `
-    <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
-    <div class="so-doc-title-row">WORK ORDER</div>
-    <div class="so-subtopbar">
-      <span>06/01/2026 08:30 AM</span>
-      <span>Page 1 of 1</span>
-    </div>
-    <div class="so-hd">
-      <div class="so-hd-identity" data-zone="zone-company">
-        ${logoPos !== 'none' && showCompany ? logoEl : ''}
-        ${showCompany ? companyInfo : ''}
-      </div>
-      <div data-zone="zone-dates">${metaTable}</div>
-    </div>`;
+  let headerHTML = '';
+  if (logoPos === 'center') {
+    headerHTML = `
+      <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
+      <div class="so-doc-title-row">WORK ORDER</div>
+      <div class="so-subtopbar"><span>06/01/2026 08:30 AM</span></div>
+      <div class="so-hd">
+        ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>` : '<div></div>'}
+        <div data-zone="zone-dates">${metaTable}</div>
+      </div>`;
+  } else {
+    headerHTML = `
+      <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
+      <div class="so-doc-title-row">WORK ORDER</div>
+      <div class="so-subtopbar"><span>06/01/2026 08:30 AM</span></div>
+      <div class="so-hd">
+        <div class="so-hd-identity" data-zone="zone-company">
+          ${logoPos !== 'none' && showCompany ? logoEl : ''}
+          ${showCompany ? companyInfo : ''}
+        </div>
+        <div data-zone="zone-dates">${metaTable}</div>
+      </div>`;
+  }
 
   let addressHTML = '';
   if (showSoldTo||showShipTo||ghostSoldTo||ghostShipTo) {
@@ -4287,6 +4249,9 @@ function buildPOPreviewHTML() {
   const hasSel  = f => Object.values(FIELDS).some(g => g.sel.includes(f));
   const isGhost = f => previewGhostField === f && !hasSel(f);
 
+  const logoPos    = getToggleValue('logo') || 'left';
+  const showCompany = true;
+
   /* ── header fields ── */
   const showVendor  = hasSel('Vendor');                    const ghostVendor  = isGhost('Vendor');
   const showBillTo  = hasSel('Bill To');                   const ghostBillTo  = isGhost('Bill To');
@@ -4299,6 +4264,8 @@ function buildPOPreviewHTML() {
   const DATE_VALS = {
     'PO #':          ['PO #',          'PO-2025-0144'],
     'Order Date':    ['Order Date',    '05/08/2025'],
+    'Account #':     ['Account #',     'ACT-00291'],
+    'Ship Date':     ['Ship Date',     '05/20/2025'],
     'Expected Date': ['Expected Date', '05/22/2025'],
     'PO Terms':      ['Terms',         'Net 30'],
   };
@@ -4311,7 +4278,7 @@ function buildPOPreviewHTML() {
   const showMfr     = wof('Manufacturer');
   const showStyle   = wof('Style') || wof('Style #');
   const showColor   = wof('Color') || wof('Color #');
-  const showRef     = wof('SKU') || wof('Sidemark') || wof('Qty Detail') || wof('Comments');
+  const showRef     = wof('SKU') || wof('Sidemark') || wof('Qty Detail');
   const showQty     = wof('Qty');
   const showUnits   = wof('Units');
   const showPrice   = wof('Price');
@@ -4325,14 +4292,13 @@ function buildPOPreviewHTML() {
   const numGap = `<span class="pc-gap" style="width:22px"></span>`;
   const mfrGap = `<span class="pc-gap" style="width:60px"></span>`;
 
-  const hasAny = showLineNum || showMfr || showStyle || showColor || showRef || showQty || showUnits || showPrice || showTotal;
+  const hasAny = showLineNum || showMfr || showStyle || showColor || showRef || showQty || showPrice || showTotal;
   const linesHTML = hasAny ? `<div class="po-items" data-zone="zone-table">
     <div class="po-items-hdr">
       ${showLineNum ? '<span class="po-hdr-num"></span>'         : ''}
       ${showMfr     ? '<span class="po-hdr-mfr">MFR</span>'     : ''}
-      <span class="po-hdr-desc">Description</span>
+      <span class="po-hdr-desc">Description (Style/Color)</span>
       ${showQty    ? '<span class="wo-hdr-col wc-col-qty">Qty</span>'      : ''}
-      ${showUnits  ? '<span class="wo-hdr-col wc-col-units">Unit</span>'   : ''}
       ${showPrice  ? '<span class="wo-hdr-col wc-col-price">Price</span>'  : ''}
       ${showTotal  ? '<span class="wo-hdr-col wc-col-total">Total</span>'  : ''}
     </div>
@@ -4346,8 +4312,7 @@ function buildPOPreviewHTML() {
         ${showLineNum ? `<span class="pc-num">${r['Line Number']}</span>` : ''}
         ${showMfr ? `<span class="pc-mfr">${r['Manufacturer']}</span>` : ''}
         <span class="pc-desc">${showStyle ? styleDesc : ''}</span>
-        ${showQty   ? `<span class="wc-col-qty">${r['Quantity']}</span>`   : ''}
-        ${showUnits ? `<span class="wc-col-units">${r['Unit']}</span>`     : ''}
+        ${showQty   ? `<span class="wc-col-qty">${r['Quantity']}${showUnits && r['Unit'] ? ' ' + r['Unit'] : ''}</span>` : ''}
         ${showPrice ? `<span class="wc-col-price">${r['Price']}</span>`    : ''}
         ${showTotal ? `<span class="wc-col-total">${r['Total']}</span>`    : ''}
       </div>`;
@@ -4362,16 +4327,18 @@ function buildPOPreviewHTML() {
         <span class="pc-sub">${colorStr}</span>
       </div>` : '';
 
-      const refParts = [
-        wof('SKU')        ? r['SKU'] : '',
-        wof('Sidemark')   ? r['Sidemark'] : '',
-        wof('Qty Detail') ? r['Quantity Detail'] : '',
-        wof('Comments')   ? r['Comments'] : '',
+      const leftRefParts = [
+        wof('SKU')      ? r['SKU'] : '',
+        wof('Sidemark') ? r['Sidemark'] : '',
       ].filter(Boolean);
-      const row3 = refParts.length ? `<div class="po-row">
+      const qtyDetailVal = wof('Qty Detail') ? r['Quantity Detail'] : '';
+      const row3 = (leftRefParts.length || qtyDetailVal) ? `<div class="po-row">
         ${showLineNum ? numGap : ''}
         ${showMfr ? mfrGap : ''}
-        <span class="pc-ref">${refParts.join(' · ')}</span>
+        <span class="pc-ref">${leftRefParts.join(' · ')}</span>
+        ${showQty   ? `<span class="wc-col-qty" style="text-align:right">${qtyDetailVal}</span>` : ''}
+        ${showPrice ? `<span class="wc-col-price"></span>` : ''}
+        ${showTotal ? `<span class="wc-col-total"></span>` : ''}
       </div>` : '';
 
       return `<div class="po-group">${row1}${row2}${row3}</div>`;
@@ -4417,17 +4384,27 @@ function buildPOPreviewHTML() {
     ? `<span>05/08/2026 09:14 AM</span>`
     : (ghostTs ? `<span style="opacity:0.35;font-style:italic">05/08/2026 09:14 AM</span>` : '<span></span>');
   const poTotalAmt = fmtDollar(previewLineCount * 248.00 + 820.00);
-  const headerHTML = `
-    <div class="so-header-total" data-zone="zone-dates">${poTotalAmt}</div>
-    <div class="so-doc-title-row">PURCHASE ORDER</div>
-    <div class="so-subtopbar">
-      ${tsSpan}
-      <span>Page 1 of 1</span>
-    </div>
-    <div class="so-hd">
-      <div class="so-hd-identity" data-zone="zone-company">${logoEl}${companyInfo}</div>
-      <div data-zone="zone-dates">${metaTable}</div>
-    </div>`;
+  let headerHTML = '';
+  if (logoPos === 'center') {
+    headerHTML = `
+      <div class="so-doc-title-row">PURCHASE ORDER</div>
+      <div class="so-subtopbar">${tsSpan}<span>Page 1 of 1</span></div>
+      <div class="so-hd">
+        <div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>
+        <div data-zone="zone-dates">${metaTable}</div>
+      </div>`;
+  } else {
+    headerHTML = `
+      <div class="so-doc-title-row">PURCHASE ORDER</div>
+      <div class="so-subtopbar">${tsSpan}<span>Page 1 of 1</span></div>
+      <div class="so-hd">
+        <div class="so-hd-identity" data-zone="zone-company">
+          ${logoPos !== 'none' && showCompany ? logoEl : ''}
+          ${showCompany ? companyInfo : ''}
+        </div>
+        <div data-zone="zone-dates">${metaTable}</div>
+      </div>`;
+  }
 
   /* ── address block ── */
   let addressHTML = '';
@@ -4624,6 +4601,10 @@ function buildSOPreviewHTML() {
     'Net Due':       ['Net Due',       '06/08/2025'],
     'Terms':         ['Terms',         'Net 30'],
     'PO #':          ['PO #',          'PO-5678'],
+    'Invoice #':     ['Invoice #',     'INV-2025-0042'],
+    'Sale Date':     ['Sale Date',     '05/01/2025'],
+    'Next Install':  ['Next Install',  '06/01/2025'],
+    'Sales Rep':     ['Sales Rep',     'Maria Davis'],
   };
   const dateRows     = Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false }));
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
@@ -4652,8 +4633,8 @@ function buildSOPreviewHTML() {
     return `${cls} style="${s}"`;
   }
   function tdS(c) {
-    if (c.ghost) return c.r ? ' class="ghost-td" style="text-align:right;white-space:nowrap"' : ' class="ghost-td"';
-    return c.r ? ' style="text-align:right;white-space:nowrap"' : '';
+    if (c.ghost) return c.r ? ' class="ghost-td td-r"' : ' class="ghost-td"';
+    return c.r ? ' class="td-r"' : '';
   }
 
   function buildCombinedTable(allCols, rows) {
@@ -4661,20 +4642,24 @@ function buildSOPreviewHTML() {
     const cols = allCols.filter(c => !c.subRow);
     const cellVal = (c, r) => {
       if (c.key === 'Qty') {
-        if (r._t === 'p') return wof('Product Qty')   ? r['Product Quantity'] || '' : '';
-        if (r._t === 'l') return wof('Labor Qty')     ? r['Labor Quantity']   || '' : '';
+        if (r._t === 'p' || r._t === 'pl') {
+          const q = wof('Product Qty') ? r['Product Quantity'] || '' : '';
+          const u = wof('Product Units') && r['Product Units'] ? r['Product Units'] : '';
+          return q && u ? `${q} ${u}` : q;
+        }
+        if (r._t === 'l') {
+          const q = wof('Labor Qty') ? r['Labor Quantity'] || '' : '';
+          const u = wof('Labor Units') && r['Labor Units'] ? r['Labor Units'] : '';
+          return q && u ? `${q} ${u}` : q;
+        }
       }
       if (c.key === 'Price') {
-        if (r._t === 'p') return wof('Product Price') ? r['Product Price']    || '' : '';
-        if (r._t === 'l') return wof('Labor Price')   ? r['Labor Price']      || '' : '';
+        if (r._t === 'p' || r._t === 'pl') return wof('Product Price') ? r['Product Price'] || '' : '';
+        if (r._t === 'l') return wof('Labor Price') ? r['Labor Price'] || '' : '';
       }
       if (c.key === 'Total') {
-        if (r._t === 'p') return wof('Product Total') ? r['Product Total']    || '' : '';
-        if (r._t === 'l') return wof('Labor Total')   ? r['Labor Total']      || '' : '';
-      }
-      if (c.key === 'Units') {
-        if (r._t === 'p') return wof('Product Units') ? r['Product Units']    || '' : '';
-        if (r._t === 'l') return wof('Labor Units')   ? r['Labor Units']      || '' : '';
+        if (r._t === 'p' || r._t === 'pl') return wof('Product Total') ? r['Product Total'] || '' : '';
+        if (r._t === 'l') return wof('Labor Total') ? r['Labor Total'] || '' : '';
       }
       if (c.key === 'Installer Name') return fmtInstaller(r[c.key] ?? '', parseInt(c.w));
       return r[c.key] ?? '';
@@ -4691,29 +4676,53 @@ function buildSOPreviewHTML() {
     const fScale = tableAdaptiveText ? Math.min(1, getPrintWidth() / totalW) : 1;
     const fontStyle = fScale < 0.999 ? `font-size:${(10 * fScale).toFixed(1)}px;--tbl-th-size:${(8.5 * fScale).toFixed(1)}px;` : '';
 
-    // Expand combined rows (_t:'pl') into separate product and labor rows
-    const expandedRows = rows.flatMap(r => r._t === 'pl' ? [
-      { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
-      { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
-    ] : [r]);
+    // Simplified header helpers
+    const rightKeys = new Set(['Qty', 'Units', 'Price', 'Total']);
+    const contentCols2 = cols.filter(c => !rightKeys.has(c.key));
+    const rightCols2   = cols.filter(c =>  rightKeys.has(c.key));
+    const colgroup = `<colgroup>${cols.map(c => `<col style="width:${c.w}">`).join('')}</colgroup>`;
+    const mkHeader = (contentLabel) => {
+      const contentTh = contentCols2.length
+        ? `<th colspan="${contentCols2.length}" style="text-align:left">${contentLabel}</th>`
+        : '';
+      const rightThs = rightCols2.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('');
+      return `<thead><tr>${contentTh}${rightThs}</tr></thead>`;
+    };
+
+    // Expand combined rows for separated/groups; keep as single row for flat/classic
+    const expandedRows = (styleVal === 'separated' || styleVal === 'groups')
+      ? rows.flatMap(r => r._t === 'pl' ? [
+          { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
+          { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
+        ] : [r])
+      : rows;
 
     if (styleVal === 'separated') {
       const pRows = expandedRows.filter(r => r._t === 'p');
       const lRows = expandedRows.filter(r => r._t === 'l');
-      const thead = `<thead><tr>${cols.map(c => `<th${thS(c)}>${c.hdr}</th>`).join('')}</tr></thead>`;
-      const mkTable = (label, dataRows, subtotalVal) => {
-        let tbody = dataRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-        if (showSubs) tbody += `<tr><td colspan="${colSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
-        return `<div class="so-sep-section-label">${label}</div><table class="so-table" style="${fontStyle}width:${totalW}px" data-zone="zone-table">${thead}<tbody>${tbody}</tbody></table>`;
+      const PRODUCT_ONLY = new Set(['Description', 'Color', 'Style', 'Material #', 'Product #', 'Dimensions']);
+      const LABOR_ONLY   = new Set(['Installer Name', 'Labor Type']);
+      const pCols = cols.filter(c => !LABOR_ONLY.has(c.key));
+      const lCols = cols.filter(c => !PRODUCT_ONLY.has(c.key));
+      const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
+        const tContent = tCols.filter(c => !rightKeys.has(c.key));
+        const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
+        // Right cols get fixed widths; content cols get no width so they share remaining space equally (table-layout:fixed)
+        const tColgroup = `<colgroup>${tCols.map(c => rightKeys.has(c.key) ? `<col style="width:${c.w}">` : `<col>`).join('')}</colgroup>`;
+        const tSpan = tCols.length;
+        const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('')}</tr></thead>`;
+        let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+        if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+        return `<table class="so-table" style="${fontStyle}table-layout:fixed;margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
       };
       let html = '';
       if (pRows.length) {
         const pSubtotal = pRows.reduce((s, r) => s + parseDollar(r['Product Total']), 0);
-        html += mkTable('Products', pRows, pSubtotal);
+        html += mkSepTable(pCols, 'Materials', pRows, pSubtotal);
       }
       if (lRows.length) {
         const lSubtotal = lRows.reduce((s, r) => s + parseDollar(r['Labor Total']), 0);
-        html += mkTable('Labor', lRows, lSubtotal);
+        html += mkSepTable(lCols, 'Labor', lRows, lSubtotal);
       }
       return html;
     } else if (styleVal === 'groups') {
@@ -4738,7 +4747,8 @@ function buildSOPreviewHTML() {
     } else {
       tbodyRows = expandedRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
     }
-    return `<table class="so-table" style="${fontStyle}width:${totalW}px" data-zone="zone-table"><thead><tr>${cols.map(c => `<th${thS(c)}>${c.hdr}</th>`).join('')}</tr></thead><tbody>${tbodyRows}</tbody></table>`;
+    const thead = styleVal === 'groups' ? mkHeader('') : mkHeader('Material / Labor');
+    return `<table class="so-table" style="${fontStyle}min-width:${totalW}px" data-zone="zone-table">${colgroup}${thead}<tbody>${tbodyRows}</tbody></table>`;
   }
 
   /* ── line items — hidden entirely in comments-only mode ── */
@@ -4837,18 +4847,16 @@ function buildSOPreviewHTML() {
   let headerHTML = '';
   if (logoPos === 'center') {
     headerHTML = `
-      <div class="so-header-total" data-zone="zone-dates">${soTotalAmt}</div>
       <div class="so-doc-title-row">${titleText}</div>
-      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span><span>Page 1 of 1</span></div>
+      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span></div>
       <div class="so-hd">
         ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>` : '<div></div>'}
         <div data-zone="zone-dates">${metaTable}</div>
       </div>`;
   } else {
     headerHTML = `
-      <div class="so-header-total" data-zone="zone-dates">${soTotalAmt}</div>
       <div class="so-doc-title-row">${titleText}</div>
-      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span><span>Page 1 of 1</span></div>
+      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span></div>
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
           ${logoPos !== 'none' && showCompany ? logoEl : ''}
