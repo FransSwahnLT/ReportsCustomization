@@ -8,10 +8,10 @@
 <style>
 /* ─── Rocket DS tokens ───────────────────────────────────────────────────── */
 :root {
-  --c-text-primary:    #2f3337;
-  --c-text-secondary:  rgba(47,51,55,0.65);
-  --c-text-disabled:   rgba(47,51,55,0.38);
-  --c-text-placeholder: rgba(47,51,55,0.5);
+  --c-text-primary:    #000;
+  --c-text-secondary:  rgba(0,0,0,0.65);
+  --c-text-disabled:   rgba(0,0,0,0.38);
+  --c-text-placeholder: rgba(0,0,0,0.5);
   --c-surface:         #ffffff;
   --c-surface-raised:  #f6f7f8;
   --c-surface-preview: #e8eaed;
@@ -215,6 +215,7 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .preview-page + .preview-page { margin-top: 12px; }
 .preview-page-viewport {
@@ -558,7 +559,7 @@ body {
   border: none;
   background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 2H2V16H16V2ZM2 0H16C17.1046 0 18 0.89543 18 2V16C18 17.1046 17.1046 18 16 18H2C0.89543 18 0 17.1046 0 16V2C0 0.89543 0.89543 0 2 0Z' fill='%232F3337' fill-opacity='0.7'/%3E%3C/svg%3E") no-repeat center/contain;
 }
-.check-box:focus { box-shadow: 0 0 0 3px rgba(47,51,55,0.14); border-radius: 4px; }
+.check-box:focus { box-shadow: 0 0 0 3px rgba(0,0,0,0.14); border-radius: 4px; }
 .check-box:checked {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.5 0H1.5C1.10218 0 0.720644 0.158035 0.43934 0.43934C0.158035 0.720644 0 1.10218 0 1.5V16.5C0 16.8978 0.158035 17.2794 0.43934 17.5607C0.720644 17.842 1.10218 18 1.5 18H16.5C16.8978 18 17.2794 17.842 17.5607 17.5607C17.842 17.2794 18 16.8978 18 16.5V1.5C18 1.10218 17.842 0.720644 17.5607 0.43934C17.2794 0.158035 16.8978 0 16.5 0V0ZM13.6406 7.29375L8.14688 12.5438C8.00485 12.6774 7.81687 12.7512 7.62188 12.75C7.42975 12.7507 7.24487 12.6768 7.10625 12.5438L4.35938 9.91875C4.28319 9.85228 4.22123 9.77109 4.17722 9.68006C4.1332 9.58903 4.10805 9.49005 4.10328 9.38905C4.0985 9.28805 4.11419 9.18713 4.14941 9.09236C4.18463 8.99758 4.23865 8.9109 4.30822 8.83754C4.37779 8.76417 4.46148 8.70563 4.55426 8.66543C4.64703 8.62523 4.74697 8.6042 4.84808 8.60362C4.94919 8.60303 5.04937 8.62289 5.14261 8.66201C5.23584 8.70113 5.32021 8.7587 5.39062 8.83125L7.62188 10.9594L12.6094 6.20625C12.7552 6.07902 12.9446 6.01309 13.1379 6.02223C13.3312 6.03138 13.5135 6.1149 13.6467 6.25533C13.7798 6.39576 13.8535 6.58222 13.8524 6.77575C13.8513 6.96928 13.7754 7.15488 13.6406 7.29375Z' fill='%23169949'/%3E%3C/svg%3E");
 }
@@ -635,7 +636,7 @@ body {
   height: 22px;
   padding: 0 8px;
   margin-left: 6px;
-  background: rgba(47,51,55,0.07);
+  background: rgba(0,0,0,0.07);
   border-radius: var(--r-pill);
   font-size: 11px;
   font-weight: 600;
@@ -1368,14 +1369,14 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ─── Sales Order preview doc ────────────────────────────────────────────── */
-.so { font-size: 12px; color: #2f3337; line-height: 1.5; }
+.so { font-size: 12px; color: #000; line-height: 1.5; }
 
 /* ── Reference-exact header structure ───────────────────────────────────── */
 /* 1. Labor/grand total — top right */
 .so-header-total {
   text-align: right;
   font-size: 11px;
-  color: #2f3337;
+  color: #000;
   margin-bottom: 5px;
 }
 /* 2. Doc title — centered, bold */
@@ -1392,32 +1393,21 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
   justify-content: space-between;
   align-items: baseline;
   font-size: 10.5px;
-  color: rgba(47,51,55,0.55);
+  color: rgba(0,0,0,0.55);
   margin-bottom: 10px;
 }
 /* 4. Logo row: logo+company identity left | meta table right */
 .so-hd { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
 .so-hd-identity { display: flex; align-items: flex-start; gap: 14px; }
-.so-logo {
-  width: 88px; height: 52px;
-  background: #1d4ed8;
-  border-radius: 6px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  color: white; font-size: 13px; font-weight: 800;
-  letter-spacing: -0.01em; gap: 0;
-  font-family: var(--font);
-  flex-shrink: 0;
-}
-.so-logo span { font-size: 8px; font-weight: 500; opacity: 0.8; letter-spacing: 0.12em; }
-.so-company-info { font-size: 11px; color: rgba(47,51,55,0.72); line-height: 1.7; }
+.so-logo { height: 82px; width: auto; flex-shrink: 0; display: block; object-fit: contain; }
+.so-company-info { font-size: 11px; color: rgba(0,0,0,0.72); line-height: 1.7; }
 /* Meta table: label right-aligned, value bold left */
 .so-meta-table { margin-top: 0; border-collapse: collapse; }
 .so-meta-table tr td:first-child {
   font-weight: 400;
   text-align: right;
   padding-right: 8px;
-  color: rgba(47,51,55,0.65);
+  color: rgba(0,0,0,0.65);
   font-size: 11px;
   white-space: nowrap;
 }
@@ -1433,28 +1423,29 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .so-title-block { display: none; }
 /* Bordered address boxes */
 .so-addresses { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.so-addr-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(47,51,55,0.65); margin-bottom: 3px; }
-.so-addr-box { border: 1px solid rgba(0,0,0,0.22); padding: 7px 10px; font-size: 11.5px; line-height: 1.65; color: #2f3337; min-height: 60px; }
-.po-special-instructions { margin-bottom: 16px; padding: 8px 10px; border: 1px solid rgba(0,0,0,0.1); background: rgba(0,0,0,0.015); font-size: 11.5px; line-height: 1.6; color: #2f3337; }
+.so-addr-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: rgba(0,0,0,0.65); margin-bottom: 3px; }
+.so-addr-box { border: 1px solid rgba(0,0,0,0.22); padding: 7px 10px; font-size: 11.5px; line-height: 1.65; color: #000; min-height: 60px; }
+.po-special-instructions { margin-bottom: 16px; padding: 0; font-size: 11.5px; line-height: 1.6; color: #000; }
 /* Comments + Totals side-by-side (comments-only mode) */
 .so-comments-totals { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
 .so-comments-col { flex: 1; font-size: 11.5px; }
-.so-comments-col-lbl { font-weight: 600; margin-bottom: 4px; color: rgba(47,51,55,0.7); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+.so-comments-col-lbl { font-weight: 600; margin-bottom: 4px; color: rgba(0,0,0,0.7); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
 .so-table { border-collapse: separate; border-spacing: 0; margin-bottom: 20px; font-size: 10px; width: 100%; }
 .so-table .td-r { white-space: nowrap; }
-.so-table th { background: rgba(0,0,0,0.06); color: #000; padding: 5px 10px; text-align: left; font-size: var(--tbl-th-size, 8.5px); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; vertical-align: middle; border-top: 1px solid rgba(0,0,0,0.18); border-bottom: 1px solid rgba(0,0,0,0.18); }
+.so-table th { background: rgba(0,0,0,0.06); color: #000; padding: 5px 10px; text-align: left; font-size: var(--tbl-th-size, 8.5px); font-weight: 700; letter-spacing: normal; text-transform: uppercase; white-space: nowrap; vertical-align: middle; border-top: 1px solid rgba(0,0,0,0.18); border-bottom: 1px solid rgba(0,0,0,0.18); }
 .so-table th:first-child { padding-left: 18px; border-left: 1px solid rgba(0,0,0,0.18); border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
 .so-table th:last-child  { padding-right: 18px; border-right: 1px solid rgba(0,0,0,0.18); border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
 .so-table th:not(:first-child) { text-align: right; }
-.so-table td { padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); color: #2f3337; overflow-wrap: normal; word-break: normal; }
+.so-table td { padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); color: #000; overflow-wrap: normal; word-break: normal; }
 .so-table td:first-child { padding-left: 18px; }
 .so-table td:last-child  { padding-right: 18px; }
-.so-line-comment td { padding: 2px 10px 6px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 9px; color: rgba(47,51,55,0.5); font-style: italic; }
+.so-line-comment td { padding: 2px 10px 6px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 9px; color: rgba(0,0,0,0.5); font-style: italic; }
 .so-line-comment td:first-child { padding-left: 18px; }
 .so-table td.td-r { text-align: right; }
 .so-table tr:last-child td { border-bottom: none; }
+.so-table tr.so-mat-row td { border-bottom: none; }
 /* ── WO multi-row line items ─────────────────────────────────────────────── */
-.wo-items { margin-bottom: 20px; font-size: 10px; color: #2f3337; }
+.wo-items { margin-bottom: 20px; font-size: 10px; color: #000; }
 .wo-items-hdr {
   display: flex;
   background: rgba(0,0,0,0.06);
@@ -1463,59 +1454,59 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
   padding: 5px 18px;
   margin-bottom: 2px;
 }
-.wo-hdr-qty { margin-left: auto; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #2f3337; }
+.wo-hdr-qty { margin-left: auto; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
 .wo-group { border-bottom: 1px solid rgba(0,0,0,0.07); padding: 2px 0 4px; }
 .wo-group:last-child { border-bottom: none; }
 .wo-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; gap: 6px; }
 /* Cell classes */
-.wc-num    { width: 22px; flex-shrink: 0; color: rgba(47,51,55,0.6); }
+.wc-num    { width: 22px; flex-shrink: 0; color: rgba(0,0,0,0.6); }
 .wc-status { width: 62px; flex-shrink: 0; }
-.wc-comment{ flex: 1; color: rgba(47,51,55,0.65); font-style: italic; font-size: 9.5px; }
-.wc-style  { width: 120px; flex-shrink: 0; }
-.wc-color  { flex: 1; text-align: center; }
+.wc-comment{ flex: 1; color: rgba(0,0,0,0.65); font-style: italic; font-size: 9.5px; }
+.wc-style  { flex: 1; min-width: 0; }
+.wc-color  { flex: 1; text-align: left; min-width: 0; }
 .wc-matnum { width: 60px; flex-shrink: 0; text-align: right; }
 .wc-qty    { width: 80px; flex-shrink: 0; text-align: right; }
-.wc-prodlbl{ width: 55px; flex-shrink: 0; font-size: 9px; color: rgba(47,51,55,0.55); }
-.wc-prodval{ flex: 1; font-size: 9px; color: rgba(47,51,55,0.65); }
-.wc-dims   { width: 90px; flex-shrink: 0; text-align: right; font-size: 9.5px; color: rgba(47,51,55,0.75); }
-.wc-dimqty { width: 80px; flex-shrink: 0; } /* spacer to align with .wc-qty */
-.wc-lgap   { width: 120px; flex-shrink: 0; } /* indent labor row past style col */
+.wc-prodlbl{ width: 55px; flex-shrink: 0; font-size: 9px; color: rgba(0,0,0,0.55); }
+.wc-prodval{ flex: 1; font-size: 9px; color: rgba(0,0,0,0.65); }
+.wc-dims   { width: 90px; flex-shrink: 0; text-align: right; font-size: 9.5px; color: rgba(0,0,0,0.75); }
+.wc-dimqty { width: 80px; flex-shrink: 0; }
+.wc-lgap   { flex: 1; min-width: 0; }
 .wc-labor  { flex: 1; text-align: left; min-width: 0; }
 .wc-lqty   { width: 60px; flex-shrink: 0; text-align: right; }
 .wc-lamt   { width: 80px; flex-shrink: 0; text-align: right; }
 /* Paired right-side columns (Qty / Price / Total) */
-.wc-spacer    { flex: 1; min-width: 0; }
+.wc-spacer    { flex: 0; width: 0; }
 .wc-col-qty   { width: 80px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-price { width: 60px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-total { width: 70px; flex-shrink: 0; text-align: right; font-size: 10px; font-weight: 500; }
 .wo-hdr-spacer { flex: 1; }
-.wo-hdr-col    { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #2f3337; text-align: right; padding: 0 1px; }
+.wo-hdr-col    { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; text-align: right; padding: 0 1px; }
 .wo-hdr-col.wc-col-qty   { width: 80px; }
 .wo-hdr-col.wc-col-price { width: 60px; }
 .wo-hdr-col.wc-col-total { width: 70px; }
 /* Field editor — locked fields + paired column groups */
 .cb-row-locked { opacity: 0.5; cursor: not-allowed; }
 .cb-row-locked .check-box { cursor: not-allowed; }
-.cb-lock-icon  { font-size: 11px; color: rgba(47,51,55,0.45); flex-shrink: 0; margin-right: 1px; }
+.cb-lock-icon  { font-size: 11px; color: rgba(0,0,0,0.45); flex-shrink: 0; margin-right: 1px; }
 .cb-paired-group { margin-top: 6px; }
-.cb-paired-label { font-size: 10px; font-weight: 600; color: rgba(47,51,55,0.5); text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 0 2px 2px; margin-bottom: 1px; }
+.cb-paired-label { font-size: 10px; font-weight: 600; color: rgba(0,0,0,0.5); text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 0 2px 2px; margin-bottom: 1px; }
 .cb-row-sub  { padding-left: 16px; }
-.cb-row-sub::before { content:''; display:inline-block; width:8px; height:1px; background:rgba(47,51,55,0.18); margin-right:4px; vertical-align:middle; flex-shrink:0; }
+.cb-row-sub::before { content:''; display:inline-block; width:8px; height:1px; background:rgba(0,0,0,0.18); margin-right:4px; vertical-align:middle; flex-shrink:0; }
 
 /* ── PO multi-row card layout ── */
-.po-items { margin-bottom: 20px; font-size: 10px; color: #2f3337; }
+.po-items { margin-bottom: 20px; font-size: 10px; color: #000; }
 .po-items-hdr { display: flex; align-items: baseline; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.18); border-radius: 4px; padding: 5px 18px; margin-bottom: 2px; }
 .po-group { border-bottom: 1px solid rgba(0,0,0,.07); padding: 2px 0 4px; }
 .po-group:last-child { border-bottom: none; }
 .po-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; gap: 6px; }
 .po-hdr-num  { width: 22px; flex-shrink: 0; }
-.po-hdr-mfr  { width: 60px; flex-shrink: 0; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #2f3337; }
-.po-hdr-desc { flex: 1; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #2f3337; }
-.pc-num  { width: 22px; flex-shrink: 0; color: rgba(47,51,55,.6); }
+.po-hdr-mfr  { width: 60px; flex-shrink: 0; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
+.po-hdr-desc { flex: 1; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
+.pc-num  { width: 22px; flex-shrink: 0; color: rgba(0,0,0,.6); }
 .pc-mfr  { width: 60px; flex-shrink: 0; }
 .pc-desc { flex: 1; font-weight: 500; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pc-sub  { flex: 1; color: rgba(47,51,55,.72); font-size: 9.5px; min-width: 0; }
-.pc-ref  { flex: 1; color: rgba(47,51,55,.5); font-size: 9px; min-width: 0; }
+.pc-sub  { flex: 1; color: rgba(0,0,0,.72); font-size: 9.5px; min-width: 0; }
+.pc-ref  { flex: 1; color: rgba(0,0,0,.5); font-size: 9px; min-width: 0; }
 .pc-gap  { flex-shrink: 0; }
 
 .so-totals-wrap { display: flex; justify-content: flex-end; margin-bottom: 28px; }
@@ -1525,8 +1516,8 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .so-total-row.grand { font-weight: 700; font-size: 10px; padding-top: 8px; margin-top: 2px; border-top: 2px solid rgba(0,0,0,0.12); border-bottom: none; }
 .so-total-row.balance-due .so-total-val { color: #dc2626; }
 .so-footer-block { border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; }
-.so-footer-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(47,51,55,0.4); margin-bottom: 5px; }
-.so-footer-val { font-size: 12px; color: rgba(47,51,55,0.75); line-height: 1.6; }
+.so-footer-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(0,0,0,0.4); margin-bottom: 5px; }
+.so-footer-val { font-size: 12px; color: rgba(0,0,0,0.75); line-height: 1.6; }
 
 /* ─── Agent chat ─────────────────────────────────────────────────────────── */
 .agent-chat {
@@ -2071,7 +2062,7 @@ const TYPE_CONFIG = {
 
   'Sales Order': {
     sections: [
-      { id:'sec-header', title:'Header Fields',     badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-company','ms-address','ms-dates'] },
+      { id:'sec-header', title:'Header Fields',     badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-company','ms-dates','ms-address'] },
       { id:'sec-lines',  title:'Table Columns',     badgeKey:'lines',  colPicker:true,  styleToggle:true, fieldEditor:true,
         fieldGroups: [
           { id:'so-material-cols', label:'Material',
@@ -2100,16 +2091,16 @@ const TYPE_CONFIG = {
       { id:'sec-footer', title:'Notes & Footer',    badgeKey:'footer', colPicker:false, styleToggle:false, groups:['ms-footer'] },
     ],
     fields: {
-      'ms-company': { label:'Company information', all:['Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
-      'ms-address': { label:'Address & contact',   all:['Sold To','Ship To','Custom Field'], sel:['Sold To','Ship To'] },
-      'ms-dates':   { label:'Dates & references',  all:['Sales Order #','Order Date','Timestamp','Bill Date','Net Due','Terms','PO #','Invoice #','Sale Date','Next Install','Sales Rep'], sel:['Sales Order #','Order Date','Bill Date','Net Due'] },
+      'ms-company': { label:'Company information', all:['Timestamp','Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
+      'ms-address': { label:'Address & contact',   all:['Sold To','Ship To'], sel:['Sold To','Ship To'] },
+      'ms-dates':   { label:'Dates & references',  all:['Custom Field','Net Due','Terms','Bill Date','PO #'], sel:['Net Due','Bill Date'] },
       'ms-totals':  { label:'Totals & comments',   all:['Subtotal','Tax Box','Total','Payments','Balance','Comments'], sel:['Subtotal','Tax Box','Total','Payments','Balance'] },
       'ms-footer':  { label:'Footer elements',     all:['Notes','Terms and Conditions','Terms Start on New Page','Force Terms to Bottom','Footer Phone/Email','Signature Block'], sel:['Notes','Terms and Conditions','Footer Phone/Email','Signature Block'] },
     },
     fieldZones: {
       'Company Header':'zone-company','Location Header':'zone-company','Company Phone/Email':'zone-company',
       'Sold To':'zone-sold-to','Ship To':'zone-ship-to','Custom Field':'zone-company',
-      'Sales Order #':'zone-dates','Order Date':'zone-dates','Timestamp':'zone-dates','Bill Date':'zone-dates','Net Due':'zone-dates','Terms':'zone-dates','PO #':'zone-dates','Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates',
+      'Sales Order #':'zone-dates','Order Date':'zone-dates','Timestamp':'zone-company','Bill Date':'zone-dates','Net Due':'zone-dates','Terms':'zone-dates','PO #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates','Custom Field':'zone-dates',
       'Subtotal':'zone-totals','Tax Box':'zone-totals','Total':'zone-totals','Payments':'zone-totals','Balance':'zone-totals','Comments':'zone-totals',
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
@@ -2136,7 +2127,7 @@ const TYPE_CONFIG = {
 
   'Work Order': {
     sections: [
-      { id:'sec-header', title:'Header Fields',      badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-wo-company','ms-wo-address','ms-wo-refs'] },
+      { id:'sec-header', title:'Header Fields',      badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-wo-company','ms-wo-refs','ms-wo-address'] },
       { id:'sec-lines',  title:'Line Item Fields',    badgeKey:'lines',  colPicker:false, fieldEditor:true,
         fieldGroups: [
           { id:'wo-job',      label:'Job information',
@@ -2180,15 +2171,15 @@ const TYPE_CONFIG = {
       { id:'sec-totals', title:'Totals & Signature', badgeKey:'totals', colPicker:false, styleToggle:false, groups:['ms-wo-totals'] },
     ],
     fields: {
-      'ms-wo-company': { label:'Company information', all:['Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
-      'ms-wo-address': { label:'Address & contact',   all:['Sold To','Ship To','Custom Field'], sel:['Sold To','Ship To'] },
-      'ms-wo-refs':    { label:'References',           all:['Invoice #','Sale Date','Next Install','Sales Rep','Timestamp','PO #'], sel:['PO #'] },
+      'ms-wo-company': { label:'Company information', all:['Timestamp','Company Header','Location Header','Company Phone/Email'], sel:['Company Header'] },
+      'ms-wo-address': { label:'Address & contact',   all:['Sold To','Ship To'], sel:['Sold To','Ship To'] },
+      'ms-wo-refs':    { label:'References',           all:['Custom Field','PO #'], sel:['PO #'] },
       'ms-wo-totals':  { label:'Totals & signature',  all:['Labor Total','Balance','Comments','Signature Line'], sel:['Labor Total','Balance','Signature Line'] },
     },
     fieldZones: {
       'Company Header':'zone-company','Location Header':'zone-company','Company Phone/Email':'zone-company',
       'Sold To':'zone-sold-to','Ship To':'zone-ship-to','Custom Field':'zone-company',
-      'Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates','Timestamp':'zone-dates','PO #':'zone-dates',
+      'Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates','Timestamp':'zone-company','PO #':'zone-dates','Custom Field':'zone-dates',
       'Labor Total':'zone-totals','Balance':'zone-totals','Comments':'zone-totals','Signature Line':'zone-totals',
     },
     colPool: [],
@@ -2198,54 +2189,46 @@ const TYPE_CONFIG = {
 
   'Purchase Order': {
     sections: [
-      { id:'sec-header', title:'Header Fields',  badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-po-address','ms-po-dates'] },
-      { id:'sec-lines',  title:'Line Item Fields', badgeKey:'lines',  colPicker:false, fieldEditor:true,
+      { id:'sec-header', title:'Header Fields', badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-po-address'] },
+      { id:'sec-lines', title:'Line Item Fields', badgeKey:'lines', colPicker:false, fieldEditor:true,
         fieldGroups: [
-          { id:'po-description', label:'Description',
-            fields: [
-              { name:'Line #',       locked:true  },
-              { name:'Manufacturer', locked:false },
-              { name:'Style',        locked:false },
-              { name:'Style #',      locked:false },
-              { name:'Color',        locked:false },
-              { name:'Color #',      locked:false },
-            ]
-          },
-          { id:'po-reference',   label:'Reference',
-            fields: [
-              { name:'SKU',      locked:false },
-              { name:'Sidemark', locked:false },
-            ]
-          },
-          { id:'po-cols',        label:'Columns',
-            fields: [
-              { name:'Qty',        locked:false },
-              { name:'Units',      locked:false },
-              { name:'Price',      locked:false },
-              { name:'Total',      locked:false },
-              { name:'Qty Detail', locked:false },
-            ]
-          },
+          { id:'po-desc', label:'Description', fields:[
+            { name:'Manufacturer' },
+            { name:'Style' },
+            { name:'Style Number' },
+            { name:'Color' },
+            { name:'Color Number' },
+          ]},
+          { id:'po-ref', label:'Reference', fields:[
+            { name:'SKU' },
+            { name:'Sidemark' },
+            { name:'Comments' },
+          ]},
+          { id:'po-cols', label:'Columns', fields:[
+            { name:'Quantity' },
+            { name:'Quantity Detail' },
+            { name:'Price' },
+            { name:'Total' },
+          ]},
+          { id:'po-footer-fields', label:'Footer', fields:[
+            { name:'Authorized' },
+          ]},
         ],
         defaultActiveFields: {
-          'Line #':true,'Manufacturer':true,'Style':true,'Color':true,
-          'Style #':false,'Color #':false,
-          'SKU':false,'Sidemark':false,
-          'Qty':true,'Units':true,'Price':true,'Total':true,'Qty Detail':false,
+          'Manufacturer':true, 'Style':true, 'Style Number':true,
+          'Color':true, 'Color Number':true,
+          'SKU':true, 'Sidemark':true, 'Comments':false,
+          'Quantity':true, 'Quantity Detail':true, 'Price':true, 'Total':true,
+          'Authorized':true,
         },
       },
-      { id:'sec-footer', title:'Notes & Footer', badgeKey:'footer', colPicker:false, styleToggle:false, groups:['ms-po-footer'] },
     ],
     fields: {
       'ms-po-address': { label:'Header fields', all:['Bill To','Vendor','Ship To','Timestamp','Comments','Location Name – Ship To'], sel:['Bill To','Vendor','Ship To'] },
-      'ms-po-dates':   { label:'Dates & references', all:['PO #','Order Date','Account #','Ship Date','Expected Date','PO Terms'], sel:['PO #','Order Date'] },
-      'ms-po-footer':  { label:'Footer elements', all:['Notes','Terms and Conditions','Footer Phone/Email','Authorized'], sel:['Notes','Authorized'] },
     },
     fieldZones: {
       'Bill To':'zone-sold-to','Vendor':'zone-company','Ship To':'zone-ship-to',
       'Timestamp':'zone-dates','Comments':'zone-company','Location Name – Ship To':'zone-ship-to',
-      'PO #':'zone-dates','Order Date':'zone-dates','Account #':'zone-dates','Ship Date':'zone-dates','Expected Date':'zone-dates','PO Terms':'zone-dates',
-      'Notes':'zone-footer','Terms and Conditions':'zone-footer','Footer Phone/Email':'zone-footer','Authorized':'zone-footer',
     },
     colPool: [],
     defaultActiveCols: [],
@@ -2388,6 +2371,8 @@ function applyTypeConfig(type) {
   activeType = type;
   const rtitleGroup = document.getElementById('rtitle-group');
   if (rtitleGroup) rtitleGroup.style.display = type === 'Sales Order' ? '' : 'none';
+  const logoPosGroup = document.querySelector('[data-group="logo"]')?.closest('.radio-group');
+  if (logoPosGroup) logoPosGroup.style.display = type === 'Purchase Order' ? 'none' : '';
 
   // Deep-clone fields so checkbox mutations don't corrupt TYPE_CONFIG
   FIELDS = {};
@@ -2542,9 +2527,9 @@ function _animateSectionsIn(panel) {
 // text until the table fits within the print area. Only fires when defaults overflow.
 function _autoFitStandardLayout() {
   const totalW = getTableWidth();
-  if (totalW <= PRINT_WIDTHS.portrait) return; // already fits portrait — done
+  if (totalW <= PRINT_WIDTHS.portrait) { renderColPicker(); return; }
 
-  // Step 1: switch to landscape (covers SO 828px ≤ 832px landscape)
+  // Switch to landscape
   pageOrientation = 'landscape';
   document.querySelectorAll('#orientation-toggle .toggle-slider-opt').forEach(el =>
     el.classList.toggle('active', el.dataset.value === 'landscape')
@@ -2553,10 +2538,10 @@ function _autoFitStandardLayout() {
 
   if (totalW <= PRINT_WIDTHS.landscape) { renderColPicker(); return; }
 
-  // Step 2: auto-fit columns to landscape width
+  // Auto-fit columns to landscape width
   _applyAutoFit();
 
-  // Step 3: adaptive text if still overflowing after fit
+  // Adaptive text if still overflowing after fit
   if (getTableWidth() > PRINT_WIDTHS.landscape) {
     tableAdaptiveText = true;
     const chk = document.getElementById('chk-adaptive-text');
@@ -3546,6 +3531,26 @@ function mountCheckboxGroup(groupId) {
     row.addEventListener('touchcancel', hidePeek, { passive: true });
   });
 
+  // Custom Field: inject label+value inputs after its checkbox row
+  const cfRow = container.querySelector('.cb-row[data-field="Custom Field"]');
+  if (cfRow) {
+    const cfInputs = document.createElement('div');
+    cfInputs.id = 'custom-field-inputs';
+    cfInputs.style.cssText = 'display:none;padding:4px 8px 6px 28px;gap:6px;display:none;flex-direction:column';
+    cfInputs.innerHTML = `
+      <input type="text" class="field-input" id="custom-field-label-input" placeholder="Field label" style="font-size:11px;width:100%" oninput="refreshPreviewImmediate()">
+      <input type="text" class="field-input" id="custom-field-value-input" placeholder="Value" style="font-size:11px;width:100%" oninput="refreshPreviewImmediate()">`;
+    cfRow.after(cfInputs);
+    // Show/hide inputs when checkbox toggles
+    const cfCb = cfRow.querySelector('input[type="checkbox"]');
+    const syncCfInputs = () => {
+      cfInputs.style.display = cfCb.checked ? 'flex' : 'none';
+      if (cfCb.checked) cfInputs.querySelector('#custom-field-label-input').focus();
+    };
+    cfCb.addEventListener('change', syncCfInputs);
+    syncCfInputs();
+  }
+
   // Checkbox change → update state + live preview
   container.querySelectorAll('input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
@@ -4042,11 +4047,11 @@ const WO_ROW_TPL = [
   { _t:'l','Line Number':'','Style':'','Color':'','Material #':'','Bin':'','Ref #':'','Product Quantity':'','Product Order':'','Product Before':'','Product After':'','Cuts':'','Installer':'Maria Davis','Labor Type':'Tear-Out','Labor Quantity':'3.00','Labor Cost':'$195.00','Status':'Scheduled','Line Comments':'' },
 ];
 const PO_ROW_TPL = [
-  { 'Manufacturer':'Shaw',       'Style':'Caress',       'Style Number':'CAR-542','Color':'Dove Grey',    'Color Number':'DG-04','Quantity':'45.00','Unit':'SY', 'Quantity Detail':'45 SY', 'Price':'$12.50','Total':'$562.50','Comments':'',                  'Sidemark':'Smith / BR','SKU':'SHW-CAR542-DG' },
-  { 'Manufacturer':'Mohawk',     'Style':'TrueGrain',    'Style Number':'TG-218', 'Color':'Hazel',        'Color Number':'HZ-02','Quantity':'28.00','Unit':'SY', 'Quantity Detail':'28 SY', 'Price':'$18.75','Total':'$525.00','Comments':'Confirm lead time', 'Sidemark':'Smith / LR','SKU':'MOH-TG218-HZ'  },
-  { 'Manufacturer':'Armstrong',  'Style':'Premier Plus', 'Style Number':'PM-301', 'Color':'Natural Oak',  'Color Number':'NA-01','Quantity':'12.00','Unit':'BX', 'Quantity Detail':'12 BX', 'Price':'$42.00','Total':'$504.00','Comments':'',                  'Sidemark':'Hall',      'SKU':'ARM-PM301-NA'  },
-  { 'Manufacturer':'Pergo',      'Style':'Outlast+',     'Style Number':'OL-117', 'Color':'Burnished Oak','Color Number':'BO-01','Quantity':'20.00','Unit':'PK', 'Quantity Detail':'20 PK', 'Price':'$31.00','Total':'$620.00','Comments':'',                  'Sidemark':'Kitchen',   'SKU':'PER-OL117-BO'  },
-  { 'Manufacturer':'Karndean',   'Style':'Van Gogh',     'Style Number':'VG-890', 'Color':'White Ash',    'Color Number':'WA-03','Quantity':'15.00','Unit':'BX', 'Quantity Detail':'15 BX', 'Price':'$54.00','Total':'$810.00','Comments':'Measure confirm',   'Sidemark':'Master BR', 'SKU':'KAR-VG890-WA'  },
+  { 'Manufacturer':'Shaw',       'Style':'Caress',       'Style Number':'CAR-542','Color':'Dove Grey',    'Color Number':'DG-04','Quantity':'45.00','Unit':'SY', 'Quantity Detail':'45.00 SqYd (405.00 SqFt)', 'Price':'$12.50','Total':'$562.50','Comments':'',                  'Sidemark':'Smith / BR','SKU':'SHW-CAR542-DG' },
+  { 'Manufacturer':'Mohawk',     'Style':'TrueGrain',    'Style Number':'TG-218', 'Color':'Hazel',        'Color Number':'HZ-02','Quantity':'28.00','Unit':'SY', 'Quantity Detail':'28.00 SqYd (252.00 SqFt)', 'Price':'$18.75','Total':'$525.00','Comments':'Confirm lead time', 'Sidemark':'Smith / LR','SKU':'MOH-TG218-HZ'  },
+  { 'Manufacturer':'Armstrong',  'Style':'Premier Plus', 'Style Number':'PM-301', 'Color':'Natural Oak',  'Color Number':'NA-01','Quantity':'12.00','Unit':'BX', 'Quantity Detail':'16.72 SqFt/box (12.00 boxes)', 'Price':'$42.00','Total':'$504.00','Comments':'',                  'Sidemark':'Hall',      'SKU':'ARM-PM301-NA'  },
+  { 'Manufacturer':'Pergo',      'Style':'Outlast+',     'Style Number':'OL-117', 'Color':'Burnished Oak','Color Number':'BO-01','Quantity':'20.00','Unit':'PK', 'Quantity Detail':'20.34 SqFt/pkg (20.00 pkgs)', 'Price':'$31.00','Total':'$620.00','Comments':'',                  'Sidemark':'Kitchen',   'SKU':'PER-OL117-BO'  },
+  { 'Manufacturer':'Karndean',   'Style':'Van Gogh',     'Style Number':'VG-890', 'Color':'White Ash',    'Color Number':'WA-03','Quantity':'15.00','Unit':'BX', 'Quantity Detail':'18.00 SqFt/box (15.00 boxes)', 'Price':'$54.00','Total':'$810.00','Comments':'Measure confirm',   'Sidemark':'Master BR', 'SKU':'KAR-VG890-WA'  },
 ];
 const SO_ROW_TPL = [
   { _t:'pl','Line Number':'','Description':'Carpet — St. Lucia','Style':'Std','Color':'Bark','Material #':'SHG-101','Product Units':'SqYr','Product Quantity':'45.00','Product Price':'$12.50','Product Total':'$562.50','Bin':'A-1','Manufacturer':'Shaw','Split Material':'','Installer Name':'Jack Smith','Labor Type':'Carpet Install','Labor Units':'SqFt','Labor Quantity':'405.00','Labor Price':'$0.39','Labor Total':'$157.95','Status':'Active','Line Comments':'' },
@@ -4086,22 +4091,33 @@ function buildWOPreviewHTML() {
   const hasSel  = f => Object.values(FIELDS).some(g => g.sel.includes(f));
   const isGhost = f => previewGhostField === f && !hasSel(f);
 
-  const logoPos    = getToggleValue('logo') || 'left';
-  const showCompany= hasSel('Company Header') || hasSel('Location Header');
-  const showPhone  = hasSel('Company Phone/Email');
-  const ghostPhone = isGhost('Company Phone/Email');
+  const logoPos        = getToggleValue('logo') || 'left';
+  const showCompanyHdr = hasSel('Company Header');
+  const showLocHdr     = hasSel('Location Header');
+  const showCompany    = showCompanyHdr || showLocHdr;
+  const showPhone      = hasSel('Company Phone/Email');
+  const ghostPhone     = isGhost('Company Phone/Email');
   const showSoldTo = hasSel('Sold To'); const ghostSoldTo = isGhost('Sold To');
   const showShipTo = hasSel('Ship To'); const ghostShipTo = isGhost('Ship To');
+  const showTs     = hasSel('Timestamp'); const ghostTs = isGhost('Timestamp');
+  const tsSpan     = showTs ? `<span>06/01/2026 08:30 AM</span>` : (ghostTs ? `<span style="opacity:0.35;font-style:italic">06/01/2026 08:30 AM</span>` : '');
 
   const DATE_VALS = {
-    'Invoice #':    ['Invoice #',   'INV-2026-0042'],
-    'Sale Date':    ['Sale Date',   '05/15/2026'],
-    'Next Install': ['Next Install','06/15/2026'],
-    'Sales Rep':    ['Sales Rep',   'Maria Davis'],
-    'Timestamp':    ['Timestamp',   '06/01/2026 08:30'],
-    'PO #':         ['PO #',        'PO-8821'],
+    'Invoice #': ['Invoice #', 'INV-2026-0042'],
+    'PO #':      ['PO #',      'PO-8821'],
   };
-  const dateRows = Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false }));
+  const ALWAYS_VALS_WO = [
+    ['Sale Date',    '05/15/2026'],
+    ['Next Install', '06/15/2026'],
+    ['Sales Rep',    'Maria Davis'],
+  ];
+  const cfLabelWO = (document.getElementById('custom-field-label-input') || {}).value || '';
+  const cfValueWO = (document.getElementById('custom-field-value-input') || {}).value || '';
+  const dateRows = [
+    ...ALWAYS_VALS_WO.map(vals => ({ vals, ghost: false })),
+    ...Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false })),
+    ...(hasSel('Custom Field') && (cfLabelWO || cfValueWO) ? [{ vals: [cfLabelWO || 'Custom Field', cfValueWO], ghost: false }] : []),
+  ];
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
   if (ghostDateKey) dateRows.push({ vals: DATE_VALS[ghostDateKey], ghost: true });
 
@@ -4121,7 +4137,7 @@ function buildWOPreviewHTML() {
     ${showTotal ? `<span class="wc-col-total">${totalVal}</span>` : ''}`;
   };
 
-  const linesHTML = `<div class="wo-items" data-zone="zone-table">
+  const linesHTML = `<div class="wo-items${pageOrientation === 'landscape' ? ' wo-landscape' : ''}" data-zone="zone-table">
     <div class="wo-items-hdr">
       <span class="wo-hdr-spacer"></span>
       ${showQty   ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`     : ''}
@@ -4192,13 +4208,17 @@ function buildWOPreviewHTML() {
       ? `<div class="so-totals-wrap" data-zone="zone-totals">${woNumericInner}</div>` : '';
 
   const showSig = hasSel('Signature Line'); const ghostSig = isGhost('Signature Line');
-  const sigContent = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px" data-zone="zone-totals"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Installer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Date</div></div></div>`;
+  const sigContent = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px" data-zone="zone-totals"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Installer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
   const sigHTML = showSig ? sigContent : (ghostSig ? `<div class="so-ghost-block">${sigContent}</div>` : '');
 
-  const logoEl = `<div class="so-logo">ABC<span>CONSTRUCTION</span></div>`;
-  const companyInfo = (showPhone||ghostPhone)
-    ? `<div class="so-company-info"${ghostPhone?' style="opacity:0.35;font-style:italic"':''}>ABC Construction<br>123 Builder Way<br>Denver, CO 80202<br>(303) 555-0100<br>info@abcconstruction.com</div>`
-    : `<div class="so-company-info">ABC Construction<br>123 Builder Way<br>Denver, CO 80202</div>`;
+  const logoEl = `<img class="so-logo" src="https://www.figma.com/api/mcp/asset/04f200f7-10a1-40e3-9a51-0d545a2b27f8" alt="Logo">`;
+  const displayName = (!showCompanyHdr && showLocHdr) ? 'Feargal McNamara &amp; Sons Denver Location' : 'Feargal McNamara &amp; Sons';
+  const displayAddr = showLocHdr ? '2500 S. Colorado Blvd<br>Denver, CO 80222' : '1765 Mamluk Drive<br>Denver, CO 80202';
+  const companyInfo = showCompany
+    ? (showPhone || ghostPhone)
+      ? `<div class="so-company-info"${ghostPhone ? ' style="opacity:0.35;font-style:italic"' : ''}>${displayName}<br>${displayAddr}<br>(303) 555-0100<br>info@feargalmcnamara.com</div>`
+      : `<div class="so-company-info">${displayName}<br>${displayAddr}</div>`
+    : '';
   const metaTable = dateRows.length
     ? `<table class="so-meta-table">${dateRows.map(e=>`<tr${e.ghost?' style="opacity:0.35;font-style:italic"':''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>` : '';
 
@@ -4209,16 +4229,17 @@ function buildWOPreviewHTML() {
     headerHTML = `
       <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
       <div class="so-doc-title-row">WORK ORDER</div>
-      <div class="so-subtopbar"><span>06/01/2026 08:30 AM</span></div>
+      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
+      ${showCompany ? `<div style="display:flex;justify-content:center;margin-bottom:12px" data-zone="zone-company">${logoEl}</div>` : ''}
       <div class="so-hd">
-        ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>` : '<div></div>'}
+        ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company">${companyInfo}</div>` : '<div></div>'}
         <div data-zone="zone-dates">${metaTable}</div>
       </div>`;
   } else {
     headerHTML = `
       <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
       <div class="so-doc-title-row">WORK ORDER</div>
-      <div class="so-subtopbar"><span>06/01/2026 08:30 AM</span></div>
+      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
           ${logoPos !== 'none' && showCompany ? logoEl : ''}
@@ -4249,7 +4270,6 @@ function buildPOPreviewHTML() {
   const hasSel  = f => Object.values(FIELDS).some(g => g.sel.includes(f));
   const isGhost = f => previewGhostField === f && !hasSel(f);
 
-  const logoPos    = getToggleValue('logo') || 'left';
   const showCompany = true;
 
   /* ── header fields ── */
@@ -4260,69 +4280,57 @@ function buildPOPreviewHTML() {
   const showComm    = hasSel('Comments');                  const ghostComm    = isGhost('Comments');
   const showLocName = hasSel('Location Name – Ship To'); const ghostLocName = isGhost('Location Name – Ship To');
 
-  /* ── meta table (PO reference fields) ── */
-  const DATE_VALS = {
-    'PO #':          ['PO #',          'PO-2025-0144'],
-    'Order Date':    ['Order Date',    '05/08/2025'],
-    'Account #':     ['Account #',     'ACT-00291'],
-    'Ship Date':     ['Ship Date',     '05/20/2025'],
-    'Expected Date': ['Expected Date', '05/22/2025'],
-    'PO Terms':      ['Terms',         'Net 30'],
-  };
-  const dateRows     = Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false }));
-  const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
-  if (ghostDateKey) dateRows.push({ vals: DATE_VALS[ghostDateKey], ghost: true });
+  /* ── meta table — always present ── */
+  const dateRows = [
+    ['PO #',       'PO-2025-0144'],
+    ['PO Date',    '05/08/2025'],
+    ['Account #',  'ACT-00291'],
+    ['Ship Date',  '05/20/2025'],
+  ].map(vals => ({ vals, ghost: false }));
 
-  /* ── line items — 3-row card layout ── */
-  const showLineNum = wof('Line #');
-  const showMfr     = wof('Manufacturer');
-  const showStyle   = wof('Style') || wof('Style #');
-  const showColor   = wof('Color') || wof('Color #');
-  const showRef     = wof('SKU') || wof('Sidemark') || wof('Qty Detail');
-  const showQty     = wof('Qty');
-  const showUnits   = wof('Units');
-  const showPrice   = wof('Price');
-  const showTotal   = wof('Total');
+  /* ── line items ── */
+  const showMfr   = wof('Manufacturer');
+  const showStyle = wof('Style') || wof('Style Number');
+  const showColor = wof('Color') || wof('Color Number');
+  const showRef   = wof('SKU') || wof('Sidemark') || wof('Quantity Detail');
+  const showQty   = wof('Quantity');
+  const showUnits = true;
+  const showPrice = wof('Price');
+  const showTotal = wof('Total');
 
   const PO_ROWS = Array.from({ length: previewLineCount }, (_, i) => ({
     ...PO_ROW_TPL[i % PO_ROW_TPL.length],
     'Line Number': String(i + 1),
   }));
 
-  const numGap = `<span class="pc-gap" style="width:22px"></span>`;
   const mfrGap = `<span class="pc-gap" style="width:60px"></span>`;
 
-  const hasAny = showLineNum || showMfr || showStyle || showColor || showRef || showQty || showPrice || showTotal;
+  const hasAny = showMfr || showStyle || showColor || showRef || showQty || showPrice || showTotal;
   const linesHTML = hasAny ? `<div class="po-items" data-zone="zone-table">
     <div class="po-items-hdr">
-      ${showLineNum ? '<span class="po-hdr-num"></span>'         : ''}
-      ${showMfr     ? '<span class="po-hdr-mfr">MFR</span>'     : ''}
+      ${showMfr ? '<span class="po-hdr-mfr">MFR</span>' : ''}
       <span class="po-hdr-desc">Description (Style/Color)</span>
-      ${showQty    ? '<span class="wo-hdr-col wc-col-qty">Qty</span>'      : ''}
-      ${showPrice  ? '<span class="wo-hdr-col wc-col-price">Price</span>'  : ''}
-      ${showTotal  ? '<span class="wo-hdr-col wc-col-total">Total</span>'  : ''}
+      ${showQty   ? '<span class="wo-hdr-col wc-col-qty">Qty</span>'    : ''}
+      ${showPrice ? '<span class="wo-hdr-col wc-col-price">Price</span>' : ''}
+      ${showTotal ? '<span class="wo-hdr-col wc-col-total">Total</span>' : ''}
     </div>
     ${PO_ROWS.map(r => {
-      const styleDesc = [
-        wof('Style')   ? r['Style'] : '',
-        wof('Style #') ? r['Style Number'] : '',
-      ].filter(Boolean).join(' — ');
+      const styleName = wof('Style')        ? r['Style'] : '';
+      const styleNum  = wof('Style Number') ? r['Style Number'] : '';
+      const styleDesc = styleName && styleNum ? `${styleName} (${styleNum})` : styleName || styleNum;
 
       const row1 = `<div class="po-row">
-        ${showLineNum ? `<span class="pc-num">${r['Line Number']}</span>` : ''}
         ${showMfr ? `<span class="pc-mfr">${r['Manufacturer']}</span>` : ''}
         <span class="pc-desc">${showStyle ? styleDesc : ''}</span>
-        ${showQty   ? `<span class="wc-col-qty">${r['Quantity']}${showUnits && r['Unit'] ? ' ' + r['Unit'] : ''}</span>` : ''}
-        ${showPrice ? `<span class="wc-col-price">${r['Price']}</span>`    : ''}
-        ${showTotal ? `<span class="wc-col-total">${r['Total']}</span>`    : ''}
+        ${showQty   ? `<span class="wc-col-qty">${r['Quantity']}${r['Unit'] ? ' ' + r['Unit'] : ''}</span>` : ''}
+        ${showPrice ? `<span class="wc-col-price">${r['Price']}</span>` : ''}
+        ${showTotal ? `<span class="wc-col-total">${r['Total']}</span>` : ''}
       </div>`;
 
-      const colorStr = [
-        wof('Color')   ? r['Color'] : '',
-        wof('Color #') ? r['Color Number'] : '',
-      ].filter(Boolean).join(' — ');
+      const colorName = wof('Color')        ? r['Color'] : '';
+      const colorNum  = wof('Color Number') ? r['Color Number'] : '';
+      const colorStr  = colorName && colorNum ? `${colorName} (${colorNum})` : colorName || colorNum;
       const row2 = showColor && colorStr ? `<div class="po-row">
-        ${showLineNum ? numGap : ''}
         ${showMfr ? mfrGap : ''}
         <span class="pc-sub">${colorStr}</span>
       </div>` : '';
@@ -4331,51 +4339,42 @@ function buildPOPreviewHTML() {
         wof('SKU')      ? r['SKU'] : '',
         wof('Sidemark') ? r['Sidemark'] : '',
       ].filter(Boolean);
-      const qtyDetailVal = wof('Qty Detail') ? r['Quantity Detail'] : '';
+      const qtyDetailVal = wof('Quantity Detail') ? r['Quantity Detail'] : '';
+      const rightColsW = (showQty ? 80 : 0) + (showPrice ? 60 : 0) + (showTotal ? 70 : 0);
       const row3 = (leftRefParts.length || qtyDetailVal) ? `<div class="po-row">
-        ${showLineNum ? numGap : ''}
         ${showMfr ? mfrGap : ''}
         <span class="pc-ref">${leftRefParts.join(' · ')}</span>
-        ${showQty   ? `<span class="wc-col-qty" style="text-align:right">${qtyDetailVal}</span>` : ''}
-        ${showPrice ? `<span class="wc-col-price"></span>` : ''}
-        ${showTotal ? `<span class="wc-col-total"></span>` : ''}
+        ${qtyDetailVal
+          ? `<span style="width:${rightColsW}px;flex-shrink:0;text-align:right;font-size:10px">${qtyDetailVal}</span>`
+          : `${showQty ? '<span class="wc-col-qty"></span>' : ''}${showPrice ? '<span class="wc-col-price"></span>' : ''}${showTotal ? '<span class="wc-col-total"></span>' : ''}`}
       </div>` : '';
 
-      return `<div class="po-group">${row1}${row2}${row3}</div>`;
+      const commentVal = wof('Comments') ? r['Comments'] : '';
+      const row4 = commentVal ? `<div class="po-row">
+        ${showMfr ? mfrGap : ''}
+        <span class="pc-ref" style="font-style:italic">${commentVal}</span>
+      </div>` : '';
+
+      return `<div class="po-group">${row1}${row2}${row3}${row4}</div>`;
     }).join('')}
   </div>`
-  : `<p style="font-size:11.5px;color:rgba(47,51,55,.4);font-style:italic;margin-bottom:20px;padding:12px 0">No columns selected</p>`;
+  : `<p style="font-size:11.5px;color:rgba(0,0,0,.4);font-style:italic;margin-bottom:20px;padding:12px 0">No columns selected</p>`;
 
   /* ── totals ── */
   const poSubtotal = wof('Total') ? PO_ROWS.reduce((s, r) => s + parseDollar(r['Total']), 0) : 0;
   const totalsHTML = `<div class="so-totals-wrap" data-zone="zone-totals"><div class="so-totals">
-    <div class="so-total-row"><span>Subtotal</span><span class="so-total-val">${fmtDollar(poSubtotal)}</span></div>
     <div class="so-total-row grand"><span>Total</span><span class="so-total-val">${fmtDollar(poSubtotal)}</span></div>
   </div></div>`;
 
   /* ── footer ── */
-  const showNotes  = hasSel('Notes');                  const ghostNotes  = isGhost('Notes');
-  const showTerms  = hasSel('Terms and Conditions');   const ghostTerms  = isGhost('Terms and Conditions');
-  const showFPh    = hasSel('Footer Phone/Email');     const ghostFPh    = isGhost('Footer Phone/Email');
-  const showAuth   = hasSel('Authorized');             const ghostAuth   = isGhost('Authorized');
-
-  let footerHTML = '';
-  if (showNotes||showTerms||showFPh||showAuth||ghostNotes||ghostTerms||ghostFPh||ghostAuth) {
-    footerHTML = `<div class="so-footer-block" data-zone="zone-footer">`;
-    const noteBlock  = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Deliver to side entrance. Contact site manager upon arrival.</div></div>`;
-    const termsBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">All goods subject to inspection upon delivery. Returns accepted within 14 days with prior authorization.</div></div>`;
-    const phBlock    = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 &middot; purchasing@abcconstruction.com</div></div>`;
-    const authBlock  = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Authorized By</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Date</div></div></div>`;
-    if (showNotes)  footerHTML += noteBlock;  else if (ghostNotes)  footerHTML += `<div class="so-ghost-block">${noteBlock}</div>`;
-    if (showTerms)  footerHTML += termsBlock; else if (ghostTerms)  footerHTML += `<div class="so-ghost-block">${termsBlock}</div>`;
-    if (showFPh)    footerHTML += phBlock;    else if (ghostFPh)    footerHTML += `<div class="so-ghost-block">${phBlock}</div>`;
-    if (showAuth)   footerHTML += authBlock;  else if (ghostAuth)   footerHTML += `<div class="so-ghost-block">${authBlock}</div>`;
-    footerHTML += `</div>`;
-  }
+  const footerHTML = `<div class="so-footer-block" data-zone="zone-footer">
+    <div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Deliver to side entrance. Contact site manager upon arrival.</div></div>
+    <div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">All goods subject to inspection upon delivery. Returns accepted within 14 days with prior authorization.</div></div>
+    ${wof('Authorized') ? `<div style="margin-top:28px"><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Authorized By</div></div>` : ''}
+  </div>`;
 
   /* ── document header ── */
-  const logoEl      = `<div class="so-logo">ABC<span>CONSTRUCTION</span></div>`;
-  const companyInfo = `<div class="so-company-info">ABC Construction<br>123 Builder Way, Denver CO 80202<br>purchasing@abcconstruction.com</div>`;
+  const companyInfo = `<div class="so-company-info">Feargal McNamara & Sons<br>1765 Mamluk Drive, Denver, CO 80202<br>purchasing@feargalmcnamara.com</div>`;
   const metaTable   = dateRows.length
     ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' style="opacity:0.35;font-style:italic"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
     : '';
@@ -4383,48 +4382,37 @@ function buildPOPreviewHTML() {
   const tsSpan = showTs
     ? `<span>05/08/2026 09:14 AM</span>`
     : (ghostTs ? `<span style="opacity:0.35;font-style:italic">05/08/2026 09:14 AM</span>` : '<span></span>');
-  const poTotalAmt = fmtDollar(previewLineCount * 248.00 + 820.00);
-  let headerHTML = '';
-  if (logoPos === 'center') {
-    headerHTML = `
-      <div class="so-doc-title-row">PURCHASE ORDER</div>
-      <div class="so-subtopbar">${tsSpan}<span>Page 1 of 1</span></div>
-      <div class="so-hd">
-        <div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>
-        <div data-zone="zone-dates">${metaTable}</div>
-      </div>`;
-  } else {
-    headerHTML = `
-      <div class="so-doc-title-row">PURCHASE ORDER</div>
-      <div class="so-subtopbar">${tsSpan}<span>Page 1 of 1</span></div>
-      <div class="so-hd">
-        <div class="so-hd-identity" data-zone="zone-company">
-          ${logoPos !== 'none' && showCompany ? logoEl : ''}
-          ${showCompany ? companyInfo : ''}
-        </div>
-        <div data-zone="zone-dates">${metaTable}</div>
-      </div>`;
-  }
 
-  /* ── address block ── */
+  /* ── Bill To block (company's own address, unboxed) ── */
+  const billToBlock = (showBillTo || ghostBillTo)
+    ? `<div${ghostBillTo ? ' style="opacity:0.35;font-style:italic"' : ''}><div class="so-addr-lbl">Bill To</div><div class="so-company-info">Feargal McNamara &amp; Sons<br>1765 Mamluk Drive<br>Denver, CO 80202</div></div>`
+    : '';
+
+  const headerHTML = `
+    <div class="so-doc-title-row">PURCHASE ORDER</div>
+    <div class="so-subtopbar" style="justify-content:flex-end"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span>Page 1 of 1</span>${tsSpan}</div></div>
+    <div class="so-hd">
+      <div data-zone="zone-company">${billToBlock}</div>
+      <div data-zone="zone-dates">${metaTable}</div>
+    </div>`;
+
+  /* ── address block: Vendor box | Ship To box ── */
   let addressHTML = '';
-  const hasBillCol = showVendor||ghostVendor||showBillTo||ghostBillTo;
-  const hasShipCol = showShipTo||ghostShipTo;
-  if (hasBillCol || hasShipCol) {
-    const colCount = [hasBillCol, hasShipCol].filter(Boolean).length;
+  const hasVendorCol = showVendor || ghostVendor;
+  const hasShipCol   = showShipTo || ghostShipTo;
+  if (hasVendorCol || hasShipCol) {
+    const colCount = [hasVendorCol, hasShipCol].filter(Boolean).length;
     addressHTML = `<div class="so-addresses"${colCount === 1 ? ' style="grid-template-columns:1fr"' : ''}>`;
-    if (hasBillCol) {
-      const lbl  = showVendor||ghostVendor ? 'Vendor' : 'Bill To';
-      const body = showVendor||ghostVendor ? 'Pacific Flooring Supply<br>800 Wholesale Blvd<br>Portland, OR 97201' : 'ABC Construction<br>123 Builder Way<br>Denver, CO 80202';
-      const box  = `<div class="so-addr-box">${body}</div>`;
-      if (showVendor||showBillTo) addressHTML += `<div data-zone="zone-sold-to"><div class="so-addr-lbl">${lbl}</div>${box}</div>`;
-      else addressHTML += `<div class="so-ghost-block" data-zone="zone-sold-to"><div class="so-addr-lbl">${lbl}</div>${box}</div>`;
+    if (hasVendorCol) {
+      const box = `<div class="so-addr-box">Pacific Flooring Supply<br>800 Wholesale Blvd<br>Portland, OR 97201</div>`;
+      if (showVendor) addressHTML += `<div data-zone="zone-company"><div class="so-addr-lbl">Vendor</div>${box}</div>`;
+      else            addressHTML += `<div class="so-ghost-block" data-zone="zone-company"><div class="so-addr-lbl">Vendor</div>${box}</div>`;
     }
     if (hasShipCol) {
-      const locLine = (showLocName||ghostLocName) ? '<br><span style="font-weight:600;font-size:10.5px">Johnson Residence</span>' : '';
-      const box = `<div class="so-addr-box"${ghostLocName && !showLocName ? '' : ''}>742 Evergreen Terrace<br>Springfield, CO 80230${locLine}</div>`;
+      const locLine = (showLocName || ghostLocName) ? '<br><span style="font-weight:600;font-size:10.5px">Johnson Residence</span>' : '';
+      const box = `<div class="so-addr-box">742 Evergreen Terrace${locLine}<br>Springfield, CO 80230</div>`;
       if (showShipTo) addressHTML += `<div data-zone="zone-ship-to"><div class="so-addr-lbl">Ship To</div>${box}</div>`;
-      else addressHTML += `<div class="so-ghost-block" data-zone="zone-ship-to"><div class="so-addr-lbl">Ship To</div>${box}</div>`;
+      else            addressHTML += `<div class="so-ghost-block" data-zone="zone-ship-to"><div class="so-addr-lbl">Ship To</div>${box}</div>`;
     }
     addressHTML += `</div>`;
   }
@@ -4432,7 +4420,7 @@ function buildPOPreviewHTML() {
   /* ── special instructions (Comments field) ── */
   let commentsHTML = '';
   if (showComm || ghostComm) {
-    commentsHTML = `<div class="po-special-instructions" data-zone="zone-company"${ghostComm ? ' style="opacity:0.35;font-style:italic"' : ''}><span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(47,51,55,.65);display:block;margin-bottom:4px">Special Instructions</span>Please deliver to side entrance. Confirm TrueGrain lead time before processing.</div>`;
+    commentsHTML = `<div class="po-special-instructions" data-zone="zone-company"${ghostComm ? ' style="opacity:0.35;font-style:italic"' : ''}><span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.65);display:block;margin-bottom:4px">Special Instructions</span>Please deliver to side entrance. Confirm TrueGrain lead time before processing.</div>`;
   }
 
   return `<div class="so">${headerHTML}${addressHTML}${commentsHTML}${linesHTML}${totalsHTML}${footerHTML}</div>`;
@@ -4563,7 +4551,7 @@ function buildTagsPreviewHTML() {
       </div>`;
   }
 
-  return `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif">${inner}</div>`;
+  return `<div>${inner}</div>`;
 }
 
 /* ── Sales Order preview ─────────────────────────────────────────────────── */
@@ -4583,8 +4571,12 @@ function buildSOPreviewHTML() {
   const titleText = TITLE_MAP[rTitle] ?? rTitle.toUpperCase();
 
   /* ── company / header ── */
-  const showCompany = hasSel('Company Header') || hasSel('Location Header');
+  const showCompanyHdr = hasSel('Company Header');
+  const showLocHdr     = hasSel('Location Header');
+  const showCompany    = showCompanyHdr || showLocHdr;
   const showPhone   = hasSel('Company Phone/Email');
+  const showTs      = hasSel('Timestamp'); const ghostTs = isGhost('Timestamp');
+  const tsSpan      = showTs ? `<span>06/01/2026 10:04 AM</span>` : (ghostTs ? `<span style="opacity:0.35;font-style:italic">06/01/2026 10:04 AM</span>` : '');
   const showSoldTo  = hasSel('Sold To');
   const showShipTo  = hasSel('Ship To');
   // ghost versions
@@ -4593,20 +4585,27 @@ function buildSOPreviewHTML() {
   const ghostShipTo  = isGhost('Ship To');
 
   /* ── dates meta table (with ghost row) ── */
+  const soNumLabel = { proposal: 'Sales Order #', invoice: 'Invoice #', none: 'Sales Order #' }[rTitle] ?? 'Sales Order #';
+  const soNumValue = { proposal: 'SO-1001', invoice: 'INV-2025-1001', none: 'SO-1001' }[rTitle] ?? 'SO-1001';
   const DATE_VALS = {
-    'Sales Order #': ['Sales Order #', 'SO-1001'],
-    'Order Date':    ['Order Date',    '05/08/2025'],
-    'Timestamp':     ['Timestamp',     '05/08/2025 09:14'],
-    'Bill Date':     ['Bill Date',     '05/08/2025'],
-    'Net Due':       ['Net Due',       '06/08/2025'],
-    'Terms':         ['Terms',         'Net 30'],
-    'PO #':          ['PO #',          'PO-5678'],
-    'Invoice #':     ['Invoice #',     'INV-2025-0042'],
-    'Sale Date':     ['Sale Date',     '05/01/2025'],
-    'Next Install':  ['Next Install',  '06/01/2025'],
-    'Sales Rep':     ['Sales Rep',     'Maria Davis'],
+    'Bill Date': ['Bill Date',  '05/08/2025'],
+    'Net Due':   ['Net Due',    '06/08/2025'],
+    'Terms':     ['Terms',      'Net 30'],
+    'PO #':      ['PO #',       'PO-5678'],
   };
-  const dateRows     = Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false }));
+  const ALWAYS_VALS_SO = [
+    [soNumLabel,   soNumValue],
+    ['Sale Date',    '05/01/2025'],
+    ['Next Install', '06/01/2025'],
+    ['Sales Rep',    'Maria Davis'],
+  ];
+  const cfLabelSO = (document.getElementById('custom-field-label-input') || {}).value || '';
+  const cfValueSO = (document.getElementById('custom-field-value-input') || {}).value || '';
+  const dateRows     = [
+    ...ALWAYS_VALS_SO.map(vals => ({ vals, ghost: false })),
+    ...(hasSel('Custom Field') && (cfLabelSO || cfValueSO) ? [{ vals: [cfLabelSO || 'Custom Field', cfValueSO], ghost: false }] : []),
+    ...Object.keys(DATE_VALS).filter(hasSel).map(k => ({ vals: DATE_VALS[k], ghost: false })),
+  ];
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
   if (ghostDateKey) dateRows.push({ vals: DATE_VALS[ghostDateKey], ghost: true });
 
@@ -4666,11 +4665,11 @@ function buildSOPreviewHTML() {
     };
     const commentRow = r => (showLineComments && r['Line Comments'])
       ? `<tr class="so-line-comment"><td colspan="${cols.length}">${r['Line Comments']}</td></tr>` : '';
-    if (!cols.length) return `<p style="font-size:11.5px;color:rgba(47,51,55,.4);font-style:italic;margin-bottom:16px;padding:8px 0">No columns selected</p>`;
+    if (!cols.length) return `<p style="font-size:11.5px;color:rgba(0,0,0,.4);font-style:italic;margin-bottom:16px;padding:8px 0">No columns selected</p>`;
     const colSpan = cols.length;
-    const grpHdStyle = `padding:6px 10px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(47,51,55,.38);background:rgba(0,0,0,.015)`;
+    const grpHdStyle = `padding:6px 10px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.38);background:rgba(0,0,0,.015)`;
     const subStyle   = `padding:0`;
-    const subInner   = (lbl, val) => `<div style="display:flex;justify-content:flex-end;padding:4px 10px;font-size:11px;border-top:1px solid rgba(0,0,0,.07);color:rgba(47,51,55,.6)"><span style="margin-right:16px">${lbl}</span><span>${val}</span></div>`;
+    const subInner   = (lbl, val) => `<div style="display:flex;justify-content:flex-end;padding:4px 10px;font-size:11px;border-top:1px solid rgba(0,0,0,.07);color:rgba(0,0,0,.6)"><span style="margin-right:16px">${lbl}</span><span>${val}</span></div>`;
     let tbodyRows = '';
     const totalW = cols.reduce((s, c) => s + (parseInt(c.w) || 0), 0);
     const fScale = tableAdaptiveText ? Math.min(1, getPrintWidth() / totalW) : 1;
@@ -4689,13 +4688,29 @@ function buildSOPreviewHTML() {
       return `<thead><tr>${contentTh}${rightThs}</tr></thead>`;
     };
 
-    // Expand combined rows for separated/groups; keep as single row for flat/classic
+    // Expand combined rows — classic keeps them together (no divider, no repeated line #)
     const expandedRows = (styleVal === 'separated' || styleVal === 'groups')
       ? rows.flatMap(r => r._t === 'pl' ? [
           { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
           { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
         ] : [r])
-      : rows;
+      : styleVal === 'classic'
+        ? rows.flatMap(r => r._t === 'pl' ? [
+            { ...r, _t:'p', _matOfPl:true, 'Line Comments':'', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
+            { ...r, _t:'l', 'Line Number':'', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
+          ] : [r])
+        : rows;
+
+    const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
+      const tContent = tCols.filter(c => !rightKeys.has(c.key));
+      const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
+      const tColgroup = `<colgroup>${tCols.map(c => rightKeys.has(c.key) ? `<col style="width:${c.w}">` : `<col>`).join('')}</colgroup>`;
+      const tSpan = tCols.length;
+      const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('')}</tr></thead>`;
+      let tbody = dataRows.map(r => `<tr${r._matOfPl ? ' class="so-mat-row"' : ''}>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+      if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+      return `<table class="so-table" style="${fontStyle}table-layout:fixed;margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
+    };
 
     if (styleVal === 'separated') {
       const pRows = expandedRows.filter(r => r._t === 'p');
@@ -4704,17 +4719,6 @@ function buildSOPreviewHTML() {
       const LABOR_ONLY   = new Set(['Installer Name', 'Labor Type']);
       const pCols = cols.filter(c => !LABOR_ONLY.has(c.key));
       const lCols = cols.filter(c => !PRODUCT_ONLY.has(c.key));
-      const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
-        const tContent = tCols.filter(c => !rightKeys.has(c.key));
-        const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
-        // Right cols get fixed widths; content cols get no width so they share remaining space equally (table-layout:fixed)
-        const tColgroup = `<colgroup>${tCols.map(c => rightKeys.has(c.key) ? `<col style="width:${c.w}">` : `<col>`).join('')}</colgroup>`;
-        const tSpan = tCols.length;
-        const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('')}</tr></thead>`;
-        let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-        if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
-        return `<table class="so-table" style="${fontStyle}table-layout:fixed;margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
-      };
       let html = '';
       if (pRows.length) {
         const pSubtotal = pRows.reduce((s, r) => s + parseDollar(r['Product Total']), 0);
@@ -4726,7 +4730,6 @@ function buildSOPreviewHTML() {
       }
       return html;
     } else if (styleVal === 'groups') {
-      // Line items grouped by user-defined groups; distribute all rows across groups proportionally
       const n = expandedRows.length;
       const cuts = [Math.ceil(n * 0.5), Math.ceil(n * 0.8)];
       const MOCK_GROUPS = [
@@ -4734,21 +4737,18 @@ function buildSOPreviewHTML() {
         { label: 'Bedroom',     slice: [cuts[0],   cuts[1]] },
         { label: 'Kitchen',     slice: [cuts[1],   n      ] },
       ].filter(g => g.slice[0] < g.slice[1]);
+      let html = '';
       MOCK_GROUPS.forEach(grp => {
         const grpRows = expandedRows.slice(...grp.slice);
         if (!grpRows.length) return;
-        tbodyRows += `<tr><td colspan="${colSpan}" style="${grpHdStyle}">${grp.label}</td></tr>`;
-        tbodyRows += grpRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-        if (showSubs) {
-          const grpSubtotal = grpRows.reduce((s, r) => s + parseDollar(r['Product Total']) + parseDollar(r['Labor Total']), 0);
-          tbodyRows += `<tr><td colspan="${colSpan}" style="${subStyle}">${subInner(grp.label + ' subtotal', fmtDollar(grpSubtotal))}</td></tr>`;
-        }
+        const grpSubtotal = grpRows.reduce((s, r) => s + parseDollar(r['Product Total']) + parseDollar(r['Labor Total']), 0);
+        html += mkSepTable(cols, grp.label, grpRows, grpSubtotal);
       });
+      return html;
     } else {
-      tbodyRows = expandedRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+      tbodyRows = expandedRows.map(r => `<tr${r._matOfPl ? ' class="so-mat-row"' : ''}>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
     }
-    const thead = styleVal === 'groups' ? mkHeader('') : mkHeader('Material / Labor');
-    return `<table class="so-table" style="${fontStyle}min-width:${totalW}px" data-zone="zone-table">${colgroup}${thead}<tbody>${tbodyRows}</tbody></table>`;
+    return `<table class="so-table" style="${fontStyle}min-width:${totalW}px" data-zone="zone-table">${colgroup}${mkHeader('Material / Labor')}<tbody>${tbodyRows}</tbody></table>`;
   }
 
   /* ── line items — hidden entirely in comments-only mode ── */
@@ -4756,7 +4756,7 @@ function buildSOPreviewHTML() {
   if (!commentsOnlyMode) {
     linesHTML = ALL_COL_DEFS.length
       ? buildCombinedTable(ALL_COL_DEFS, ALL_ROWS)
-      : `<p style="font-size:11.5px;color:rgba(47,51,55,.4);font-style:italic;margin-bottom:20px;padding:12px 0">No line item columns selected</p>`;
+      : `<p style="font-size:11.5px;color:rgba(0,0,0,.4);font-style:italic;margin-bottom:20px;padding:12px 0">No line item columns selected</p>`;
   }
 
   /* ── totals (with ghost row) ── */
@@ -4817,8 +4817,8 @@ function buildSOPreviewHTML() {
     footerHTML = `<div class="so-footer-block" data-zone="zone-footer">`;
     const noteBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Thank you for your business! All work guaranteed for 12 months.</div></div>`;
     const termsBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.</div></div>`;
-    const phBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 · info@abcconstruction.com</div></div>`;
-    const sigBlock = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Customer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(47,51,55,.45)">Date</div></div></div>`;
+    const phBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 · info@feargalmcnamara.com</div></div>`;
+    const sigBlock = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Customer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
 
     if (showNotes)    footerHTML += noteBlock;
     else if (ghostNotes)    footerHTML += `<div class="so-ghost-block">${noteBlock}</div>`;
@@ -4833,10 +4833,14 @@ function buildSOPreviewHTML() {
   }
 
   /* ── header / logo area ── */
-  const logoEl = `<div class="so-logo">ABC<span>CONSTRUCTION</span></div>`;
-  const companyInfo = (showPhone || ghostPhone)
-    ? `<div class="so-company-info"${ghostPhone ? ' style="opacity:0.35;font-style:italic"' : ''}>ABC Construction<br>123 Builder Way<br>Denver, CO 80202<br>(303) 555-0100<br>info@abcconstruction.com</div>`
-    : `<div class="so-company-info">ABC Construction<br>123 Builder Way<br>Denver, CO 80202</div>`;
+  const logoEl = `<img class="so-logo" src="https://www.figma.com/api/mcp/asset/04f200f7-10a1-40e3-9a51-0d545a2b27f8" alt="Logo">`;
+  const displayName = (!showCompanyHdr && showLocHdr) ? 'Feargal McNamara &amp; Sons Denver Location' : 'Feargal McNamara &amp; Sons';
+  const displayAddr = showLocHdr ? '2500 S. Colorado Blvd<br>Denver, CO 80222' : '1765 Mamluk Drive<br>Denver, CO 80202';
+  const companyInfo = showCompany
+    ? (showPhone || ghostPhone)
+      ? `<div class="so-company-info"${ghostPhone ? ' style="opacity:0.35;font-style:italic"' : ''}>${displayName}<br>${displayAddr}<br>(303) 555-0100<br>info@feargalmcnamara.com</div>`
+      : `<div class="so-company-info">${displayName}<br>${displayAddr}</div>`
+    : '';
 
   const metaTable = dateRows.length
     ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' style="opacity:0.35;font-style:italic"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
@@ -4848,15 +4852,16 @@ function buildSOPreviewHTML() {
   if (logoPos === 'center') {
     headerHTML = `
       <div class="so-doc-title-row">${titleText}</div>
-      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span></div>
+      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
+      ${showCompany ? `<div style="display:flex;justify-content:center;margin-bottom:12px" data-zone="zone-company">${logoEl}</div>` : ''}
       <div class="so-hd">
-        ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company" style="flex-direction:column;align-items:center;text-align:center">${logoEl}${companyInfo}</div>` : '<div></div>'}
+        ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company">${companyInfo}</div>` : '<div></div>'}
         <div data-zone="zone-dates">${metaTable}</div>
       </div>`;
   } else {
     headerHTML = `
       <div class="so-doc-title-row">${titleText}</div>
-      <div class="so-subtopbar"><span>06/01/2026 10:04 AM</span></div>
+      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
           ${logoPos !== 'none' && showCompany ? logoEl : ''}
