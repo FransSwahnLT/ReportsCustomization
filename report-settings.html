@@ -1057,13 +1057,16 @@ body {
 }
 .cp-active-item:hover .cp-width-check-wrap,
 .cp-active-item.cp-has-width .cp-width-check-wrap { opacity: 1; color: var(--c-text-secondary); }
-.cp-width-check { width: 12px; height: 12px; accent-color: var(--c-primary); cursor: pointer; flex-shrink: 0; }
-.cp-width-row {
-  width: 100%; display: none;
-  padding: 2px 8px 6px 26px;
+.cp-tok-row { display: flex; gap: 4px; padding: 2px 8px 6px 26px; }
+.cp-tok-btn {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+  padding: 2px 8px; border: 1px solid var(--c-border); border-radius: 3px;
+  background: transparent; cursor: pointer; color: var(--c-text-secondary);
+  transition: border-color 80ms, color 80ms;
 }
-.cp-active-item.cp-has-width .cp-width-row { display: block; }
-.cp-width-slider { width: 100%; accent-color: var(--c-primary); cursor: ew-resize; }
+.cp-tok-btn:hover { border-color: var(--c-border-strong); color: var(--c-text-primary); }
+.cp-tok-btn.active { background: var(--c-primary); border-color: var(--c-primary); color: #fff; }
+.so-hd-center-logo { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; }
 .cp-fit-wrap { border-radius: var(--r-sm); padding: 7px 9px 6px; margin: 10px 0 2px; }
 .cp-fit-bar-track { height: 3px; background: rgba(0,0,0,0.08); border-radius: 99px; margin-bottom: 5px; overflow: hidden; }
 .cp-fit-bar-fill { height: 100%; border-radius: 99px; transition: width 120ms, background 120ms; }
@@ -1518,6 +1521,13 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .so-footer-block { border-top: 1px solid rgba(0,0,0,0.08); padding-top: 18px; }
 .so-footer-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(0,0,0,0.4); margin-bottom: 5px; }
 .so-footer-val { font-size: 12px; color: rgba(0,0,0,0.75); line-height: 1.6; }
+/* Terms positioning helpers */
+.so-terms-new-page { break-before: page; page-break-before: always; }
+.so-has-terms-bottom { display: flex; flex-direction: column; }
+.so-terms-force-bottom { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.08); }
+@media print {
+  .so-has-terms-bottom { min-height: 100vh; }
+}
 
 /* ─── Agent chat ─────────────────────────────────────────────────────────── */
 .agent-chat {
@@ -1755,17 +1765,6 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
           <label class="field-label" for="tpl-desc">Template description</label>
           <div class="desc-field-wrap">
             <textarea class="text-input" id="tpl-desc" placeholder="Briefly describe when to use this template…"></textarea>
-            <div class="desc-field-actions">
-              <div class="desc-ai-idle" id="desc-ai-idle">
-                <button class="desc-ai-btn" id="desc-ai-btn" onclick="improveDescWithAI()">
-                  <i class="ph ph-sparkle"></i> Improve with AI
-                </button>
-              </div>
-              <div class="desc-ai-confirm" id="desc-ai-confirm" style="display:none">
-                <button class="desc-ai-cancel-btn" onclick="cancelAIDesc()">Cancel</button>
-                <button class="desc-ai-accept-btn" onclick="acceptAIDesc()">Accept</button>
-              </div>
-            </div>
           </div>
         </div>
         <div class="tpl-desc-view" id="tpl-desc-view"></div>
@@ -2105,21 +2104,21 @@ const TYPE_CONFIG = {
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
     colPool: [
-      { key:'Line Number',     hdr:'#',           w:'28px', r:false },
-      { key:'Description',     hdr:'Description', w:'160px', r:false },
-      { key:'Style',           hdr:'Style',       w:'56px', r:false },
-      { key:'Color',           hdr:'Color',       w:'62px', r:false },
-      { key:'Material #',      hdr:'Mat. #',      w:'64px', r:true  },
-      { key:'Bin',             hdr:'Bin',         w:'42px',  r:true  },
-      { key:'Manufacturer',    hdr:'Mfr.',        w:'68px',  r:false },
-      { key:'Split Material',  hdr:'Split',       w:'50px',  r:true  },
-      { key:'Installer Name',  hdr:'Installer',   w:'100px', r:false },
-      { key:'Labor Type',      hdr:'Type',        w:'76px',  r:false },
-      { key:'Qty',             hdr:'Qty',         w:'80px',  r:true  },
-      { key:'Price',           hdr:'Price',       w:'76px',  r:true  },
-      { key:'Total',           hdr:'Total',       w:'76px',  r:true  },
-      { key:'Status',          hdr:'Status',      w:'56px', r:false },
-      { key:'Line Comments',   hdr:'Comments',    w:'140px', r:false, subRow:true },
+      { key:'Line Number',     hdr:'#',           w:'52px',  minW:24,  r:false, tok:'S' },
+      { key:'Description',     hdr:'Description', w:'152px', minW:72,  r:false, tok:'L' },
+      { key:'Style',           hdr:'Style',       w:'80px',  minW:40,  r:false, tok:'M' },
+      { key:'Color',           hdr:'Color',       w:'80px',  minW:40,  r:false, tok:'M' },
+      { key:'Material #',      hdr:'Mat. #',      w:'80px',  minW:44,  r:true,  tok:'M' },
+      { key:'Bin',             hdr:'Bin',         w:'52px',  minW:32,  r:true,  tok:'S' },
+      { key:'Manufacturer',    hdr:'Mfr.',        w:'80px',  minW:44,  r:false, tok:'M' },
+      { key:'Split Material',  hdr:'Split',       w:'52px',  minW:36,  r:true,  tok:'S' },
+      { key:'Installer Name',  hdr:'Installer',   w:'152px', minW:60,  r:false, tok:'L' },
+      { key:'Labor Type',      hdr:'Type',        w:'80px',  minW:52,  r:false, tok:'M' },
+      { key:'Qty',             hdr:'Qty',         w:'52px',  minW:40,  r:true,  tok:'S' },
+      { key:'Price',           hdr:'Price',       w:'52px',  minW:40,  r:true,  tok:'S' },
+      { key:'Total',           hdr:'Total',       w:'52px',  minW:40,  r:true,  tok:'S' },
+      { key:'Status',          hdr:'Status',      w:'80px',  minW:40,  r:false, tok:'M' },
+      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:70,  r:false, subRow:true },
     ],
     defaultActiveCols: ['Line Number','Description','Color','Qty','Price','Total','Installer Name','Labor Type'],
     footerTerms: true,
@@ -2256,8 +2255,9 @@ let SECTION_MAP   = {};
 let GROUP_SECTION = {};
 let FIELD_ZONES   = {};
 let activeColumns = [];  // ordered keys for the dual-panel column picker
-let colWidths         = {};  // { [columnKey]: number } — manual pixel width override (shows checkbox)
-let autoFitWidths     = {};  // { [columnKey]: number } — Auto Fit result (no checkbox)
+const COL_TOKENS      = { S: 52, M: 80, L: 152 }; // S/M/L → px
+let colTokens         = {};  // { [columnKey]: 'S'|'M'|'L' } — user size token
+let autoFitWidths     = {};  // { [columnKey]: number } — Auto Fit result
 let tableAdaptiveText = false; // scale table font to fit printable width
 let previewLineCount  = 5;    // mock row count driven by picker
 let pageOrientation = 'portrait'; // 'portrait' | 'landscape'
@@ -2267,6 +2267,10 @@ let colGhostKey     = null; // key being hovered in inventory → ghost at pos 0
 let commentsOnlyMode = false; // Comments Only checkbox state
 let activeFieldSets = {}; // { [groupId]: Set<fieldName> } — for fieldEditor sections
 let PAIRED_COL      = {}; // { [fieldName]: pairedKey }  e.g. {'Material Qty':'Qty'}
+function getColPx(key, def) {
+  const tok = colTokens[key] ?? def?.tok;
+  return (tok && COL_TOKENS[tok]) || parseInt(def?.w) || 80;
+}
 // SO columns that are positionally locked (can't be dragged or removed)
 const SO_COL_LOCKED_LEFT  = new Set(['Line Number']);
 const SO_COL_LOCKED_RIGHT = new Set(['Qty','Price','Total']);
@@ -2417,7 +2421,7 @@ function applyTypeConfig(type) {
   // Init active columns from type default (deep copy), then enforce locked positions
   activeColumns = [...(cfg.defaultActiveCols || [])];
   _enforceSOLockedPositions();
-  colWidths = {};
+  colTokens = {};
   autoFitWidths = {};
   tableAdaptiveText = false;
   previewLineCount = 5;
@@ -2527,21 +2531,28 @@ function _animateSectionsIn(panel) {
 // text until the table fits within the print area. Only fires when defaults overflow.
 function _autoFitStandardLayout() {
   const totalW = getTableWidth();
+
+  // Fits in portrait at default widths — no changes needed
   if (totalW <= PRINT_WIDTHS.portrait) { renderColPicker(); return; }
 
-  // Switch to landscape
+  // Fits within landscape width — auto-compress to portrait, stay portrait
+  if (totalW <= PRINT_WIDTHS.landscape) {
+    _applyAutoFit(); // getPrintWidth() == portrait
+    renderColPicker();
+    return;
+  }
+
+  // Default widths exceed landscape — switch to landscape
+  colTokens = {};
+  autoFitWidths = {};
   pageOrientation = 'landscape';
   document.querySelectorAll('#orientation-toggle .toggle-slider-opt').forEach(el =>
     el.classList.toggle('active', el.dataset.value === 'landscape')
   );
   updatePreviewZoom();
 
-  if (totalW <= PRINT_WIDTHS.landscape) { renderColPicker(); return; }
-
-  // Auto-fit columns to landscape width
   _applyAutoFit();
 
-  // Adaptive text if still overflowing after fit
   if (getTableWidth() > PRINT_WIDTHS.landscape) {
     tableAdaptiveText = true;
     const chk = document.getElementById('chk-adaptive-text');
@@ -2774,7 +2785,7 @@ function renderColPicker() {
   const defaultPct = key => Math.round(100 / Math.max(1, activeColumns.length));
   actEl.innerHTML = active.length
     ? active.map(c => `
-        <div class="cp-active-item${colWidths[c.key] != null ? ' cp-has-width' : ''}" data-key="${c.key}"
+        <div class="cp-active-item" data-key="${c.key}"
              ondragover="cpItemDragOver(event,'${c.key}')"
              ondrop="cpItemDrop(event,'${c.key}')"
              ondragleave="cpItemDragLeave(event)"
@@ -2782,20 +2793,11 @@ function renderColPicker() {
           <div class="cp-item-top" draggable="true" ondragstart="cpDragStart(event,'${c.key}')">
             <i class="ph ph-dots-six-vertical cp-handle"></i>
             <span class="cp-col-label">${c.key}</span>
-            ${!c.subRow ? `<label class="cp-width-check-wrap">
-              <input type="checkbox" class="cp-width-check" ${colWidths[c.key] != null ? 'checked' : ''}
-                     onchange="cpWidthToggle(event,'${c.key}')">
-              <i class="ph ph-arrows-left-right cp-width-check-lbl"></i>
-            </label>` : ''}
             <button class="cp-remove-btn" onclick="colDeactivate('${c.key}',event)" title="Remove">
               <i class="ph ph-x"></i>
             </button>
           </div>
-          ${!c.subRow ? `<div class="cp-width-row">
-            <input type="range" class="cp-width-slider" min="20" max="300"
-                   value="${colWidths[c.key] ?? autoFitWidths[c.key] ?? (parseInt(c.w) || 80)}"
-                   oninput="cpWidthChange('${c.key}', this.value)">
-          </div>` : ''}
+          ${!c.subRow ? `<div class="cp-tok-row">${['S','M','L'].map(t => `<button class="cp-tok-btn${(colTokens[c.key] ?? c.tok) === t ? ' active' : ''}" onclick="cpTokenChange('${c.key}','${t}')">${t}</button>`).join('')}</div>` : ''}
         </div>`).join('')
     : `<div class="cp-empty">Add columns from the left</div>`;
 
@@ -2883,24 +2885,12 @@ function colDeactivate(key, e) {
   refreshPreviewImmediate();
 }
 
-function cpWidthToggle(e, key) {
-  e.stopPropagation();
-  if (e.target.checked) {
-    const poolDef = (TYPE_CONFIG[activeType]?.colPool || []).find(c => c.key === key);
-    colWidths[key] = autoFitWidths[key] ?? parseInt(poolDef?.w) ?? 80;
-    delete autoFitWidths[key];
+function cpTokenChange(key, tok) {
+  if (colTokens[key] === tok) {
+    delete colTokens[key]; // tap active token = reset to default
   } else {
-    delete colWidths[key];
-    delete autoFitWidths[key];
-    // Re-fit remaining columns if auto-fit is still active for any of them
-    if (Object.keys(autoFitWidths).length > 0) _applyAutoFit();
+    colTokens[key] = tok;
   }
-  renderColPicker();
-  refreshPreviewImmediate();
-}
-
-function cpWidthChange(key, val) {
-  colWidths[key] = Number(val);
   delete autoFitWidths[key];
   renderColPicker();
   refreshPreviewImmediate();
@@ -2911,7 +2901,7 @@ function getTableWidth() {
   const poolMap = Object.fromEntries(pool.map(c => [c.key, c]));
   return activeColumns
     .filter(k => poolMap[k] && !poolMap[k].subRow)
-    .reduce((s, k) => s + (colWidths[k] ?? autoFitWidths[k] ?? (parseInt(poolMap[k].w) || 0)), 0);
+    .reduce((s, k) => s + (autoFitWidths[k] ?? getColPx(k, poolMap[k])), 0);
 }
 
 let userZoomOverride = null; // null = auto-fit
@@ -3049,12 +3039,12 @@ function _applyAutoFit() {
   const poolMap = Object.fromEntries(pool.map(c => [c.key, c]));
   const cols = activeColumns.filter(k => poolMap[k] && !poolMap[k].subRow);
   const printW = getPrintWidth();
-  // Starting width: manual override if set, else pool default
-  const starts = cols.map(k => ({ k, w: colWidths[k] ?? (parseInt(poolMap[k].w) || 0), manual: colWidths[k] != null }));
+  // Starting width: token-derived or pool default; token-set columns held fixed
+  const starts = cols.map(k => ({ k, w: getColPx(k, poolMap[k]), manual: colTokens[k] != null }));
   const total = starts.reduce((s, c) => s + c.w, 0);
   if (total <= printW) { autoFitWidths = {}; return; }
   const scale = printW / total;
-  const scaled = starts.map(({ k, w, manual }) => ({ k, manual, w: Math.max(20, Math.round(w * scale)) }));
+  const scaled = starts.map(({ k, w, manual }) => ({ k, manual, w: Math.max(poolMap[k]?.minW ?? 20, Math.round(w * scale)) }));
   // Shave rounding excess from widest non-manual columns
   let excess = scaled.reduce((s, c) => s + c.w, 0) - printW;
   if (excess > 0) {
@@ -4229,17 +4219,17 @@ function buildWOPreviewHTML() {
     headerHTML = `
       <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
       <div class="so-doc-title-row">WORK ORDER</div>
-      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
-      ${showCompany ? `<div style="display:flex;justify-content:center;margin-bottom:12px" data-zone="zone-company">${logoEl}</div>` : ''}
-      <div class="so-hd">
+      <div class="so-subtopbar" style="justify-content:flex-end"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span>Page 1 of 1</span>${tsSpan}</div></div>
+      <div class="so-hd so-hd-center-logo">
         ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company">${companyInfo}</div>` : '<div></div>'}
-        <div data-zone="zone-dates">${metaTable}</div>
+        ${showCompany ? `<div style="padding:0 16px" data-zone="zone-company">${logoEl}</div>` : '<div></div>'}
+        <div style="display:flex;justify-content:flex-end" data-zone="zone-dates">${metaTable}</div>
       </div>`;
   } else {
     headerHTML = `
       <div class="so-header-total" data-zone="zone-dates">${woTotalAmt}</div>
       <div class="so-doc-title-row">WORK ORDER</div>
-      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
+      <div class="so-subtopbar" style="justify-content:flex-end"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span>Page 1 of 1</span>${tsSpan}</div></div>
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
           ${logoPos !== 'none' && showCompany ? logoEl : ''}
@@ -4615,7 +4605,7 @@ function buildSOPreviewHTML() {
 
   const ALL_COL_DEFS = activeColumns
     .filter(k => colPoolMap[k])
-    .map(k => { const def = Object.assign({}, colPoolMap[k], { ghost: false }); const ew = colWidths[k] ?? autoFitWidths[k]; if (ew != null) def.w = ew + 'px'; return def; });
+    .map(k => { const def = Object.assign({}, colPoolMap[k], { ghost: false }); const ew = autoFitWidths[k] ?? (colTokens[k] ? COL_TOKENS[colTokens[k]] : null); if (ew != null) def.w = ew + 'px'; return def; });
   // Insert ghost column at position 0 (first col) if hovering inventory
   if (colGhostKey && !activeColumns.includes(colGhostKey) && colPoolMap[colGhostKey]) {
     ALL_COL_DEFS.splice(0, 0, Object.assign({}, colPoolMap[colGhostKey], { ghost: true }));
@@ -4689,10 +4679,15 @@ function buildSOPreviewHTML() {
     };
 
     // Expand combined rows — classic keeps them together (no divider, no repeated line #)
-    const expandedRows = (styleVal === 'separated' || styleVal === 'groups')
+    const expandedRows = styleVal === 'separated'
       ? rows.flatMap(r => r._t === 'pl' ? [
-          { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
+          { ...r, _t:'p', _matOfPl:true, 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
           { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
+        ] : [r])
+      : styleVal === 'groups'
+      ? rows.flatMap(r => r._t === 'pl' ? [
+          { ...r, _t:'p', _matOfPl:true, 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
+          { ...r, _t:'l', 'Line Number':'', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
         ] : [r])
       : styleVal === 'classic'
         ? rows.flatMap(r => r._t === 'pl' ? [
@@ -4704,11 +4699,12 @@ function buildSOPreviewHTML() {
     const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
       const tContent = tCols.filter(c => !rightKeys.has(c.key));
       const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
-      const tColgroup = `<colgroup>${tCols.map(c => rightKeys.has(c.key) ? `<col style="width:${c.w}">` : `<col>`).join('')}</colgroup>`;
+      const tColgroup = `<colgroup>${tCols.map(c => (rightKeys.has(c.key) || c.key === 'Line Number') ? `<col style="width:${c.w}">` : `<col>`).join('')}</colgroup>`;
       const tSpan = tCols.length;
       const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('')}</tr></thead>`;
-      let tbody = dataRows.map(r => `<tr${r._matOfPl ? ' class="so-mat-row"' : ''}>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-      if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+      const mkTd = (c, r) => `<td${tdS(c)}${c.key === 'Line Number' ? ' style="white-space:nowrap"' : ''}>${cellVal(c,r)}</td>`;
+      let tbody = dataRows.map(r => `<tr${r._matOfPl ? ' class="so-mat-row"' : ''}>${tCols.map(c => mkTd(c, r)).join('')}</tr>${commentRow(r)}`).join('');
+      if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' total', fmtDollar(subtotalVal))}</td></tr>`;
       return `<table class="so-table" style="${fontStyle}table-layout:fixed;margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
     };
 
@@ -4802,35 +4798,50 @@ function buildSOPreviewHTML() {
   }
 
   /* ── footer (with ghost elements) ── */
-  const showNotes    = hasSel('Notes');
-  const showTerms    = hasSel('Terms and Conditions');
-  const showFooterPh = hasSel('Footer Phone/Email');
-  const showSig      = hasSel('Signature Block');
+  const showNotes        = hasSel('Notes');
+  const showTerms        = hasSel('Terms and Conditions');
+  const showFooterPh     = hasSel('Footer Phone/Email');
+  const showSig          = hasSel('Signature Block');
+  const showTermsNewPage = hasSel('Terms Start on New Page');
+  const showTermsBottom  = hasSel('Force Terms to Bottom');
   const ghostNotes    = isGhost('Notes');
   const ghostTerms    = isGhost('Terms and Conditions');
   const ghostFooterPh = isGhost('Footer Phone/Email');
   const ghostSig      = isGhost('Signature Block');
 
-  let footerHTML = '';
-  if (showNotes || showTerms || showFooterPh || showSig ||
-      ghostNotes || ghostTerms || ghostFooterPh || ghostSig) {
-    footerHTML = `<div class="so-footer-block" data-zone="zone-footer">`;
-    const noteBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Thank you for your business! All work guaranteed for 12 months.</div></div>`;
-    const termsBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.</div></div>`;
-    const phBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 · info@feargalmcnamara.com</div></div>`;
-    const sigBlock = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Customer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
+  const noteBlock  = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Thank you for your business! All work guaranteed for 12 months.</div></div>`;
+  const termsInner = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.</div></div>`;
+  const phBlock    = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 · info@feargalmcnamara.com</div></div>`;
+  const sigBlock   = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Customer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
 
+  // Terms block — may carry new-page CSS class
+  const termsCls   = showTermsNewPage ? ' so-terms-new-page' : '';
+  const termsBlock = (showTerms || ghostTerms)
+    ? `<div class="${ghostTerms ? 'so-ghost-block ' : ''}so-terms-block${termsCls}" data-zone="zone-footer">${termsInner}</div>`
+    : '';
+
+  // Regular footer: notes / phone / sig (terms may live here too if not force-to-bottom)
+  let footerHTML = '';
+  const hasRegular = showNotes || showFooterPh || showSig || ghostNotes || ghostFooterPh || ghostSig;
+  const hasTermsContent = showTerms || ghostTerms;
+  const termsInRegular  = hasTermsContent && !showTermsBottom;
+
+  if (hasRegular || termsInRegular) {
+    footerHTML = `<div class="so-footer-block" data-zone="zone-footer">`;
     if (showNotes)    footerHTML += noteBlock;
     else if (ghostNotes)    footerHTML += `<div class="so-ghost-block">${noteBlock}</div>`;
-    if (showTerms)    footerHTML += termsBlock;
-    else if (ghostTerms)    footerHTML += `<div class="so-ghost-block">${termsBlock}</div>`;
+    if (termsInRegular)     footerHTML += termsBlock;
     if (showFooterPh) footerHTML += phBlock;
     else if (ghostFooterPh) footerHTML += `<div class="so-ghost-block">${phBlock}</div>`;
     if (showSig)      footerHTML += sigBlock;
     else if (ghostSig)      footerHTML += `<div class="so-ghost-block">${sigBlock}</div>`;
-
     footerHTML += `</div>`;
   }
+
+  // Force-to-bottom: terms rendered separately after all content, pushed to page bottom via flex
+  const termsBottomHTML = (showTermsBottom && hasTermsContent)
+    ? `<div class="so-terms-force-bottom" data-zone="zone-footer">${termsInner}</div>`
+    : '';
 
   /* ── header / logo area ── */
   const logoEl = `<img class="so-logo" src="https://www.figma.com/api/mcp/asset/04f200f7-10a1-40e3-9a51-0d545a2b27f8" alt="Logo">`;
@@ -4847,21 +4858,20 @@ function buildSOPreviewHTML() {
     : '';
 
   const soTotalAmt = fmtDollar(previewLineCount * 378.00 + 1240.00);
-  // Center logo: identity block centered above the meta row
   let headerHTML = '';
   if (logoPos === 'center') {
     headerHTML = `
       <div class="so-doc-title-row">${titleText}</div>
-      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
-      ${showCompany ? `<div style="display:flex;justify-content:center;margin-bottom:12px" data-zone="zone-company">${logoEl}</div>` : ''}
-      <div class="so-hd">
+      <div class="so-subtopbar" style="justify-content:flex-end"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span>Page 1 of 1</span>${tsSpan}</div></div>
+      <div class="so-hd so-hd-center-logo">
         ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company">${companyInfo}</div>` : '<div></div>'}
-        <div data-zone="zone-dates">${metaTable}</div>
+        ${showCompany ? `<div style="padding:0 16px" data-zone="zone-company">${logoEl}</div>` : '<div></div>'}
+        <div style="display:flex;justify-content:flex-end" data-zone="zone-dates">${metaTable}</div>
       </div>`;
   } else {
     headerHTML = `
       <div class="so-doc-title-row">${titleText}</div>
-      ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
+      <div class="so-subtopbar" style="justify-content:flex-end"><div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span>Page 1 of 1</span>${tsSpan}</div></div>
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
           ${logoPos !== 'none' && showCompany ? logoEl : ''}
@@ -4888,7 +4898,8 @@ function buildSOPreviewHTML() {
   }
 
   /* ── assemble ── */
-  return `<div class="so">${headerHTML}${addressHTML}${linesHTML}${totalsHTML}${footerHTML}</div>`;
+  const soClass = (showTermsBottom && hasTermsContent) ? ' so-has-terms-bottom' : '';
+  return `<div class="so${soClass}">${headerHTML}${addressHTML}${linesHTML}${totalsHTML}${footerHTML}${termsBottomHTML}</div>`;
 }
 
 /* ── Actions ────────────────────────────────────────────────────────────── */
