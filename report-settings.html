@@ -1484,6 +1484,7 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wc-lqty   { width: 60px; flex-shrink: 0; text-align: right; }
 .wc-lamt   { width: 80px; flex-shrink: 0; text-align: right; }
 /* Paired right-side columns (Qty / Price / Total) */
+<<<<<<< Updated upstream
 .wc-spacer    { flex: 1; min-width: 0; }
 .wc-col-qty   { width: 52px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-units { width: 40px; flex-shrink: 0; text-align: right; font-size: 10px; color: rgba(47,51,55,.6); }
@@ -1495,6 +1496,23 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wo-hdr-col.wc-col-units { width: 40px; }
 .wo-hdr-col.wc-col-price { width: 60px; }
 .wo-hdr-col.wc-col-total { width: 70px; }
+=======
+.wc-spacer    { flex: 0; width: 0; }
+.wc-col-qty    { width: 80px; flex-shrink: 0; text-align: right; font-size: 10px; }
+.wc-col-order  { width: 72px; flex-shrink: 0; text-align: right; font-size: 10px; }
+.wc-col-before { width: 72px; flex-shrink: 0; text-align: right; font-size: 10px; }
+.wc-col-after  { width: 72px; flex-shrink: 0; text-align: right; font-size: 10px; }
+.wc-col-price  { width: 60px; flex-shrink: 0; text-align: right; font-size: 10px; }
+.wc-col-total { width: 70px; flex-shrink: 0; text-align: right; font-size: 10px; font-weight: 500; }
+.wo-hdr-spacer { flex: 1; }
+.wo-hdr-col    { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; text-align: right; padding: 0 1px; }
+.wo-hdr-col.wc-col-qty    { width: 80px; }
+.wo-hdr-col.wc-col-order  { width: 72px; }
+.wo-hdr-col.wc-col-before { width: 72px; }
+.wo-hdr-col.wc-col-after  { width: 72px; }
+.wo-hdr-col.wc-col-price  { width: 60px; }
+.wo-hdr-col.wc-col-total  { width: 70px; }
+>>>>>>> Stashed changes
 /* Field editor — locked fields + paired column groups */
 .cb-row-locked { opacity: 0.5; cursor: not-allowed; }
 .cb-row-locked .check-box { cursor: not-allowed; }
@@ -1837,6 +1855,10 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
                    placeholder="Enter custom title"
                    style="display:none;margin-top:6px;width:100%"
                    oninput="refreshPreviewImmediate()">
+            <input type="text" class="field-input" id="rtitle-so-label"
+                   placeholder="Sales Order # label (default: title value)"
+                   style="display:none;margin-top:4px;width:100%"
+                   oninput="refreshPreviewImmediate()">
           </div>
 
         </div>
@@ -2116,6 +2138,7 @@ const TYPE_CONFIG = {
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
     colPool: [
+<<<<<<< Updated upstream
       { key:'Line Number',     hdr:'#',           w:'28px', r:false },
       { key:'Description',     hdr:'Description', w:'160px', r:false },
       { key:'Style',           hdr:'Style',       w:'56px', r:false },
@@ -2132,6 +2155,23 @@ const TYPE_CONFIG = {
       { key:'Total',           hdr:'Total',       w:'76px',  r:true  },
       { key:'Status',          hdr:'Status',      w:'56px', r:false },
       { key:'Line Comments',   hdr:'Comments',    w:'140px', r:false, subRow:true },
+=======
+      { key:'Line Number',     hdr:'#',           w:'76px',  minW:24,  r:false, tok:'S' },
+      { key:'Description',     hdr:'Description', w:'160px', minW:72,  r:false, tok:'L' },
+      { key:'Style',           hdr:'Style',       w:'96px',  minW:40,  r:false, tok:'M' },
+      { key:'Color',           hdr:'Color',       w:'96px',  minW:40,  r:false, tok:'M' },
+      { key:'Material #',      hdr:'Mat. #',      w:'96px',  minW:44,  r:false, tok:'M' },
+      { key:'Bin',             hdr:'Bin',         w:'76px',  minW:32,  r:false, tok:'S' },
+      { key:'Manufacturer',    hdr:'Mfr.',        w:'96px',  minW:44,  r:false, tok:'M' },
+      { key:'Split Material',  hdr:'Split',       w:'76px',  minW:36,  r:false, tok:'S' },
+      { key:'Installer Name',  hdr:'Installer',   w:'160px', minW:60,  r:false, tok:'L' },
+      { key:'Labor Type',      hdr:'Type',        w:'96px',  minW:52,  r:false, tok:'M' },
+      { key:'Qty',             hdr:'Qty',         w:'76px',  minW:60,  r:true,  tok:'S' },
+      { key:'Price',           hdr:'Price',       w:'76px',  minW:60,  r:true,  tok:'S' },
+      { key:'Total',           hdr:'Total',       w:'76px',  minW:60,  r:true,  tok:'S' },
+      { key:'Status',          hdr:'Status',      w:'96px',  minW:40,  r:false, tok:'M' },
+      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:70,  r:false, subRow:true },
+>>>>>>> Stashed changes
     ],
     defaultActiveCols: ['Line Number','Description','Color','Qty','Units','Price','Total','Installer Name','Labor Type'],
     footerTerms: true,
@@ -2150,11 +2190,26 @@ const TYPE_CONFIG = {
           },
           { id:'wo-material', label:'Material',
             fields: [
+<<<<<<< Updated upstream
               { name:'Style',      locked:false },
               { name:'Color',      locked:false },
               { name:'Material #', locked:false },
               { name:'Product #',  locked:false },
               { name:'Dimensions', locked:false },
+=======
+              { name:'Style',           locked:false },
+              { name:'Color',           locked:false },
+              { name:'Material #',      locked:false },
+              { name:'Product #',       locked:false },
+              { name:'Dimensions',      locked:false },
+              { name:'Material Qty',    paired:'Qty',   locked:false },
+              { name:'Material Units',  paired:'Units', locked:false },
+              { name:'Product Order',   paired:'Order',  locked:false },
+              { name:'Product Before',  paired:'Before', locked:false },
+              { name:'Product After',   paired:'After',  locked:false },
+              { name:'Material Price',  paired:'Price', locked:false },
+              { name:'Material Total',  paired:'Total', locked:false },
+>>>>>>> Stashed changes
             ]
           },
           { id:'wo-labor',    label:'Labor',
@@ -2178,10 +2233,15 @@ const TYPE_CONFIG = {
         defaultActiveFields: {
           'Status':true,'Comments':true,'Style':true,'Color':true,'Material #':true,
           'Product #':true,'Dimensions':true,'Labor Type':true,
+<<<<<<< Updated upstream
           'Line #':true,'Units':true,
           'Material Qty':true,'Labor Qty':true,
           'Material Price':false,'Labor Price':false,
           'Material Total':true,'Labor Total':true,
+=======
+          'Material Qty':true,'Material Units':true,'Product Order':false,'Product Before':false,'Product After':false,'Material Price':false,'Material Total':true,
+          'Labor Qty':true,'Labor Units':true,'Labor Price':false,'Labor Total':true,
+>>>>>>> Stashed changes
         },
       },
       { id:'sec-totals', title:'Totals & Signature', badgeKey:'totals', colPicker:false, styleToggle:false, groups:['ms-wo-totals'] },
@@ -2281,8 +2341,14 @@ let SECTION_MAP   = {};
 let GROUP_SECTION = {};
 let FIELD_ZONES   = {};
 let activeColumns = [];  // ordered keys for the dual-panel column picker
+<<<<<<< Updated upstream
 let colWidths         = {};  // { [columnKey]: number } — manual pixel width override (shows checkbox)
 let autoFitWidths     = {};  // { [columnKey]: number } — Auto Fit result (no checkbox)
+=======
+const COL_TOKENS      = { S: 76, M: 96, L: 160 }; // S/M/L → px
+let colTokens         = {};  // { [columnKey]: 'S'|'M'|'L' } — user size token
+let autoFitWidths     = {};  // { [columnKey]: number } — Auto Fit result
+>>>>>>> Stashed changes
 let tableAdaptiveText = false; // scale table font to fit printable width
 let previewLineCount  = 5;    // mock row count driven by picker
 let pageOrientation = 'portrait'; // 'portrait' | 'landscape'
@@ -2549,10 +2615,28 @@ function _animateSectionsIn(panel) {
 // Runs at end of applyTypeConfig: switches orientation / auto-fits / enables adaptive
 // text until the table fits within the print area. Only fires when defaults overflow.
 function _autoFitStandardLayout() {
+  // Always measure using natural token sizes (not prior compressed values)
+  autoFitWidths = {};
   const totalW = getTableWidth();
   if (totalW <= PRINT_WIDTHS.portrait) return; // already fits portrait — done
 
+<<<<<<< Updated upstream
   // Step 1: switch to landscape (covers SO 828px ≤ 832px landscape)
+=======
+  // Fits in portrait at natural widths — no changes needed
+  if (totalW <= PRINT_WIDTHS.portrait) { renderColPicker(); return; }
+
+  // Fits within landscape width — auto-compress to portrait, stay portrait
+  if (totalW <= PRINT_WIDTHS.landscape) {
+    _applyAutoFit(); // getPrintWidth() == portrait
+    renderColPicker();
+    return;
+  }
+
+  // Natural widths exceed landscape — switch to landscape
+  colTokens = {};
+  autoFitWidths = {};
+>>>>>>> Stashed changes
   pageOrientation = 'landscape';
   document.querySelectorAll('#orientation-toggle .toggle-slider-opt').forEach(el =>
     el.classList.toggle('active', el.dataset.value === 'landscape')
@@ -2914,7 +2998,8 @@ function renderColPicker() {
 function colActivate(key) {
   if (!activeColumns.includes(key)) {
     activeColumns.push(key);
-    renderColPicker();
+    _enforceSOLockedPositions();
+    _autoFitStandardLayout();
     updateAllBadges();
     refreshPreviewImmediate();
   }
@@ -2923,7 +3008,7 @@ function colActivate(key) {
 function colDeactivate(key, e) {
   if (e) e.stopPropagation();
   activeColumns = activeColumns.filter(k => k !== key);
-  renderColPicker();
+  _autoFitStandardLayout();
   updateAllBadges();
   refreshPreviewImmediate();
 }
@@ -3088,20 +3173,33 @@ function setOrientation(o) {
 }
 
 // Core fit logic — scales non-manual columns to fill printW exactly.
-// Manual (colWidths) columns are held fixed; only autoFitWidths are written.
+// Manual columns held fixed; non-manual columns scaled to fill remaining space.
 function _applyAutoFit() {
   const pool = TYPE_CONFIG[activeType]?.colPool || [];
   const poolMap = Object.fromEntries(pool.map(c => [c.key, c]));
   const cols = activeColumns.filter(k => poolMap[k] && !poolMap[k].subRow);
   const printW = getPrintWidth();
+<<<<<<< Updated upstream
   // Starting width: manual override if set, else pool default
   const starts = cols.map(k => ({ k, w: colWidths[k] ?? (parseInt(poolMap[k].w) || 0), manual: colWidths[k] != null }));
   const total = starts.reduce((s, c) => s + c.w, 0);
   if (total <= printW) { autoFitWidths = {}; return; }
   const scale = printW / total;
   const scaled = starts.map(({ k, w, manual }) => ({ k, manual, w: Math.max(20, Math.round(w * scale)) }));
+=======
+  // Starting width: token-derived or pool default; token-set and right-aligned columns held fixed
+  const starts = cols.map(k => ({ k, w: getColPx(k, poolMap[k]), manual: colTokens[k] != null || !!poolMap[k]?.r }));
+  const total = starts.reduce((s, c) => s + c.w, 0);
+  if (total <= printW) { autoFitWidths = {}; return; }
+  // Scale only non-manual columns; manual columns take their space first
+  const manualW   = starts.filter(c =>  c.manual).reduce((s, c) => s + c.w, 0);
+  const flexW     = starts.filter(c => !c.manual).reduce((s, c) => s + c.w, 0);
+  const available = printW - manualW;
+  const scale     = available > 0 && flexW > 0 ? available / flexW : 1;
+  const scaled    = starts.map(({ k, w, manual }) => ({ k, manual, w: manual ? w : Math.max(poolMap[k]?.minW ?? 20, Math.round(w * scale)) }));
+>>>>>>> Stashed changes
   // Shave rounding excess from widest non-manual columns
-  let excess = scaled.reduce((s, c) => s + c.w, 0) - printW;
+  let excess = scaled.filter(c => !c.manual).reduce((s, c) => s + c.w, 0) - available;
   if (excess > 0) {
     scaled.filter(c => !c.manual).slice().sort((a, b) => b.w - a.w).forEach(c => {
       if (excess <= 0) return;
@@ -3981,8 +4079,11 @@ function selectToggle(el) {
 }
 
 function onRTitleChange(sel) {
+  const isCustom = sel.value === 'custom';
   const inp = document.getElementById('rtitle-custom');
-  if (inp) inp.style.display = sel.value === 'custom' ? 'block' : 'none';
+  const lbl = document.getElementById('rtitle-so-label');
+  if (inp) inp.style.display = isCustom ? 'block' : 'none';
+  if (lbl) lbl.style.display = isCustom ? 'block' : 'none';
   refreshPreviewImmediate();
 }
 
@@ -4113,11 +4214,11 @@ function cycleRows(tpl, n) {
 
 // WO line-group template — each group = one material item + one labor line
 const WO_GROUP_TPL = [
-  { status:'Ready',     comment:'This comment is exactly 60 characters long. This will print!', style:'St Lucia-12.00',    color:'Bark',       matNum:'24825', prodRef:'24825_rl#625976A63', w:12,   l:438.75, matQty:585, matUnit:'SqYr', matPrice:'$12.50',  matTotal:'$7,312.50', laborType:'Carpet Installation / SF',  lQty:585, lUnit:'SqFt', lPrice:'$0.39', lAmt:'$228.15' },
-  { status:'Scheduled', comment:'',                                                              style:'Harmony-15.00',      color:'Stone Gray', matNum:'31042', prodRef:'31042_rl#738291B54', w:15,   l:312.00, matQty:520, matUnit:'SqYr', matPrice:'$15.00',  matTotal:'$7,800.00', laborType:'Carpet Installation / SF',  lQty:520, lUnit:'SqFt', lPrice:'$0.37', lAmt:'$193.40' },
-  { status:'Active',    comment:'No wax. Customer specified glue-down method.',                  style:'Heritage Oak-5.00',  color:'Walnut',     matNum:'55284', prodRef:'55284_rl#892436C21', w:5,    l:510.00, matQty:284, matUnit:'SqFt', matPrice:'$8.75',   matTotal:'$2,485.00', laborType:'Hardwood Install / LF',     lQty:284, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$312.40' },
-  { status:'Hold',      comment:'',                                                              style:'Coastal Beige-12.00',color:'Sand',       matNum:'18374', prodRef:'18374_rl#511830D77', w:12,   l:292.50, matQty:390, matUnit:'SqYr', matPrice:'$11.25',  matTotal:'$4,387.50', laborType:'Carpet Removal & Disposal', lQty:390, lUnit:'SqYr', lPrice:'$0.35', lAmt:'$136.50' },
-  { status:'Complete',  comment:'Completed 05/28. Final inspection passed.',                     style:'Grand Oak-3.25',     color:'Espresso',   matNum:'67291', prodRef:'67291_rl#340571E92', w:3.25, l:680.00, matQty:184, matUnit:'SqFt', matPrice:'$7.50',   matTotal:'$1,380.00', laborType:'Hardwood Install / LF',     lQty:184, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$202.40' },
+  { status:'Ready',     comment:'This comment is exactly 60 characters long. This will print!', style:'St Lucia-12.00',    color:'Bark',       matNum:'24825', prodRef:'24825_rl#625976A63', w:12,   l:438.75, matQty:585, matUnit:'SqYr', matPrice:'$12.50',  matTotal:'$7,312.50', laborType:'Carpet Installation / SF',  lQty:585, lUnit:'SqFt', lPrice:'$0.39', lAmt:'$228.15', productOrder:'12.0 × 4_7',  productBefore:'12.0 × 7_6',  productAfter:'12.0 × 2_11' },
+  { status:'Scheduled', comment:'',                                                              style:'Harmony-15.00',      color:'Stone Gray', matNum:'31042', prodRef:'31042_rl#738291B54', w:15,   l:312.00, matQty:520, matUnit:'SqYr', matPrice:'$15.00',  matTotal:'$7,800.00', laborType:'Carpet Installation / SF',  lQty:520, lUnit:'SqFt', lPrice:'$0.37', lAmt:'$193.40', productOrder:'15.0 × 3_5',  productBefore:'15.0 × 6_2',  productAfter:'15.0 × 2_9'  },
+  { status:'Active',    comment:'No wax. Customer specified glue-down method.',                  style:'Heritage Oak-5.00',  color:'Walnut',     matNum:'55284', prodRef:'55284_rl#892436C21', w:5,    l:510.00, matQty:284, matUnit:'SqFt', matPrice:'$8.75',   matTotal:'$2,485.00', laborType:'Hardwood Install / LF',     lQty:284, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$312.40', productOrder:'5.0 × 8_3',   productBefore:'5.0 × 11_4', productAfter:'5.0 × 3_1'   },
+  { status:'Hold',      comment:'',                                                              style:'Coastal Beige-12.00',color:'Sand',       matNum:'18374', prodRef:'18374_rl#511830D77', w:12,   l:292.50, matQty:390, matUnit:'SqYr', matPrice:'$11.25',  matTotal:'$4,387.50', laborType:'Carpet Removal & Disposal', lQty:390, lUnit:'SqYr', lPrice:'$0.35', lAmt:'$136.50', productOrder:'12.0 × 5_10', productBefore:'12.0 × 9_0',  productAfter:'12.0 × 3_2'  },
+  { status:'Complete',  comment:'Completed 05/28. Final inspection passed.',                     style:'Grand Oak-3.25',     color:'Espresso',   matNum:'67291', prodRef:'67291_rl#340571E92', w:3.25, l:680.00, matQty:184, matUnit:'SqFt', matPrice:'$7.50',   matTotal:'$1,380.00', laborType:'Hardwood Install / LF',     lQty:184, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$202.40', productOrder:'3.25 × 7_6', productBefore:'3.25 × 10_2', productAfter:'3.25 × 2_8'  },
 ];
 function cycleWOGroups(n) {
   return Array.from({ length: n }, (_, i) => ({ ...WO_GROUP_TPL[i % WO_GROUP_TPL.length], lineNum: i + 1 }));
@@ -4155,6 +4256,7 @@ function buildWOPreviewHTML() {
 
   const WO_GROUPS = cycleWOGroups(previewLineCount);
 
+<<<<<<< Updated upstream
   const showQty   = pairedColVisible('Qty');
   const showUnits = wof('Units');
   const showPrice = pairedColVisible('Price');
@@ -4166,21 +4268,51 @@ function buildWOPreviewHTML() {
     ${showUnits ? `<span class="wc-col-units">${unitVal}</span>`  : ''}
     ${showPrice ? `<span class="wc-col-price">${priceVal}</span>` : ''}
     ${showTotal ? `<span class="wc-col-total">${totalVal}</span>` : ''}`;
+=======
+  const showQty    = pairedColVisible('Qty');
+  const showUnits  = pairedColVisible('Units');
+  const showOrder  = pairedColVisible('Order');
+  const showBefore = pairedColVisible('Before');
+  const showAfter  = pairedColVisible('After');
+  const showPrice  = pairedColVisible('Price');
+  const showTotal  = pairedColVisible('Total');
+
+  const rightCols = (qtyVal, unitVal, orderVal, beforeVal, afterVal, priceVal, totalVal) => {
+    const qtyDisplay = showUnits && qtyVal && unitVal ? `${qtyVal} ${unitVal}` : qtyVal;
+    return `
+    <span class="wc-spacer"></span>
+    ${showQty    ? `<span class="wc-col-qty">${qtyDisplay}</span>`   : ''}
+    ${showOrder  ? `<span class="wc-col-order">${orderVal}</span>`   : ''}
+    ${showBefore ? `<span class="wc-col-before">${beforeVal}</span>` : ''}
+    ${showAfter  ? `<span class="wc-col-after">${afterVal}</span>`   : ''}
+    ${showPrice  ? `<span class="wc-col-price">${priceVal}</span>`   : ''}
+    ${showTotal  ? `<span class="wc-col-total">${totalVal}</span>`   : ''}`;
+  };
+>>>>>>> Stashed changes
 
   const linesHTML = `<div class="wo-items" data-zone="zone-table">
     <div class="wo-items-hdr">
       <span class="wo-hdr-spacer"></span>
+<<<<<<< Updated upstream
       ${showQty   ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`     : ''}
       ${showUnits ? `<span class="wo-hdr-col wc-col-units">Unit</span>`  : ''}
       ${showPrice ? `<span class="wo-hdr-col wc-col-price">Price</span>` : ''}
       ${showTotal ? `<span class="wo-hdr-col wc-col-total">Total</span>` : ''}
+=======
+      ${showQty    ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`      : ''}
+      ${showOrder  ? `<span class="wo-hdr-col wc-col-order">Order</span>`  : ''}
+      ${showBefore ? `<span class="wo-hdr-col wc-col-before">Before</span>`: ''}
+      ${showAfter  ? `<span class="wo-hdr-col wc-col-after">After</span>`  : ''}
+      ${showPrice  ? `<span class="wo-hdr-col wc-col-price"></span>`  : ''}
+      ${showTotal  ? `<span class="wo-hdr-col wc-col-total"></span>`  : ''}
+>>>>>>> Stashed changes
     </div>
     ${WO_GROUPS.map(g => {
       const commentRow = `<div class="wo-row">
         ${wof('Line #') ? `<span class="wc-num">${g.lineNum}</span>` : ''}
         ${wof('Status')   ? `<span class="wc-status">${g.status}</span>` : ''}
         ${wof('Comments') && g.comment ? `<span class="wc-comment">${g.comment}</span>` : ''}
-        ${rightCols('', '', '', '')}
+        ${rightCols('', '', '', '', '', '', '')}
       </div>`;
       const materialRow = `<div class="wo-row">
         ${wof('Style')      ? `<span class="wc-style">${g.style}</span>`   : ''}
@@ -4188,7 +4320,14 @@ function buildWOPreviewHTML() {
         ${wof('Material #') ? `<span class="wc-matnum">${g.matNum}</span>` : ''}
         ${rightCols(
           wof('Material Qty')   ? String(g.matQty) : '',
+<<<<<<< Updated upstream
           g.matUnit,
+=======
+          wof('Material Units') ? g.matUnit : '',
+          wof('Product Order')  ? g.productOrder : '',
+          wof('Product Before') ? g.productBefore : '',
+          wof('Product After')  ? g.productAfter : '',
+>>>>>>> Stashed changes
           wof('Material Price') ? g.matPrice : '',
           wof('Material Total') ? g.matTotal : ''
         )}
@@ -4198,14 +4337,19 @@ function buildWOPreviewHTML() {
       const productRow   = (showProdRef || showDims) ? `<div class="wo-row">
         ${showProdRef ? `<span class="wc-prodlbl">Product #</span><span class="wc-prodval">${g.prodRef}</span>` : ''}
         ${showDims    ? `<span class="wc-dims">${g.w} &times; ${g.l.toFixed(2)}</span>` : ''}
-        ${rightCols('', '', '', '')}
+        ${rightCols('', '', '', '', '', '', '')}
       </div>` : '';
       const laborRow = `<div class="wo-row">
         <span class="wc-lgap"></span>
         ${wof('Labor Type') ? `<span class="wc-labor">${g.laborType}</span>` : ''}
         ${rightCols(
           wof('Labor Qty')   ? String(g.lQty) : '',
+<<<<<<< Updated upstream
           g.lUnit,
+=======
+          wof('Labor Units') ? g.lUnit : '',
+          '', '', '',
+>>>>>>> Stashed changes
           wof('Labor Price') ? g.lPrice : '',
           wof('Labor Total') ? g.lAmt   : ''
         )}
@@ -4616,6 +4760,13 @@ function buildSOPreviewHTML() {
   const ghostShipTo  = isGhost('Ship To');
 
   /* ── dates meta table (with ghost row) ── */
+<<<<<<< Updated upstream
+=======
+  const soLabelInp = document.getElementById('rtitle-so-label');
+  const soLabelOverride = rTitle === 'custom' && soLabelInp?.value.trim() ? soLabelInp.value.trim() : null;
+  const soNumLabel = soLabelOverride ?? { proposal: 'Sales Order #', invoice: 'Invoice #', none: 'Sales Order #' }[rTitle] ?? getRTitleValue();
+  const soNumValue = { proposal: 'SO-1001', invoice: 'INV-2025-1001', none: 'SO-1001' }[rTitle] ?? 'SO-1001';
+>>>>>>> Stashed changes
   const DATE_VALS = {
     'Sales Order #': ['Sales Order #', 'SO-1001'],
     'Order Date':    ['Order Date',    '05/08/2025'],
