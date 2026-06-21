@@ -224,7 +224,7 @@ body {
 .preview-page + .preview-page { margin-top: 12px; }
 .preview-page-viewport {
   position: absolute;
-  overflow: hidden;
+  overflow: visible;
 }
 .preview-page-scroll {
   position: absolute;
@@ -368,8 +368,9 @@ body {
   box-shadow: 0 0 0 3px rgba(5,91,97,0.12);
 }
 .field-label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
   color: var(--c-text-primary);
   user-select: none;
 }
@@ -899,21 +900,32 @@ body {
 
 /* ─── Ghost preview elements ─────────────────────────────────────────────── */
 .so-table .ghost-th {
-  opacity: 0.38 !important;
-  font-style: italic;
-  background: rgba(5,91,97,0.45) !important;
+  box-shadow: inset 2px 0 0 0 #dc2626, inset -2px 0 0 0 #dc2626, inset 0 2px 0 0 #dc2626;
 }
 .so-table .ghost-td {
-  opacity: 0.35;
-  font-style: italic;
-  background: rgba(5,91,97,0.03);
+  box-shadow: inset 2px 0 0 0 #dc2626, inset -2px 0 0 0 #dc2626;
+}
+.so-table tbody tr:last-child .ghost-td {
+  box-shadow: inset 2px 0 0 0 #dc2626, inset -2px 0 0 0 #dc2626, inset 0 -2px 0 0 #dc2626;
 }
 .so-ghost-block {
-  opacity: 0.38;
-  font-style: italic;
-  outline: 1.5px dashed rgba(5,91,97,0.4);
+  outline: 2px solid #dc2626;
   outline-offset: 3px;
   border-radius: 4px;
+}
+.so-ghost-inline {
+  outline: 2px solid #dc2626;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.so-ghost-row > td {
+  box-shadow: inset 0 2px 0 #dc2626, inset 0 -2px 0 #dc2626;
+}
+.so-ghost-row > td:first-child {
+  box-shadow: inset 2px 0 0 #dc2626, inset 0 2px 0 #dc2626, inset 0 -2px 0 #dc2626;
+}
+.so-ghost-row > td:last-child {
+  box-shadow: inset -2px 0 0 #dc2626, inset 0 2px 0 #dc2626, inset 0 -2px 0 #dc2626;
 }
 
 /* ─── Column picker (dual-panel) ─────────────────────────────────────────── */
@@ -1299,6 +1311,38 @@ body {
   flex-shrink: 0;
   background: var(--c-surface);
 }
+.tag-summary {
+  border-top: 1px solid var(--c-divider);
+  padding: 10px 20px;
+  background: var(--c-surface);
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+}
+.tag-summary-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--c-text-2);
+  white-space: nowrap;
+}
+.tag-summary-label { color: var(--c-text-3); font-size: 10px; flex-shrink: 0; }
+.tag-summary-val { font-weight: 500; color: var(--c-text-1); font-size: 11px; }
+.tag-error-banner {
+  margin: 12px 16px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #991b1b;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.tag-error-banner i { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
 
 /* Preview button — hidden on desktop, shown on mobile */
 .btn-preview { display: none !important; }
@@ -1498,6 +1542,7 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wo-items { margin-bottom: 20px; font-size: 10px; color: #000; }
 .wo-items-hdr {
   display: flex;
+  align-items: center;
   background: rgba(0,0,0,0.06);
   border: 1px solid rgba(0,0,0,0.18);
   border-radius: 4px;
@@ -1507,7 +1552,9 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wo-hdr-qty { margin-left: auto; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
 .wo-group { border-bottom: 1px solid rgba(0,0,0,0.07); padding: 2px 0 4px; }
 .wo-group:last-child { border-bottom: none; }
-.wo-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; gap: 6px; }
+.wo-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; }
+.wo-row-left  { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 6px; overflow: hidden; }
+.wo-row-right { display: flex; align-items: baseline; gap: 6px; flex-shrink: 0; }
 /* Cell classes */
 .wc-num    { width: 22px; flex-shrink: 0; color: rgba(0,0,0,0.6); }
 .wc-status { width: 62px; flex-shrink: 0; }
@@ -1525,7 +1572,7 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wc-lqty   { width: 60px; flex-shrink: 0; text-align: right; }
 .wc-lamt   { width: 80px; flex-shrink: 0; text-align: right; }
 /* Paired right-side columns (Qty / Order / Before / After / Price / Total) */
-.wc-spacer     { flex: 0; width: 0; }
+.wc-spacer     { display: none; }
 .wc-col-qty    { width: 80px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-order  { width: 72px; flex-shrink: 0; text-align: right; font-size: 10px; }
 .wc-col-before { width: 72px; flex-shrink: 0; text-align: right; font-size: 10px; }
@@ -1540,6 +1587,13 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .wo-hdr-col.wc-col-after  { width: 72px; }
 .wo-hdr-col.wc-col-price  { width: 60px; }
 .wo-hdr-col.wc-col-total  { width: 70px; }
+/* Labor mid overlap container */
+.wc-labor-mid { display: flex; align-items: baseline; flex-shrink: 0; overflow: hidden; }
+.wc-labor-mid-price { flex: 1; text-align: center; font-style: italic; color: rgba(0,0,0,0.65); font-size: 10px; }
+.wc-labor-mid-total { flex: 1; text-align: center; font-weight: 500; font-size: 10px; }
+/* Labor row: italic for price/total values in Order/Before slots */
+.wc-labor-row .wc-col-order,
+.wc-labor-row .wc-col-before { font-style: italic; color: rgba(0,0,0,0.65); }
 /* Field editor — locked fields + paired column groups */
 .cb-row-locked { opacity: 0.5; cursor: not-allowed; }
 .cb-row-locked .check-box { cursor: not-allowed; }
@@ -1995,6 +2049,10 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
   <button class="dev-toggle" id="dev-vp-tablet" onclick="devViewport('tablet')">Tablet</button>
   <button class="dev-toggle" id="dev-vp-mobile" onclick="devViewport('mobile')">Mobile</button>
   <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
+  <button class="dev-toggle" id="dev-show-widths" onclick="toggleDevShowWidths()">
+    <span class="dev-toggle-dot"></span>Show width
+  </button>
+  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <span>Dealer:</span>
   <select id="dev-dealer-location" onchange="refreshPreviewImmediate()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);font-size:11px;padding:2px 6px;border-radius:5px;cursor:pointer;outline:none">
     <option value="us">US</option>
@@ -2203,6 +2261,9 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
       <div id="type-sections"></div>
 
     </div><!-- /settings-scroll -->
+
+    <!-- Tag summary: only visible when Tags type is active -->
+    <div id="tag-summary" class="tag-summary" style="display:none"></div>
 
     <div class="settings-footer">
       <button class="btn btn-outline btn-preview" onclick="openDrawer()">
@@ -2654,12 +2715,23 @@ function _fsOpen(trigger) {
   menu.innerHTML = [...sel.options].map(o =>
     `<button class="fs-item${o.selected ? ' selected' : ''}" data-val="${o.value.replace(/"/g,'&quot;')}">${o.text}</button>`
   ).join('');
-  menu.querySelectorAll('.fs-item').forEach(btn => btn.addEventListener('click', () => {
-    sel.value = btn.dataset.val;
-    sel.dispatchEvent(new Event('change', { bubbles: true }));
-    trigger.querySelector('.fs-trigger-label').textContent = sel.options[sel.selectedIndex]?.text || '';
-    _fsClose();
-  }));
+  menu.querySelectorAll('.fs-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sel.value = btn.dataset.val;
+      sel.dispatchEvent(new Event('change', { bubbles: true }));
+      trigger.querySelector('.fs-trigger-label').textContent = sel.options[sel.selectedIndex]?.text || '';
+      _fsClose();
+    });
+    if (!btn.classList.contains('selected')) {
+      btn.addEventListener('mouseenter', () => {
+        previewDropdownGhost = { selId: sel.id, val: btn.dataset.val };
+        refreshPreviewImmediate();
+      });
+      btn.addEventListener('mouseleave', () => {
+        if (previewDropdownGhost?.selId === sel.id) { previewDropdownGhost = null; refreshPreviewImmediate(); }
+      });
+    }
+  });
   const rect = trigger.getBoundingClientRect();
   menu.style.minWidth = rect.width + 'px';
   menu.style.left = rect.left + 'px';
@@ -2678,6 +2750,7 @@ function _fsClose() {
   const menu = document.getElementById('fs-menu');
   if (menu) menu.classList.remove('open');
   if (_fsActiveTrigger) { _fsActiveTrigger.classList.remove('open'); _fsActiveTrigger = null; }
+  if (previewDropdownGhost) { previewDropdownGhost = null; refreshPreviewImmediate(); }
 }
 function initFsDrops(root) {
   (root || document).querySelectorAll('select.field-select:not([data-fs-init])').forEach(sel => {
@@ -2808,7 +2881,39 @@ function initSettingsView(params = {}) {
       updatePreviewZoom();
       renderColPicker();
       initFsDrops(document.getElementById('view-settings'));
+      initChipGhosts();
+      initCsItemGhosts();
     }, 80);
+  });
+}
+
+function initChipGhosts() {
+  document.querySelectorAll('.toggle-slider[data-group]').forEach(slider => {
+    const groupName = slider.dataset.group;
+    slider.querySelectorAll('.toggle-slider-opt').forEach(opt => {
+      opt.addEventListener('mouseenter', () => {
+        if (opt.classList.contains('active')) return;
+        previewChipGhost = { groupName, val: opt.dataset.value };
+        refreshPreviewImmediate();
+      });
+      opt.addEventListener('mouseleave', () => {
+        if (previewChipGhost?.groupName === groupName) { previewChipGhost = null; refreshPreviewImmediate(); }
+      });
+    });
+  });
+}
+
+function initCsItemGhosts() {
+  document.querySelectorAll('#cs-terms .cs-item').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      if (item.classList.contains('selected')) return;
+      const doc = document.getElementById('preview-doc');
+      doc?.querySelectorAll('[data-zone="zone-footer"]').forEach(el => el.classList.add('so-ghost-block'));
+    });
+    item.addEventListener('mouseleave', () => {
+      const doc = document.getElementById('preview-doc');
+      doc?.querySelectorAll('[data-zone="zone-footer"]').forEach(el => el.classList.remove('so-ghost-block'));
+    });
   });
 }
 
@@ -2863,21 +2968,21 @@ const TYPE_CONFIG = {
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
     colPool: [
-      { key:'Line Number',     hdr:'#',           w:'76px',  minW:24,  r:false, tok:'S' },
-      { key:'Description',     hdr:'Description', w:'160px', minW:72,  r:false, tok:'L' },
-      { key:'Style',           hdr:'Style',       w:'96px',  minW:40,  r:false, tok:'M' },
-      { key:'Color',           hdr:'Color',       w:'96px',  minW:40,  r:false, tok:'M' },
-      { key:'Material #',      hdr:'Mat. #',      w:'96px',  minW:44,  r:false, tok:'M' },
-      { key:'Bin',             hdr:'Bin',         w:'76px',  minW:32,  r:false, tok:'S' },
-      { key:'Manufacturer',    hdr:'Mfr.',        w:'96px',  minW:44,  r:false, tok:'M' },
-      { key:'Split Material',  hdr:'Split',       w:'76px',  minW:36,  r:false, tok:'S' },
-      { key:'Installer Name',  hdr:'Installer',   w:'160px', minW:60,  r:false, tok:'L' },
-      { key:'Labor Type',      hdr:'Type',        w:'96px',  minW:52,  r:false, tok:'M' },
-      { key:'Qty',             hdr:'Qty',         w:'76px',  minW:60,  r:true,  tok:'S' },
-      { key:'Price',           hdr:'Price',       w:'76px',  minW:60,  r:true,  tok:'S' },
-      { key:'Total',           hdr:'Total',       w:'76px',  minW:60,  r:true,  tok:'S' },
-      { key:'Status',          hdr:'Status',      w:'96px',  minW:40,  r:false, tok:'M' },
-      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:70,  r:false, subRow:true },
+      { key:'Line Number',     hdr:'#',           w:'76px',  minW:24,  r:false, tok:'S', hug:true },
+      { key:'Description',     hdr:'Description', w:'160px', minW:120, r:false, tok:'L' },
+      { key:'Style',           hdr:'Style',       w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Color',           hdr:'Color',       w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Material #',      hdr:'Mat. #',      w:'76px',  minW:40,  r:false, tok:'S' },
+      { key:'Bin',             hdr:'Bin',         w:'76px',  minW:40,  r:false, tok:'S' },
+      { key:'Manufacturer',    hdr:'Mfr.',        w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Split Material',  hdr:'Split',       w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Installer Name',  hdr:'Installer',   w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Labor Type',      hdr:'Type',        w:'96px',  minW:72,  r:false, tok:'M' },
+      { key:'Qty',             hdr:'Qty',         w:'76px',  minW:52,  r:true,  tok:'S', hug:true },
+      { key:'Price',           hdr:'Price',       w:'76px',  minW:52,  r:true,  tok:'S', hug:true },
+      { key:'Total',           hdr:'Total',       w:'76px',  minW:56,  r:true,  tok:'S', hug:true },
+      { key:'Status',          hdr:'Status',      w:'76px',  minW:40,  r:false, tok:'S' },
+      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:70,  r:false, subRow:true, uiLocked:true },
     ],
     defaultActiveCols: ['Line Number','Description','Color','Qty','Price','Total','Installer Name','Labor Type'],
     footerTerms: true,
@@ -2885,8 +2990,9 @@ const TYPE_CONFIG = {
 
   'Work Order': {
     sections: [
-      { id:'sec-header', title:'Header Fields',      badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-wo-company','ms-wo-refs','ms-wo-address'] },
-      { id:'sec-lines',  title:'Line Item Fields',    badgeKey:'lines',  colPicker:false, fieldEditor:true,
+      { id:'sec-header',    title:'Header Fields',   badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-wo-company','ms-wo-refs','ms-wo-address'] },
+      { id:'sec-wo-style',  title:'Table Style',     badgeKey:'style',  woTableStylePicker:true },
+      { id:'sec-lines',     title:'Line Item Fields', badgeKey:'lines',  colPicker:false, fieldEditor:true,
         fieldGroups: [
           { id:'wo-job',      label:'Job information',
             fields: [
@@ -2904,11 +3010,13 @@ const TYPE_CONFIG = {
               { name:'Dimensions',      locked:false },
               { name:'Material Qty',    paired:'Qty',    locked:false },
               { name:'Material Units',  paired:'Units',  locked:false },
+            ]
+          },
+          { id:'wo-inventory', label:'Inventory',
+            fields: [
               { name:'Product Order',   paired:'Order',  locked:false },
               { name:'Product Before',  paired:'Before', locked:false },
               { name:'Product After',   paired:'After',  locked:false },
-              { name:'Material Price',  paired:'Price',  locked:false },
-              { name:'Material Total',  paired:'Total',  locked:false },
             ]
           },
           { id:'wo-labor',    label:'Labor',
@@ -2925,7 +3033,7 @@ const TYPE_CONFIG = {
           'Line #':true,
           'Status':true,'Comments':true,'Style':true,'Color':true,'Material #':true,
           'Product #':true,'Dimensions':true,'Labor Type':true,
-          'Material Qty':true,'Material Units':true,'Product Order':false,'Product Before':false,'Product After':false,'Material Price':false,'Material Total':true,
+          'Material Qty':true,'Material Units':true,'Product Order':false,'Product Before':false,'Product After':false,
           'Labor Qty':true,'Labor Units':true,'Labor Price':false,'Labor Total':true,
         },
       },
@@ -2951,6 +3059,35 @@ const TYPE_CONFIG = {
   'Purchase Order': {
     sections: [
       { id:'sec-header', title:'Header Fields', badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-po-address'] },
+      { id:'sec-po-lines', title:'Line Item Fields', badgeKey:'lines', colPicker:false, fieldEditor:true,
+        fieldGroups: [
+          { id:'po-description', label:'Description',
+            fields: [
+              { name:'Manufacturer', locked:false },
+              { name:'Style',        locked:false },
+              { name:'Style #',      locked:false },
+              { name:'Color',        locked:false },
+              { name:'Color #',      locked:false },
+              { name:'SKU',          locked:false },
+              { name:'Sidemark',     locked:false },
+              { name:'Qty Detail',   locked:false },
+            ]
+          },
+          { id:'po-pricing', label:'Pricing',
+            fields: [
+              { name:'Qty',   locked:false },
+              { name:'Units', locked:false },
+              { name:'Price', locked:false },
+              { name:'Total', locked:false },
+            ]
+          },
+        ],
+        defaultActiveFields: {
+          'Manufacturer':true,'Style':true,'Style #':false,'Color':true,'Color #':false,
+          'SKU':true,'Sidemark':true,'Qty Detail':true,
+          'Qty':true,'Units':true,'Price':true,'Total':true,
+        },
+      },
     ],
     fields: {
       'ms-po-address': { label:'Header fields', all:['Bill To','Vendor','Ship To','Timestamp','Comments','Location Name – Ship To'], sel:['Bill To','Vendor','Ship To'] },
@@ -2967,7 +3104,7 @@ const TYPE_CONFIG = {
   'Tags': {
     sections: [
       { id:'sec-tag-all',  title:'All Tags',   badgeKey:'header', tagGlobal:true    },
-      { id:'sec-tag-size', title:'Print Size', badgeKey:'header', tagPrintSize:true },
+      { id:'sec-tag-size', title:'Label Size', badgeKey:'header', tagPrintSize:true },
       { id:'sec-tag-type', title:'Tag Type',   badgeKey:'lines',  tagType:true      },
     ],
     fields: {},
@@ -2995,6 +3132,7 @@ let pageOrientation = 'portrait'; // 'portrait' | 'landscape'
 const PRINT_WIDTHS  = { portrait: 572, landscape: 832 }; // shell(700|960) - 128px padding
 function getPrintWidth() { return PRINT_WIDTHS[pageOrientation]; }
 let colGhostKey     = null; // key being hovered in inventory → ghost at pos 0 in preview
+let devShowWidths   = false;
 let activeFieldSets = {}; // { [groupId]: Set<fieldName> } — for fieldEditor sections
 let PAIRED_COL      = {}; // { [fieldName]: pairedKey }  e.g. {'Material Qty':'Qty'}
 
@@ -3119,6 +3257,10 @@ function applyTypeConfig(type) {
   if (rtitleGroup) rtitleGroup.style.display = type === 'Sales Order' ? '' : 'none';
   const logoPosGroup = document.querySelector('[data-group="logo"]')?.closest('.radio-group');
   if (logoPosGroup) logoPosGroup.style.display = type === 'Purchase Order' ? 'none' : '';
+  const secStyle = document.getElementById('sec-style');
+  if (secStyle) secStyle.style.display = type === 'Tags' ? 'none' : '';
+  const tagSummaryEl = document.getElementById('tag-summary');
+  if (tagSummaryEl) tagSummaryEl.style.display = type === 'Tags' ? '' : 'none';
 
   // Deep-clone fields so checkbox mutations don't corrupt TYPE_CONFIG
   FIELDS = {};
@@ -3164,7 +3306,7 @@ function applyTypeConfig(type) {
   activeColumns = [...(cfg.defaultActiveCols || [])];
   _enforceSOLockedPositions();
   // Init colOrder: full pool order of draggable (non-locked) columns
-  colOrder = (cfg.colPool || []).filter(c => !_isSoLocked(c.key)).map(c => c.key);
+  colOrder = (cfg.colPool || []).filter(c => !_isSoLocked(c.key) && !c.uiLocked).map(c => c.key);
   colWidths = {};
   autoFitWidths = {};
   tableAdaptiveText = false;
@@ -3312,6 +3454,7 @@ function buildSectionsHTML(sections, footerTerms) {
         <option value="classic">Classic</option>
         <option value="separated" selected>Separated</option>
         <option value="groups">Groups</option>
+        <option value="groups-separated">Groups + Separated</option>
         <option value="comments-only">Sales order comments only</option>
       </select>
     </div>
@@ -3342,6 +3485,14 @@ function buildSectionsHTML(sections, footerTerms) {
     let body = '';
     if (sec.tableStylePicker) {
       body = TABLE_STYLE_PICKER;
+    } else if (sec.woTableStylePicker) {
+      body = `<div class="field">
+        <label class="field-label" for="wo-table-style-sel">Table style</label>
+        <select class="field-select" id="wo-table-style-sel" onchange="refreshPreviewImmediate()" style="width:100%">
+          <option value="classic">Classic</option>
+          <option value="groups">Groups</option>
+        </select>
+      </div>`;
     } else if (sec.colPicker) {
       body = `<div class="cpn-wrap" id="col-picker-wrap"></div>`;
     } else if (sec.tagGlobal) {
@@ -3357,7 +3508,7 @@ function buildSectionsHTML(sections, footerTerms) {
         </div>`;
     } else if (sec.tagPrintSize) {
       body = `
-        <div class="radio-group-label" style="margin-bottom:8px">Paper size</div>
+        <div class="radio-group-label" style="margin-bottom:8px">Label size</div>
         <div class="tag-size-grid">
           <label class="tag-size-btn active" onclick="tagSizeSelect(this)">
             <input type="radio" name="tag-size" value="8.5x11" checked>8½×11
@@ -3410,7 +3561,7 @@ function buildSectionsHTML(sections, footerTerms) {
           <div class="tag-type-block">
             <label class="tag-type-radio-row">
               <input type="radio" name="tag-type" value="item" onchange="tagTypeChange('item')">
-              Inventory Tag
+              Inventory Tag (No Price)
             </label>
           </div>
         </div>`;
@@ -3473,21 +3624,28 @@ function renderColPicker() {
 
   const lineNumOn = activeColumns.includes('Line Number');
   const lineNumInPool = pool.find(c => c.key === 'Line Number');
+  const lineCommDef = pool.find(c => c.key === 'Line Comments');
+  const lineCommOn = activeColumns.includes('Line Comments');
 
-  /* ── Line Number: locked top row ── */
-  const lineNumHTML = lineNumInPool ? `
-    <div class="cpn-locked-item">
+  /* ── Line Number + Line Comments: locked top section ── */
+  const _renderLockedDisplayItem = (key, label, on) => {
+    const def = poolMap[key];
+    const widthBadge = devShowWidths && on && !def?.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, def)}px</span>` : '';
+    return `<div class="cpn-locked-item">
       <i class="ph ph-lock-simple cpn-lock-icon"></i>
       <label class="cpn-toggle-label" onclick="event.stopPropagation()">
-        <input type="checkbox" class="cpn-toggle-check" ${lineNumOn ? 'checked' : ''}
-               onchange="cpnToggle('Line Number',this.checked)">
+        <input type="checkbox" class="cpn-toggle-check" ${on ? 'checked' : ''}
+               onchange="cpnToggle('${key}',this.checked)">
         <span class="cpn-toggle-sw"></span>
       </label>
-      <span>Line Number</span>
-    </div>
-    <div class="cpn-divider"></div>` : '';
+      <span class="cp-col-label${on ? '' : ' cp-col-dimmed'}">${label}</span>${widthBadge}
+    </div>`;
+  };
+  const lineNumHTML = lineNumInPool
+    ? _renderLockedDisplayItem('Line Number', 'Line Number', lineNumOn) + (lineCommDef ? _renderLockedDisplayItem('Line Comments', 'Line Comments', lineCommOn) : '') + '<div class="cpn-divider"></div>'
+    : '';
 
-  /* ── Unified draggable list (all non-locked cols, in colOrder) ── */
+  /* ── Unified draggable list (all non-locked, non-uiLocked cols, in colOrder) ── */
   const draggableHTML = colOrder.length
     ? colOrder.map(key => {
         const c = poolMap[key];
@@ -3495,7 +3653,9 @@ function renderColPicker() {
         const isOn = activeColumns.includes(key);
         const hasW = colWidths[key] != null;
         const sliderVal = colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c);
+        const widthBadge = devShowWidths && isOn && !c.hug ? `<span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${sliderVal}px</span>` : '';
         return `<div class="cp-active-item" data-key="${key}"
+                     onmouseenter="colHoverIn('${key}')" onmouseleave="colHoverOut()"
                      ondragover="cpItemDragOver(event,'${key}')"
                      ondrop="cpItemDrop(event,'${key}')"
                      ondragleave="cpItemDragLeave(event)"
@@ -3508,6 +3668,7 @@ function renderColPicker() {
               <span class="cpn-toggle-sw"></span>
             </label>
             <span class="cp-col-label${isOn ? '' : ' cp-col-dimmed'}">${key}</span>
+            ${widthBadge}
             ${isOn && !c.subRow ? `<label class="cp-width-check-label" onclick="event.stopPropagation()" ondragstart="event.stopPropagation()" title="Custom width">
               <input type="checkbox" class="check-box" ${hasW ? 'checked' : ''}
                      onchange="cpWidthToggle('${key}',this)">
@@ -3515,7 +3676,7 @@ function renderColPicker() {
             </label>` : ''}
           </div>
           ${isOn && !c.subRow && hasW ? `<div class="cp-width-row" ondragstart="event.stopPropagation()">
-            <input type="range" class="cp-width-slider" min="20" max="300"
+            <input type="range" class="cp-width-slider" min="${c.minW ?? 20}" max="300"
                    value="${sliderVal}"
                    oninput="cpWidthChange('${key}',this.value)">
           </div>` : ''}
@@ -3528,6 +3689,14 @@ function renderColPicker() {
     const activeSet = activeFieldSets[grp.id] || new Set();
     const items = grp.fields.map(f => {
       const isOn = activeSet.has(f.name);
+      let widthBadge = '';
+      if (devShowWidths && isOn && f.paired) {
+        const pairedDef = poolMap[f.paired];
+        const w = pairedDef?.hug
+          ? `${pairedDef.minW ?? 40}px`
+          : `${autoFitWidths[f.paired] ?? getColPx(f.paired, pairedDef)}px`;
+        widthBadge = `<span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${w}</span>`;
+      }
       return `<div class="cpn-locked-item${isOn ? '' : ' cpn-pl-dim'}">
         <i class="ph ph-lock-simple cpn-lock-icon"></i>
         <label class="cpn-toggle-label" onclick="event.stopPropagation()">
@@ -3535,7 +3704,7 @@ function renderColPicker() {
                  onchange="cpnPlToggle('${grp.id}','${f.name}',this.checked)">
           <span class="cpn-toggle-sw"></span>
         </label>
-        <span class="${isOn ? '' : 'cp-col-dimmed'}">${f.name}</span>
+        <span class="${isOn ? '' : 'cp-col-dimmed'}">${f.name}</span>${widthBadge}
       </div>`;
     }).join('');
     return items;
@@ -3677,7 +3846,7 @@ function getTableWidth() {
   const poolMap = Object.fromEntries(pool.map(c => [c.key, c]));
   return activeColumns
     .filter(k => poolMap[k] && !poolMap[k].subRow)
-    .reduce((s, k) => s + (autoFitWidths[k] ?? getColPx(k, poolMap[k])), 0);
+    .reduce((s, k) => s + (poolMap[k]?.hug ? (poolMap[k].minW ?? 40) : (autoFitWidths[k] ?? getColPx(k, poolMap[k]))), 0);
 }
 
 let userZoomOverride = 1; // 1 = 100% default
@@ -3711,16 +3880,17 @@ function updateZoomLimits() {
   if (btnIn)  btnIn.disabled  = !ZOOM_STEPS.some(z => z > cur + 0.01);
 }
 
+function _previewBaseW() {
+  if (activeType === 'Tags') return _tagPageDims().baseW;
+  return pageOrientation === 'landscape' ? 960 : 700;
+}
+
 function updatePreviewZoom() {
   const shell = document.getElementById('doc-shell');
   if (!shell) return;
-  if (pageOrientation === 'landscape') {
-    shell.style.width = '960px';
-  } else {
-    shell.style.width = '';
-  }
+  const baseW = _previewBaseW();
+  shell.style.width = baseW + 'px';
   const scrollEl = shell.closest('.preview-scroll');
-  const baseW  = pageOrientation === 'landscape' ? 960 : 700;
   const availW = scrollEl ? scrollEl.clientWidth - 56 : baseW;
   const fitZ   = availW / baseW;
   const z      = userZoomOverride !== null ? userZoomOverride : fitZ;
@@ -3733,7 +3903,7 @@ function updatePreviewZoom() {
 function zoomStep(dir) {
   const shell = document.getElementById('doc-shell');
   const scrollEl = shell?.closest('.preview-scroll');
-  const baseW  = pageOrientation === 'landscape' ? 960 : 700;
+  const baseW  = _previewBaseW();
   const availW = scrollEl ? scrollEl.clientWidth - 56 : baseW;
   const fitZ   = availW / baseW;
   const cur    = userZoomOverride !== null ? userZoomOverride : fitZ;
@@ -3816,8 +3986,11 @@ function _applyAutoFit() {
   const poolMap = Object.fromEntries(pool.map(c => [c.key, c]));
   const cols = activeColumns.filter(k => poolMap[k] && !poolMap[k].subRow);
   const printW = getPrintWidth();
-  // Manual = slider-overridden or right-aligned (price/total/qty); flex = content columns
-  const starts = cols.map(k => ({ k, w: getColPx(k, poolMap[k]), manual: colWidths[k] != null || !!poolMap[k]?.r }));
+  // Manual = slider-overridden, right-aligned, or hug; flex = content columns
+  const starts = cols.map(k => {
+    const isHug = !!poolMap[k]?.hug;
+    return { k, w: isHug ? (poolMap[k].minW ?? 40) : getColPx(k, poolMap[k]), manual: colWidths[k] != null || !!poolMap[k]?.r || isHug };
+  });
   const total = starts.reduce((s, c) => s + c.w, 0);
   if (total <= printW) { autoFitWidths = {}; return; }
   const manualW   = starts.filter(c =>  c.manual).reduce((s, c) => s + c.w, 0);
@@ -4362,11 +4535,11 @@ function mountCompanyDropdowns(groupId) {
   container.innerHTML = `
     <div class="co-drop-grid">
       <label class="co-drop-row"><span class="co-drop-label">Name</span>
-        <select class="field-select co-drop-sel" data-group="${groupId}" data-kind="name">${opts}</select></label>
+        <select class="field-select co-drop-sel" id="${groupId}-name-sel" data-group="${groupId}" data-kind="name">${opts}</select></label>
       <label class="co-drop-row"><span class="co-drop-label">Address</span>
-        <select class="field-select co-drop-sel" data-group="${groupId}" data-kind="address">${opts}</select></label>
+        <select class="field-select co-drop-sel" id="${groupId}-addr-sel" data-group="${groupId}" data-kind="address">${opts}</select></label>
       <label class="co-drop-row"><span class="co-drop-label">Phone / Email</span>
-        <select class="field-select co-drop-sel" data-group="${groupId}" data-kind="phone">${opts}</select></label>
+        <select class="field-select co-drop-sel" id="${groupId}-phone-sel" data-group="${groupId}" data-kind="phone">${opts}</select></label>
     </div>
   `;
 
@@ -4418,37 +4591,87 @@ function updateAllBadges() {
 }
 
 /* ── Live preview refresh (no loader) ───────────────────────────────────── */
-function renderIntoPages(contentHTML, containerEl) {
-  const isLandscape = pageOrientation === 'landscape';
-  const baseW = isLandscape ? 960 : 700;
-  const padX  = 64;  // horizontal margin each side
-  const padY  = 56;  // vertical margin each side
-  const pageH = Math.round(baseW * (isLandscape ? 8.5 / 11 : 11 / 8.5));
-  const vpW   = baseW - padX * 2;  // content viewport width
-  const vpH   = pageH - padY * 2;  // content viewport height
+function _tagPageDims() {
+  const sz   = document.querySelector('.tag-size-btn.active input')?.value || '8.5x11';
+  const type = document.querySelector('input[name="tag-type"]:checked')?.value || 'inventory';
+  const PPI  = 700 / 8.5;
+  // Error states always render at letter portrait so the message has room
+  if (getTagError(sz, type)) return { baseW:700, pageH: Math.round(700*11/8.5), padX:64, padY:56 };
+  const TD   = { '4x1':[4,1], '4x2':[4,2], '4x6':[4,6] };
+  if (TD[sz]) return { baseW: Math.round(TD[sz][0]*PPI), pageH: Math.round(TD[sz][1]*PPI), padX:0, padY:0 };
+  // 8.5×11 — landscape for inventory + remnant, portrait for item (no price)
+  if (type === 'item') return { baseW:700, pageH: Math.round(700*11/8.5), padX:64, padY:56 };
+  return { baseW: Math.round(700*11/8.5), pageH:700, padX:64, padY:56 };
+}
 
-  // Measure raw content height at viewport width (no Y padding needed here)
+function renderIntoPages(contentHTML, containerEl) {
+  let baseW, pageH, padX, padY;
+  if (activeType === 'Tags') {
+    ({ baseW, pageH, padX, padY } = _tagPageDims());
+  } else {
+    const isLandscape = pageOrientation === 'landscape';
+    baseW = isLandscape ? 960 : 700;
+    padX  = 64;
+    padY  = 56;
+    pageH = Math.round(baseW * (isLandscape ? 8.5 / 11 : 11 / 8.5));
+  }
+  const vpW   = baseW - padX * 2;
+  const vpH   = pageH - padY * 2;
+
+  // Tags always render as a single page (no pagination)
+  if (activeType === 'Tags') {
+    const inner = padX > 0
+      ? `<div style="position:absolute;top:${padY}px;left:${padX}px;right:${padX}px;bottom:${padY}px;overflow:hidden">${contentHTML}</div>`
+      : contentHTML;
+    containerEl.innerHTML = `<div class="preview-page" style="height:${pageH}px">${inner}</div>`;
+    return;
+  }
+
   const measurer = document.createElement('div');
   measurer.style.cssText = `position:fixed;visibility:hidden;pointer-events:none;top:-9999px;width:${vpW}px;`;
   measurer.innerHTML = contentHTML;
   document.body.appendChild(measurer);
-  const contentH = measurer.scrollHeight;
+
+  // Walk children of the outermost wrapper to assign each to a page without splitting
+  const outerEl = measurer.firstElementChild;
+  let pages;
+  let usesClipFallback = false;
+  if (outerEl && outerEl.children.length > 0) {
+    const outerOpen = outerEl.outerHTML.match(/^<[^>]+>/)[0];
+    const outerClose = `</${outerEl.tagName.toLowerCase()}>`;
+    const pageGroups = [[]];
+    let usedH = 0;
+    Array.from(outerEl.children).forEach(child => {
+      const h = child.offsetHeight;
+      if (usedH > 0 && usedH + h > vpH) {
+        pageGroups.push([]);
+        usedH = 0;
+      }
+      pageGroups[pageGroups.length - 1].push(child.outerHTML);
+      usedH += h;
+    });
+    pages = pageGroups.map(els => `${outerOpen}${els.join('')}${outerClose}`);
+  } else {
+    // Fallback: clip-scroll approach
+    const contentH = measurer.scrollHeight;
+    const n = Math.max(1, Math.ceil(contentH / vpH));
+    pages = Array.from({ length: n }, () => contentHTML);
+    usesClipFallback = true;
+  }
+
   document.body.removeChild(measurer);
 
-  const numPages = Math.max(1, Math.ceil(contentH / vpH));
   let html = '';
-  for (let i = 0; i < numPages; i++) {
-    const pageLabel = '';
-    // Viewport sits between the top and bottom margins; scroll shifts content per page
+  pages.forEach((pageContent, i) => {
+    const scrollTop = usesClipFallback ? -i * vpH : 0;
     html += `<div class="preview-page" style="height:${pageH}px">
       <div class="preview-page-viewport" style="top:${padY}px;left:${padX}px;right:${padX}px;height:${vpH}px;">
-        <div class="preview-page-scroll" style="top:${-i * vpH}px;">
-          ${contentHTML}
+        <div class="preview-page-scroll" style="top:${scrollTop}px;">
+          ${pageContent}
         </div>
       </div>
-      ${pageLabel}
     </div>`;
-  }
+  });
   containerEl.innerHTML = html;
 }
 
@@ -4456,26 +4679,31 @@ function refreshPreviewImmediate() {
   const doc = document.getElementById('preview-doc');
   if (doc && doc.style.display !== 'none') {
     renderIntoPages(buildPreviewHTML(), doc);
+    updatePreviewZoom();
     requestAnimationFrame(updatePageCounter);
+    _applyGhostZoneClasses(doc);
   }
 }
 
 /* ── Ghost hover ────────────────────────────────────────────────────────── */
-let previewGhostField = null;
+let previewGhostField    = null;
+let previewDropdownGhost = null; // { selId, val }
+let previewChipGhost     = null; // { groupName, val }
+
+const DROP_GHOST_ZONES  = { 'table-style-sel': 'zone-table' };
+const CHIP_GHOST_ZONES  = {};
+const FIELD_GHOST_ZONES = { 'Terms Start on New Page': 'zone-footer', 'Force Terms to Bottom': 'zone-footer' };
 
 function highlightPreviewZone(fieldName) {
-  // For checked fields: zone outline (existing)
+  const isSel = Object.values(FIELDS).some(g => g.sel.includes(fieldName));
+  if (isSel) return;
   const zone = FIELD_ZONES[fieldName];
   if (zone) {
     clearPreviewZone();
     document.querySelectorAll(`[data-zone="${zone}"]`).forEach(el => el.classList.add('zone-active'));
   }
-  // For unchecked fields: inject ghost into preview
-  const isSel = Object.values(FIELDS).some(g => g.sel.includes(fieldName));
-  if (!isSel) {
-    previewGhostField = fieldName;
-    refreshPreviewImmediate();
-  }
+  previewGhostField = fieldName;
+  refreshPreviewImmediate();
 }
 
 function clearPreviewZone() {
@@ -4799,6 +5027,7 @@ function getDealerLocation() {
 }
 
 function getRTitleValue() {
+  if (previewDropdownGhost?.selId === 'rtitle-select') return previewDropdownGhost.val;
   const sel = document.getElementById('rtitle-select');
   if (!sel) return 'proposal';
   if (sel.value === 'custom') {
@@ -4824,6 +5053,7 @@ function generatePreview() {
 
   setTimeout(() => {
     renderIntoPages(buildPreviewHTML(), doc);
+    updatePreviewZoom();
     requestAnimationFrame(updatePageCounter);
     // Fade loader out, fade doc in
     loader.style.transition = 'opacity 320ms ease';
@@ -4937,6 +5167,45 @@ function getToggleValue(groupName) {
   const active = document.querySelector(`.toggle-slider[data-group="${groupName}"] .toggle-slider-opt.active`);
   return active ? active.dataset.value : null;
 }
+function getToggleValueForPreview(groupName) {
+  if (previewChipGhost?.groupName === groupName) return previewChipGhost.val;
+  return getToggleValue(groupName);
+}
+
+function _applyGhostZoneClasses(container) {
+  if (!container) return;
+  // Targeted: rtitle → outline just the title element
+  if (previewDropdownGhost?.selId === 'rtitle-select') {
+    container.querySelectorAll('[data-ghost="rtitle"]').forEach(el => el.classList.add('so-ghost-inline'));
+    return;
+  }
+  // Targeted: logo → outline just the logo img
+  if (previewChipGhost?.groupName === 'logo') {
+    container.querySelectorAll('[data-ghost="logo"]').forEach(el => el.classList.add('so-ghost-inline'));
+    return;
+  }
+  // Company dropdown: target specific line
+  if (previewDropdownGhost) {
+    const { selId } = previewDropdownGhost;
+    if (selId.endsWith('-name-sel')) {
+      container.querySelectorAll('[data-ghost="co-name"]').forEach(el => el.classList.add('so-ghost-inline'));
+      return;
+    }
+    if (selId.endsWith('-addr-sel')) {
+      container.querySelectorAll('[data-ghost="co-addr"]').forEach(el => el.classList.add('so-ghost-inline'));
+      return;
+    }
+    if (selId.endsWith('-phone-sel')) {
+      container.querySelectorAll('[data-ghost="co-phone"]').forEach(el => el.classList.add('so-ghost-inline'));
+      return;
+    }
+  }
+  // Zone-level fallbacks
+  let zone = null;
+  if (previewDropdownGhost) zone = DROP_GHOST_ZONES[previewDropdownGhost.selId];
+  if (!zone && previewGhostField) zone = FIELD_GHOST_ZONES[previewGhostField];
+  if (zone) container.querySelectorAll(`[data-zone="${zone}"]`).forEach(el => el.classList.add('so-ghost-block'));
+}
 
 /* ── Preview dispatcher ─────────────────────────────────────────────────── */
 function buildPreviewHTML() {
@@ -4976,10 +5245,10 @@ const PO_ROW_TPL = [
   { 'Manufacturer':'Karndean',   'Style':'Van Gogh',     'Style Number':'VG-890', 'Color':'White Ash',    'Color Number':'WA-03','Quantity':'15.00','Unit':'BX', 'Quantity Detail':'15 BX', 'Price':'$54.00','Total':'$810.00','Comments':'Measure confirm',   'Sidemark':'Master BR', 'SKU':'KAR-VG890-WA'  },
 ];
 const SO_ROW_TPL = [
-  { _t:'pl','Line Number':'','Description':'Carpet — St. Lucia','Style':'Std','Color':'Bark','Material #':'SHG-101','Product Units':'SqYr','Product Quantity':'45.00','Product Price':'$12.50','Product Total':'$562.50','Bin':'A-1','Manufacturer':'Shaw','Split Material':'','Installer Name':'Jack Smith','Labor Type':'Carpet Install','Labor Units':'SqFt','Labor Quantity':'405.00','Labor Price':'$0.39','Labor Total':'$157.95','Status':'Active','Line Comments':'' },
+  { _t:'pl','Line Number':'','Description':'Carpet — St. Lucia','Style':'Std','Color':'Bark','Material #':'-99','Product Units':'SqYr','Product Quantity':'45.00','Product Price':'$12.50','Product Total':'$562.50','Bin':'A-1','Manufacturer':'Shaw','Split Material':'SHG-101 × 28 SqYr\nSHG-103 × 17 SqYr','Installer Name':'Jack Smith','Labor Type':'Carpet Install','Labor Units':'SqFt','Labor Quantity':'405.00','Labor Price':'$0.39','Labor Total':'$157.95','Status':'Active','Line Comments':'' },
   { _t:'pl','Line Number':'','Description':'Hardwood — Heritage Oak','Style':'Std','Color':'Walnut','Material #':'HWD-204','Product Units':'SqFt','Product Quantity':'284.00','Product Price':'$8.75','Product Total':'$2,485.00','Bin':'B-2','Manufacturer':'Armstrong','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Hardwood Install','Labor Units':'SqFt','Labor Quantity':'284.00','Labor Price':'$1.10','Labor Total':'$312.40','Status':'Active','Line Comments':'Glue-down method' },
   { _t:'p','Line Number':'','Description':'Stair Nosing','Style':'Std','Color':'Walnut','Material #':'NOS-018','Product Units':'LF','Product Quantity':'24.00','Product Price':'$14.50','Product Total':'$348.00','Bin':'C-1','Manufacturer':'Armstrong','Split Material':'','Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'','Status':'Active','Line Comments':'' },
-  { _t:'pl','Line Number':'','Description':'Carpet Pad','Style':'Std','Color':'White','Material #':'PAD-007','Product Units':'SqYd','Product Quantity':'50.00','Product Price':'$4.25','Product Total':'$212.50','Bin':'A-3','Manufacturer':'Leggett','Split Material':'','Installer Name':'Jack Smith','Labor Type':'Pad Install','Labor Units':'SqYd','Labor Quantity':'50.00','Labor Price':'$0.25','Labor Total':'$12.50','Status':'Active','Line Comments':'' },
+  { _t:'pl','Line Number':'','Description':'Carpet Pad','Style':'Std','Color':'White','Material #':'-99','Product Units':'SqYd','Product Quantity':'50.00','Product Price':'$4.25','Product Total':'$212.50','Bin':'A-3','Manufacturer':'Leggett','Split Material':'PAD-007 × 30 SqYd\nPAD-009 × 20 SqYd','Installer Name':'Jack Smith','Labor Type':'Pad Install','Labor Units':'SqYd','Labor Quantity':'50.00','Labor Price':'$0.25','Labor Total':'$12.50','Status':'Active','Line Comments':'' },
   { _t:'l','Line Number':'','Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'','Bin':'','Manufacturer':'','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Tearout & Disposal','Labor Units':'SqYd','Labor Quantity':'95.00','Labor Price':'$0.35','Labor Total':'$33.25','Status':'Active','Line Comments':'Old carpet removal' },
 ];
 function cycleRows(tpl, n) {
@@ -4988,11 +5257,11 @@ function cycleRows(tpl, n) {
 
 // WO line-group template — each group = one material item + one labor line
 const WO_GROUP_TPL = [
-  { status:'Ready',     comment:'This comment is exactly 60 characters long. This will print!', style:'St Lucia-12.00',    color:'Bark',       matNum:'24825', prodRef:'24825_rl#625976A63', w:12,   l:438.75, matQty:585, matUnit:'SqYr', matPrice:'$12.50',  matTotal:'$7,312.50', laborType:'Carpet Installation / SF',  lQty:585, lUnit:'SqFt', lPrice:'$0.39', lAmt:'$228.15' },
-  { status:'Scheduled', comment:'',                                                              style:'Harmony-15.00',      color:'Stone Gray', matNum:'31042', prodRef:'31042_rl#738291B54', w:15,   l:312.00, matQty:520, matUnit:'SqYr', matPrice:'$15.00',  matTotal:'$7,800.00', laborType:'Carpet Installation / SF',  lQty:520, lUnit:'SqFt', lPrice:'$0.37', lAmt:'$193.40' },
-  { status:'Active',    comment:'No wax. Customer specified glue-down method.',                  style:'Heritage Oak-5.00',  color:'Walnut',     matNum:'55284', prodRef:'55284_rl#892436C21', w:5,    l:510.00, matQty:284, matUnit:'SqFt', matPrice:'$8.75',   matTotal:'$2,485.00', laborType:'Hardwood Install / LF',     lQty:284, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$312.40' },
-  { status:'Hold',      comment:'',                                                              style:'Coastal Beige-12.00',color:'Sand',       matNum:'18374', prodRef:'18374_rl#511830D77', w:12,   l:292.50, matQty:390, matUnit:'SqYr', matPrice:'$11.25',  matTotal:'$4,387.50', laborType:'Carpet Removal & Disposal', lQty:390, lUnit:'SqYr', lPrice:'$0.35', lAmt:'$136.50' },
-  { status:'Complete',  comment:'Completed 05/28. Final inspection passed.',                     style:'Grand Oak-3.25',     color:'Espresso',   matNum:'67291', prodRef:'67291_rl#340571E92', w:3.25, l:680.00, matQty:184, matUnit:'SqFt', matPrice:'$7.50',   matTotal:'$1,380.00', laborType:'Hardwood Install / LF',     lQty:184, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$202.40' },
+  { status:'Ready',     comment:'This comment is exactly 60 characters long. This will print!', style:'St Lucia-12.00',    color:'Bark',       matNum:'24825', prodRef:'24825_rl#625976A63', w:12,   l:438.75, matQty:585, matUnit:'SqYr', matPrice:'$12.50',  matTotal:'$7,312.50', 'Product Order':'12.0 x 4_7',  'Product Before':'12.0 x 7_6',  'Product After':'12.0 x 2_11', laborType:'Carpet Installation / SF',  lQty:585, lUnit:'SqFt', lPrice:'$0.39', lAmt:'$228.15' },
+  { status:'Scheduled', comment:'',                                                              style:'Harmony-15.00',      color:'Stone Gray', matNum:'31042', prodRef:'31042_rl#738291B54', w:15,   l:312.00, matQty:520, matUnit:'SqYr', matPrice:'$15.00',  matTotal:'$7,800.00', 'Product Order':'15.0 x 6_3',  'Product Before':'15.0 x 8_4',  'Product After':'15.0 x 3_1',  laborType:'Carpet Installation / SF',  lQty:520, lUnit:'SqFt', lPrice:'$0.37', lAmt:'$193.40' },
+  { status:'Active',    comment:'No wax. Customer specified glue-down method.',                  style:'Heritage Oak-5.00',  color:'Walnut',     matNum:'55284', prodRef:'55284_rl#892436C21', w:5,    l:510.00, matQty:284, matUnit:'SqFt', matPrice:'$8.75',   matTotal:'$2,485.00', 'Product Order':'5.0 x 10_2',  'Product Before':'5.0 x 14_8',  'Product After':'5.0 x 7_0',   laborType:'Hardwood Install / LF',     lQty:284, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$312.40' },
+  { status:'Hold',      comment:'',                                                              style:'Coastal Beige-12.00',color:'Sand',       matNum:'18374', prodRef:'18374_rl#511830D77', w:12,   l:292.50, matQty:390, matUnit:'SqYr', matPrice:'$11.25',  matTotal:'$4,387.50', 'Product Order':'12.0 x 3_9',  'Product Before':'12.0 x 5_11', 'Product After':'12.0 x 2_4',  laborType:'Carpet Removal & Disposal', lQty:390, lUnit:'SqYr', lPrice:'$0.35', lAmt:'$136.50' },
+  { status:'Complete',  comment:'Completed 05/28. Final inspection passed.',                     style:'Grand Oak-3.25',     color:'Espresso',   matNum:'67291', prodRef:'67291_rl#340571E92', w:3.25, l:680.00, matQty:184, matUnit:'SqFt', matPrice:'$7.50',   matTotal:'$1,380.00', 'Product Order':'3.25 x 8_5',  'Product Before':'3.25 x 10_0', 'Product After':'3.25 x 5_6',  laborType:'Hardwood Install / LF',     lQty:184, lUnit:'SqFt', lPrice:'$1.10', lAmt:'$202.40' },
 ];
 function cycleWOGroups(n) {
   return Array.from({ length: n }, (_, i) => ({ ...WO_GROUP_TPL[i % WO_GROUP_TPL.length], lineNum: i + 1 }));
@@ -5013,7 +5282,7 @@ function buildWOPreviewHTML() {
   const hasSel  = f => Object.values(FIELDS).some(g => g.sel.includes(f));
   const isGhost = f => previewGhostField === f && !hasSel(f);
 
-  const logoPos    = getToggleValue('logo') || 'left';
+  const logoPos    = getToggleValueForPreview('logo') || 'left';
   const showCoName   = hasSel('Company Name');   const showLocName   = hasSel('Location Name');
   const showCoAddr   = hasSel('Company Address'); const showLocAddr   = hasSel('Location Address');
   const showCoPhone  = hasSel('Company Phone/Email'); const showLocPhone = hasSel('Location Phone/Email');
@@ -5025,7 +5294,7 @@ function buildWOPreviewHTML() {
   const ghostSoldTo = isGhost('Sold To'); const ghostSoldToPhone = isGhost('Sold To Phone/Email');
   const ghostShipTo = isGhost('Ship To'); const ghostShipToPhone = isGhost('Ship To Phone');
   const showTs     = hasSel('Timestamp'); const ghostTs = isGhost('Timestamp');
-  const tsSpan     = showTs ? `<span>06/01/2026 08:30 AM</span>` : (ghostTs ? `<span style="opacity:0.35;font-style:italic">06/01/2026 08:30 AM</span>` : '');
+  const tsSpan     = showTs ? `<span>06/01/2026 08:30 AM</span>` : (ghostTs ? `<span class="so-ghost-inline">06/01/2026 08:30 AM</span>` : '');
 
   const DATE_VALS = {
     'Invoice #': ['Invoice #', 'INV-2026-0042'],
@@ -5046,84 +5315,180 @@ function buildWOPreviewHTML() {
   ];
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
   if (ghostDateKey) dateRows.push({ vals: DATE_VALS[ghostDateKey], ghost: true });
+  if (previewGhostField === 'Custom Field' && !hasSel('Custom Field')) {
+    dateRows.push({ vals: [(document.getElementById('custom-field-label-input') || {}).value || 'Custom Field', 'CF-00123'], ghost: true });
+  }
 
   const WO_GROUPS = cycleWOGroups(previewLineCount);
 
   const showQty    = pairedColVisible('Qty');
   const showUnits  = pairedColVisible('Units');
-  const showOrder  = pairedColVisible('Order');
-  const showBefore = pairedColVisible('Before');
-  const showAfter  = pairedColVisible('After');
-  const showPrice  = pairedColVisible('Price');
-  const showTotal  = pairedColVisible('Total');
+  const showOrder      = pairedColVisible('Order');
+  const showLaborPrice = wof('Labor Price');
+  const showBefore     = pairedColVisible('Before');
+  const showLaborTotal = wof('Labor Total');
+  const showAfter      = pairedColVisible('After');
 
-  const rightCols = (qtyVal, unitVal, orderVal, beforeVal, afterVal, priceVal, totalVal) => {
+  // Col widths for right section
+  const _CW = { qty:80, order:72, price:60, before:72, total:70, after:72, gap:6 };
+
+  // Standard right cols (material row): fixed slots
+  const rightCols = (qtyVal, unitVal, orderVal, beforeVal, afterVal) => {
     const qtyDisplay = showUnits && qtyVal && unitVal ? `${qtyVal} ${unitVal}` : qtyVal;
-    return `
-    <span class="wc-spacer"></span>
+    return `<div class="wo-row-right">
     ${showQty    ? `<span class="wc-col-qty">${qtyDisplay}</span>`   : ''}
-    ${showOrder  ? `<span class="wc-col-order">${orderVal}</span>`   : ''}
-    ${showBefore ? `<span class="wc-col-before">${beforeVal}</span>` : ''}
-    ${showAfter  ? `<span class="wc-col-after">${afterVal}</span>`   : ''}
-    ${showPrice  ? `<span class="wc-col-price">${priceVal}</span>`   : ''}
-    ${showTotal  ? `<span class="wc-col-total">${totalVal}</span>`   : ''}`;
+    ${showOrder  ? `<span class="wc-col-order">${orderVal}</span>`  : ''}
+    ${showBefore ? `<span class="wc-col-before">${beforeVal}</span>`: ''}
+    ${showAfter  ? `<span class="wc-col-after">${afterVal}</span>`  : ''}
+    </div>`;
   };
 
-  const linesHTML = `<div class="wo-items" data-zone="zone-table">
-    <div class="wo-items-hdr">
-      <span class="wo-hdr-spacer"></span>
-      ${showQty    ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`       : ''}
-      ${showOrder  ? `<span class="wo-hdr-col wc-col-order">Order</span>`   : ''}
-      ${showBefore ? `<span class="wo-hdr-col wc-col-before">Before</span>` : ''}
-      ${showAfter  ? `<span class="wo-hdr-col wc-col-after">After</span>`   : ''}
-      ${showPrice  ? `<span class="wo-hdr-col wc-col-price"></span>`        : ''}
-      ${showTotal  ? `<span class="wo-hdr-col wc-col-total"></span>`        : ''}
-    </div>
-    ${WO_GROUPS.map(g => {
-      const commentRow = `<div class="wo-row">
+  // Labor right cols: independent per-row cell placement.
+  // Tracks only the 3 material columns (order, before, after) — no price/total spacers.
+  // Price and total are absolutely positioned at the seam midpoints between adjacent columns.
+  const laborRightCols = (qtyVal, unitVal, lPriceVal, lTotalVal) => {
+    const qtyDisplay = showUnits && qtyVal && unitVal ? `${qtyVal} ${unitVal}` : qtyVal;
+    const G = _CW.gap;
+
+    // Track the 3 material columns only (mirrors the updated rightCols)
+    let pos = 0;
+    const track = (active, w) => {
+      if (!active) return null;
+      const c = { left: pos, w, right: pos + w };
+      pos += w + G; return c;
+    };
+    const cOrder  = track(showOrder,  _CW.order);
+    const cBefore = track(showBefore, _CW.before);
+    const cAfter  = track(showAfter,  _CW.after);
+    if (pos > G) pos -= G;
+    const rightW = pos;
+
+    const wantPrice = showLaborPrice && lPriceVal;
+    const wantTotal = showLaborTotal && lTotalVal;
+
+    // Price left edge: prefer Order/Before seam, fall back to edge of whichever col exists
+    let priceLeft = 0;
+    if (wantPrice) {
+      if (cOrder && cBefore) priceLeft = cOrder.right + G / 2 - _CW.price / 2;
+      else if (cOrder)       priceLeft = cOrder.right + G / 2 - _CW.price / 2;
+      else if (cBefore)      priceLeft = Math.max(0, cBefore.left - _CW.price / 2 - G / 2);
+      else                   priceLeft = 0;
+    }
+
+    // Total left edge: prefer Before/After seam, fall back to edge of whichever col exists
+    let totalLeft = wantPrice ? _CW.price + G : 0;
+    if (wantTotal) {
+      if (cBefore && cAfter) totalLeft = cBefore.right + G / 2 - _CW.total / 2;
+      else if (cBefore)      totalLeft = cBefore.right + G / 2 - _CW.total / 2;
+      else if (cAfter)       totalLeft = Math.max(0, cAfter.left - _CW.total / 2 - G / 2);
+      else                   totalLeft = wantPrice ? _CW.price + G : 0;
+    }
+
+    const priceNeeds = wantPrice ? priceLeft + _CW.price : 0;
+    const totalNeeds = wantTotal ? totalLeft + _CW.total : 0;
+    const containerW = Math.max(rightW, priceNeeds, totalNeeds);
+
+    const S = 'position:absolute;top:0;font-size:10px;white-space:nowrap;text-align:center';
+    const priceSpan = wantPrice
+      ? `<span style="${S};left:${priceLeft}px;width:${_CW.price}px;font-style:italic;color:rgba(0,0,0,0.65)">${lPriceVal}</span>`
+      : '';
+    const totalSpan = wantTotal
+      ? `<span style="${S};left:${totalLeft}px;width:${_CW.total}px;font-weight:500">${lTotalVal}</span>`
+      : '';
+
+    return `<div class="wo-row-right">
+    ${showQty ? `<span class="wc-col-qty">${qtyDisplay}</span>` : ''}
+    ${containerW > 0 ? `<div style="position:relative;width:${containerW}px;height:1em;flex-shrink:0">${priceSpan}${totalSpan}</div>` : ''}
+    </div>`;
+  };
+
+  const woTableStyle = document.getElementById('wo-table-style-sel')?.value || 'classic';
+
+  const woHdrRight = `<div class="wo-row-right">
+    ${showQty    ? `<span class="wo-hdr-col wc-col-qty">Qty</span>`       : ''}
+    ${showOrder  ? `<span class="wo-hdr-col wc-col-order">Order</span>`  : ''}
+    ${showBefore ? `<span class="wo-hdr-col wc-col-before">Before</span>`: ''}
+    ${showAfter  ? `<span class="wo-hdr-col wc-col-after">After</span>`  : ''}
+  </div>`;
+
+  const buildWOGroupHTML = (g) => {
+    const commentRow = `<div class="wo-row">
+      <div class="wo-row-left">
         ${wof('Line #') ? `<span class="wc-num">${g.lineNum}</span>` : ''}
         ${wof('Status')   ? `<span class="wc-status">${g.status}</span>` : ''}
         ${wof('Comments') && g.comment ? `<span class="wc-comment">${g.comment}</span>` : ''}
-        ${rightCols('', '', '', '', '', '', '')}
-      </div>`;
-      const materialRow = `<div class="wo-row">
+      </div>
+      ${rightCols('', '', '', '', '')}
+    </div>`;
+    const materialRow = `<div class="wo-row">
+      <div class="wo-row-left">
         ${wof('Style')      ? `<span class="wc-style">${g.style}</span>`   : ''}
         ${wof('Color')      ? `<span class="wc-color">${g.color}</span>`   : ''}
         ${wof('Material #') ? `<span class="wc-matnum">${g.matNum}</span>` : ''}
-        ${rightCols(
-          wof('Material Qty')   ? String(g.matQty) : '',
-          wof('Material Units') ? g.matUnit : '',
-          wof('Product Order')  ? g['Product Order'] : '',
-          wof('Product Before') ? g['Product Before'] : '',
-          wof('Product After')  ? g['Product After'] : '',
-          wof('Material Price') ? g.matPrice : '',
-          wof('Material Total') ? g.matTotal : ''
-        )}
-      </div>`;
-      const showProdRef  = wof('Product #');
-      const showDims     = wof('Dimensions');
-      const productRow   = (showProdRef || showDims) ? `<div class="wo-row">
+      </div>
+      ${rightCols(
+        wof('Material Qty')   ? String(g.matQty) : '',
+        wof('Material Units') ? g.matUnit : '',
+        wof('Product Order')  ? g['Product Order'] : '',
+        wof('Product Before') ? g['Product Before'] : '',
+        wof('Product After')  ? g['Product After'] : ''
+      )}
+    </div>`;
+    const showProdRef = wof('Product #');
+    const showDims    = wof('Dimensions');
+    const productRow  = (showProdRef || showDims) ? `<div class="wo-row">
+      <div class="wo-row-left">
         ${showProdRef ? `<span class="wc-prodlbl">Product #</span><span class="wc-prodval">${g.prodRef}</span>` : ''}
         ${showDims    ? `<span class="wc-dims">${g.w} &times; ${g.l.toFixed(2)}</span>` : ''}
-        ${rightCols('', '', '', '', '', '', '')}
-      </div>` : '';
-      const laborRow = `<div class="wo-row">
+      </div>
+      ${rightCols('', '', '', '', '')}
+    </div>` : '';
+    const lPriceDisp = wof('Labor Price') ? `@ ${g.lPrice.replace('$','')}` : '';
+    const lTotalDisp = wof('Labor Total') ? g.lAmt.replace('$','') : '';
+    const laborRow = `<div class="wo-row wc-labor-row">
+      <div class="wo-row-left">
         <span class="wc-lgap"></span>
         ${wof('Labor Type') ? `<span class="wc-labor">${g.laborType}</span>` : ''}
-        ${rightCols(
-          wof('Labor Qty')   ? String(g.lQty) : '',
-          wof('Labor Units') ? g.lUnit : '',
-          '', '', '',
-          wof('Labor Price') ? g.lPrice : '',
-          wof('Labor Total') ? g.lAmt   : ''
-        )}
-      </div>`;
-      return `<div class="wo-group">${commentRow}${materialRow}${productRow}${laborRow}</div>`;
-    }).join('')}
-  </div>`;
+      </div>
+      ${laborRightCols(
+        wof('Labor Qty')   ? String(g.lQty) : '',
+        wof('Labor Units') ? g.lUnit : '',
+        lPriceDisp,
+        lTotalDisp
+      )}
+    </div>`;
+    return `<div class="wo-group">${commentRow}${materialRow}${productRow}${laborRow}</div>`;
+  };
+
+  let linesHTML;
+  if (woTableStyle === 'groups') {
+    const n = WO_GROUPS.length;
+    const cuts = [Math.ceil(n * 0.4), Math.ceil(n * 0.75)];
+    const WO_MOCK_ROOMS = [
+      { label:'Living Room', items: WO_GROUPS.slice(0,       cuts[0]) },
+      { label:'Bedroom',     items: WO_GROUPS.slice(cuts[0], cuts[1]) },
+      { label:'Kitchen',     items: WO_GROUPS.slice(cuts[1])          },
+    ].filter(r => r.items.length);
+    linesHTML = WO_MOCK_ROOMS.map(room => `
+      <div class="wo-items" data-zone="zone-table" style="margin-bottom:16px">
+        <div class="wo-items-hdr" style="background:rgba(0,0,0,0.09)">
+          <div class="wo-row-left" style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.7)">${room.label}</div>
+          ${woHdrRight}
+        </div>
+        ${room.items.map(buildWOGroupHTML).join('')}
+      </div>`).join('');
+  } else {
+    linesHTML = `<div class="wo-items" data-zone="zone-table">
+      <div class="wo-items-hdr">
+        <div class="wo-row-left"></div>
+        ${woHdrRight}
+      </div>
+      ${WO_GROUPS.map(buildWOGroupHTML).join('')}
+    </div>`;
+  }
 
   const woLaborTotal = WO_GROUPS.reduce((s, g) => s + parseDollar(g.lAmt), 0);
-  const showLaborTotal  = hasSel('Labor Total');
+  const showLaborTotalHdr  = hasSel('Labor Total');
   const ghostLaborTotal = isGhost('Labor Total');
   const WO_TOTAL_DEFS = [
     { key:'Balance',  label:'Balance Due', val:fmtDollar(woLaborTotal), cls:' balance-due'},
@@ -5135,10 +5500,10 @@ function buildWOPreviewHTML() {
   const woCommentsRow = TOTAL_ROWS.find(r => r.key === 'Comments');
   const woNumericRows = TOTAL_ROWS.filter(r => r.key !== 'Comments');
   const woNumericInner = woNumericRows.length
-    ? `<div class="so-totals">${woNumericRows.map(r => { const s = r.ghost ? ' style="opacity:0.35;font-style:italic"' : ''; return `<div class="so-total-row${r.cls}"${s}><span>${r.label}</span><span class="so-total-val">${r.val}</span></div>`; }).join('')}</div>` : '';
+    ? `<div class="so-totals">${woNumericRows.map(r => { const g = r.ghost ? ' so-ghost-inline' : ''; return `<div class="so-total-row${r.cls}${g}"><span>${r.label}</span><span class="so-total-val">${r.val}</span></div>`; }).join('')}</div>` : '';
   const totalsHTML = woCommentsRow
     ? `<div class="so-comments-totals" data-zone="zone-totals">
-        <div class="so-comments-col"${woCommentsRow.ghost ? ' style="opacity:0.35;font-style:italic"' : ''}>
+        <div class="so-comments-col${woCommentsRow.ghost ? ' so-ghost-inline' : ''}">
           <div class="so-comments-col-lbl">Comments</div>
           <div>${woCommentsRow.val}</div>
         </div>
@@ -5151,25 +5516,36 @@ function buildWOPreviewHTML() {
   const sigContent = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px" data-zone="zone-totals"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Installer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
   const sigHTML = showSig ? sigContent : (ghostSig ? `<div class="so-ghost-block">${sigContent}</div>` : '');
 
-  const logoEl = `<img class="so-logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
-  const _g = t => `<span style="opacity:0.35;font-style:italic">${t}</span>`;
+  const logoEl = `<img class="so-logo" data-ghost="logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
+  const _g = t => `<span class="so-ghost-inline">${t}</span>`;
   const nameReal  = showLocName  ? 'Feargal McNamara &amp; Sons Denver'            : showCoName   ? 'Feargal McNamara &amp; Sons'          : null;
   const addrReal  = showLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': showCoAddr   ? '500 Commerce Dr<br>Boulder, CO 80302'  : null;
   const phoneReal = showLocPhone ? '(720) 555-0199<br>denver@feargalmcnamara.com'  : showCoPhone  ? '(303) 555-0100<br>info@feargalmcnamara.com' : null;
   const nameGhost  = !nameReal  && (ghostLocName  ? 'Feargal McNamara &amp; Sons Denver'            : ghostCoName  ? 'Feargal McNamara &amp; Sons'          : null);
   const addrGhost  = !addrReal  && (ghostLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': ghostCoAddr  ? '500 Commerce Dr<br>Boulder, CO 80302'  : null);
   const phoneGhost = !phoneReal && (ghostLocPhone ? '(720) 555-0199<br>denver@feargalmcnamara.com'  : ghostCoPhone ? '(303) 555-0100<br>info@feargalmcnamara.com' : null);
-  const showCompany = !!(nameReal || addrReal || phoneReal || nameGhost || addrGhost || phoneGhost);
-  const companyInfo = showCompany ? `<div class="so-company-info">${
-    [nameReal||(nameGhost&&_g(nameGhost)), addrReal||(addrGhost&&_g(addrGhost)), phoneReal||(phoneGhost&&_g(phoneGhost))].filter(Boolean).join('<br>')
-  }</div>` : '';
+  const _dgs = previewDropdownGhost?.selId;
+  const nameDropGhost  = !nameReal  && !nameGhost  && _dgs?.endsWith('-name-sel')  ? 'Feargal McNamara &amp; Sons'              : null;
+  const addrDropGhost  = !addrReal  && !addrGhost  && _dgs?.endsWith('-addr-sel')  ? '500 Commerce Dr<br>Boulder, CO 80302'     : null;
+  const phoneDropGhost = !phoneReal && !phoneGhost && _dgs?.endsWith('-phone-sel') ? '(303) 555-0100<br>info@feargalmcnamara.com' : null;
+  const showCompany = !!(nameReal || addrReal || phoneReal || nameGhost || addrGhost || phoneGhost || nameDropGhost || addrDropGhost || phoneDropGhost);
+  const nameEl  = nameReal       ? `<span data-ghost="co-name">${nameReal}</span>`
+                : nameGhost      ? `<span class="so-ghost-inline" data-ghost="co-name">${nameGhost}</span>`
+                : nameDropGhost  ? `<span class="so-ghost-inline" data-ghost="co-name">${nameDropGhost}</span>` : null;
+  const addrEl  = addrReal       ? `<span data-ghost="co-addr">${addrReal}</span>`
+                : addrGhost      ? `<span class="so-ghost-inline" data-ghost="co-addr">${addrGhost}</span>`
+                : addrDropGhost  ? `<span class="so-ghost-inline" data-ghost="co-addr">${addrDropGhost}</span>` : null;
+  const phoneEl = phoneReal      ? `<span data-ghost="co-phone">${phoneReal}</span>`
+                : phoneGhost     ? `<span class="so-ghost-inline" data-ghost="co-phone">${phoneGhost}</span>`
+                : phoneDropGhost ? `<span class="so-ghost-inline" data-ghost="co-phone">${phoneDropGhost}</span>` : null;
+  const companyInfo = showCompany ? `<div class="so-company-info">${[nameEl, addrEl, phoneEl].filter(Boolean).join('<br>')}</div>` : '';
   const metaTable = dateRows.length
-    ? `<table class="so-meta-table">${dateRows.map(e=>`<tr${e.ghost?' style="opacity:0.35;font-style:italic"':e.required?' style="font-weight:600"':''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>` : '';
+    ? `<table class="so-meta-table">${dateRows.map(e=>`<tr${e.ghost?' class="so-ghost-row"':e.required?' style="font-weight:600"':''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>` : '';
 
-  const woTotalDisplay = showLaborTotal
+  const woTotalDisplay = showLaborTotalHdr
     ? fmtDollar(woLaborTotal)
-    : (ghostLaborTotal ? `<span style="opacity:0.35;font-style:italic">${fmtDollar(woLaborTotal)}</span>` : '');
-  const headerTotalHTML = (showLaborTotal || ghostLaborTotal)
+    : (ghostLaborTotal ? `<span class="so-ghost-inline">${fmtDollar(woLaborTotal)}</span>` : '');
+  const headerTotalHTML = (showLaborTotalHdr || ghostLaborTotal)
     ? `<div class="so-header-total" data-zone="zone-dates">${woTotalDisplay}</div>` : '';
 
   let headerHTML = '';
@@ -5199,8 +5575,8 @@ function buildWOPreviewHTML() {
 
   let addressHTML = '';
   if (showSoldTo||showShipTo||ghostSoldTo||ghostShipTo) {
-    const stPhone = showSoldToPhone ? '<br>(303) 555-1234 · john@example.com' : ghostSoldToPhone ? '<br><span style="opacity:0.35;font-style:italic">(303) 555-1234 · john@example.com</span>' : '';
-    const shPhone = showShipToPhone ? '<br>(303) 555-5678' : ghostShipToPhone ? '<br><span style="opacity:0.35;font-style:italic">(303) 555-5678</span>' : '';
+    const stPhone = showSoldToPhone ? '<br>(303) 555-1234 · john@example.com' : ghostSoldToPhone ? '<br><span class="so-ghost-inline">(303) 555-1234 · john@example.com</span>' : '';
+    const shPhone = showShipToPhone ? '<br>(303) 555-5678' : ghostShipToPhone ? '<br><span class="so-ghost-inline">(303) 555-5678</span>' : '';
     const soldToBox = `<div class="so-addr-box">John Smith<br>742 Evergreen Terrace<br>Springfield, CO 80230${stPhone}</div>`;
     const shipToBox = `<div class="so-addr-box">742 Evergreen Terrace<br>Springfield, CO 80230${shPhone}</div>`;
     addressHTML = `<div class="so-addresses">`;
@@ -5212,7 +5588,7 @@ function buildWOPreviewHTML() {
     addressHTML += `</div>`;
   }
 
-  return `<div class="so-page">${headerHTML}${addressHTML}<div class="so-divider"></div>${linesHTML}${totalsHTML}${sigHTML}</div>`;
+  return `<div class="so-page"><div data-zone="zone-header">${headerHTML}</div>${addressHTML}<div class="so-divider"></div>${linesHTML}${totalsHTML}${sigHTML}</div>`;
 }
 
 /* ── Purchase Order preview ──────────────────────────────────────────────── */
@@ -5240,9 +5616,9 @@ function buildPOPreviewHTML() {
     ['Terms',         'Net 30'],
   ].map(vals => ({ vals, ghost: false }));
 
-  /* ── line items — all fields always rendered ── */
-  const wof = () => true;
-  const showMfr   = true;
+  /* ── line items ── */
+  const wof = fieldName => Object.values(activeFieldSets).some(s => s.has(fieldName));
+  const showMfr   = wof('Manufacturer');
   const showStyle = wof('Style') || wof('Style #');
   const showColor = wof('Color') || wof('Color #');
   const showRef   = wof('SKU') || wof('Sidemark') || wof('Qty Detail');
@@ -5322,16 +5698,16 @@ function buildPOPreviewHTML() {
   /* ── document header ── */
   const companyInfo = `<div class="so-company-info">Feargal McNamara & Sons<br>1765 Mamluk Drive, Denver, CO 80202<br>purchasing@feargalmcnamara.com</div>`;
   const metaTable   = dateRows.length
-    ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' style="opacity:0.35;font-style:italic"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
+    ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' class="so-ghost-row"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
     : '';
 
   const tsSpan = showTs
     ? `<span>05/08/2026 09:14 AM</span>`
-    : (ghostTs ? `<span style="opacity:0.35;font-style:italic">05/08/2026 09:14 AM</span>` : '<span></span>');
+    : (ghostTs ? `<span class="so-ghost-inline">05/08/2026 09:14 AM</span>` : '<span></span>');
 
   /* ── Bill To block (company's own address, unboxed) ── */
   const billToBlock = (showBillTo || ghostBillTo)
-    ? `<div${ghostBillTo ? ' style="opacity:0.35;font-style:italic"' : ''}><div class="so-addr-lbl">Bill To</div><div class="so-company-info">Feargal McNamara &amp; Sons<br>1765 Mamluk Drive<br>Denver, CO 80202</div></div>`
+    ? `<div${ghostBillTo ? ' class="so-ghost-block"' : ''}><div class="so-addr-lbl">Bill To</div><div class="so-company-info">Feargal McNamara &amp; Sons<br>1765 Mamluk Drive<br>Denver, CO 80202</div></div>`
     : '';
 
   const headerHTML = `
@@ -5366,138 +5742,248 @@ function buildPOPreviewHTML() {
   /* ── special instructions (Comments field) ── */
   let commentsHTML = '';
   if (showComm || ghostComm) {
-    commentsHTML = `<div class="po-special-instructions" data-zone="zone-company"${ghostComm ? ' style="opacity:0.35;font-style:italic"' : ''}><span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.65);display:block;margin-bottom:4px">Special Instructions</span>Please deliver to side entrance. Confirm TrueGrain lead time before processing.</div>`;
+    commentsHTML = `<div class="po-special-instructions${ghostComm ? ' so-ghost-block' : ''}" data-zone="zone-company"><span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.65);display:block;margin-bottom:4px">Special Instructions</span>Please deliver to side entrance. Confirm TrueGrain lead time before processing.</div>`;
   }
 
   return `<div class="so">${headerHTML}${addressHTML}${commentsHTML}${linesHTML}${totalsHTML}${footerHTML}</div>`;
 }
+function getTagError(size, tagType) {
+  if (size === '4x1' && (tagType === 'remnant' || tagType === 'item'))
+    return 'No report can be produced with these settings.';
+  if (size === '4x2' && tagType === 'item')
+    return 'No report can be produced with these settings.';
+  if (size === '4x6' && (tagType === 'inventory' || tagType === 'remnant'))
+    return 'No report can be produced with these settings.';
+  return null;
+}
+
+function updateTagSummary() {
+  const el = document.getElementById('tag-summary');
+  if (!el) return;
+  const formula      = document.getElementById('tag-price-formula')?.value || 'retail';
+  const formulaLabel = { retail:'Retail price', cost_plus:'Cost + markup %', compare_at:'Compare-at price', wholesale:'Wholesale' }[formula] || formula;
+  const tagType      = document.querySelector('input[name="tag-type"]:checked')?.value || 'inventory';
+  const showWas      = tagType === 'remnant';
+  el.innerHTML = `
+    <div class="tag-summary-row"><span class="tag-summary-label">Cost</span><span class="tag-summary-val">$28.50</span></div>
+    <div class="tag-summary-row"><span class="tag-summary-label">Retail</span><span class="tag-summary-val">$36.84</span></div>
+    <div class="tag-summary-row" style="grid-column:1/-1"><span class="tag-summary-label">Price formula</span><span class="tag-summary-val">${formulaLabel}</span></div>
+    ${showWas ? `<div class="tag-summary-row" style="grid-column:1/-1"><span class="tag-summary-label">Was</span><span class="tag-summary-val">$40.00</span></div>` : ''}
+  `;
+  const size    = document.querySelector('.tag-size-btn.active input')?.value || '8.5x11';
+  const err     = getTagError(size, tagType);
+  const saveBtn = document.querySelector('.btn-save');
+  if (saveBtn) saveBtn.disabled = !!err;
+}
+
 function buildTagsPreviewHTML() {
-  const sizeBtn   = document.querySelector('.tag-size-btn.active input');
-  const size      = sizeBtn ? sizeBtn.value : '8.5x11';
-  const typeRadio = document.querySelector('input[name="tag-type"]:checked');
-  const tagType   = typeRadio ? typeRadio.value : 'inventory';
-  const showSqyd  = document.getElementById('chk-tag-sqyd')?.checked ?? false;
-  const invBarcode= document.getElementById('chk-tag-inv-barcode')?.checked ?? false;
+  const sizeBtn    = document.querySelector('.tag-size-btn.active input');
+  const size       = sizeBtn ? sizeBtn.value : '8.5x11';
+  const typeRadio  = document.querySelector('input[name="tag-type"]:checked');
+  const tagType    = typeRadio ? typeRadio.value : 'inventory';
+  const showSqyd   = document.getElementById('chk-tag-sqyd')?.checked ?? false;
+  const invBarcode = document.getElementById('chk-tag-inv-barcode')?.checked ?? false;
   const aboveRetail= document.getElementById('chk-tag-retail')?.checked ?? false;
-  const remBarcode= document.getElementById('chk-tag-rem-barcode')?.checked ?? false;
-  const showBarcode = tagType === 'inventory' ? invBarcode : tagType === 'remnant' ? remBarcode : false;
+  const remBarcode = document.getElementById('chk-tag-rem-barcode')?.checked ?? false;
+  const showBarcode= tagType === 'inventory' ? invBarcode : tagType === 'remnant' ? remBarcode : false;
 
-  const barcodeHTML = showBarcode ? `
-    <div style="margin-top:auto;padding-top:6px;border-top:1px solid #e5e7eb">
-      <div style="display:flex;gap:1px;height:22px;align-items:flex-end">
-        ${Array.from({length:28}, (_,i) => {
-          const w = [1,1,2,1,1,2,1,2,1,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,1,1][i] ?? 1;
-          const h = [22,18,22,14,22,18,22,14,22,22,18,22,14,22,18,22,14,22,18,22,14,18,22,18,22,14,22,22][i] ?? 16;
-          return `<div style="background:#1a1a1a;width:${w}px;height:${h}px;flex-shrink:0"></div>`;
-        }).join('')}
-      </div>
-      <div style="font-size:7px;text-align:center;letter-spacing:0.08em;color:#374151;margin-top:2px">0 12345 67890 5</div>
-    </div>` : '';
+  updateTagSummary();
 
-  function inventoryTag(compact) {
-    const fs = compact ? '8px' : '11px';
-    const nameFs = compact ? '9px' : '13px';
-    const priceFs = compact ? '11px' : '16px';
-    return `
-      <div style="font-size:${fs};color:#374151;line-height:1.4;display:flex;flex-direction:column;height:100%">
-        <div style="font-size:${nameFs};font-weight:700;color:#111827;margin-bottom:${compact?'2px':'4px'}">BERBER LOOP PILE — CAMEL #4</div>
-        <div style="color:#6b7280">SKU: FP-BLP-4412 &nbsp;|&nbsp; Roll #: 7</div>
-        <div style="color:#6b7280;margin-bottom:${compact?'3px':'6px'}">Color: Camel &nbsp;|&nbsp; Width: 12 ft</div>
-        <div style="display:flex;align-items:baseline;gap:${compact?'6px':'10px'};margin-bottom:${compact?'2px':'4px'}">
-          <div style="font-size:${priceFs};font-weight:700;color:#1d4ed8">$3.99<span style="font-size:${fs};font-weight:400;color:#6b7280">/sqft</span></div>
-          ${showSqyd ? `<div style="font-size:${priceFs};font-weight:700;color:#1d4ed8">$35.91<span style="font-size:${fs};font-weight:400;color:#6b7280">/sqyd</span></div>` : ''}
-        </div>
-        <div style="color:#6b7280">Available: 127 sqft (14.1 sqyd)</div>
-        ${barcodeHTML}
-      </div>`;
+  const err = getTagError(size, tagType);
+  if (err) {
+    return `<div style="padding:40px 32px;display:flex;flex-direction:column;align-items:center;gap:16px;color:#6b7280;font-size:13px;text-align:center">
+      <i class="ph ph-warning-circle" style="font-size:32px;color:#f59e0b"></i>
+      <div style="font-weight:500;color:#374151">${err}</div>
+      <div style="font-size:11px;color:#9ca3af">Change the label size or tag type to generate a preview.</div>
+    </div>`;
   }
 
-  function remnantTag(compact) {
-    const fs = compact ? '8px' : '11px';
-    const nameFs = compact ? '9px' : '13px';
-    const priceFs = compact ? '11px' : '16px';
-    const retailFs = compact ? '8px' : '11px';
-    return `
-      <div style="font-size:${fs};color:#374151;line-height:1.4;display:flex;flex-direction:column;height:100%">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:${compact?'2px':'4px'}">
-          <div style="font-size:${nameFs};font-weight:700;color:#111827">FRIEZE CUT PILE — SMOKE #2</div>
-          <div style="font-size:${compact?'7px':'9px'};font-weight:600;color:#fff;background:#dc2626;padding:1px 5px;border-radius:2px;white-space:nowrap">REMNANT</div>
-        </div>
-        <div style="color:#6b7280">SKU: FC-SM-0229 &nbsp;|&nbsp; Roll #: 3</div>
-        <div style="color:#6b7280;margin-bottom:${compact?'3px':'6px'}">Size: 6 ft × 9 ft (54 sqft)</div>
-        <div style="display:flex;align-items:baseline;gap:${compact?'6px':'10px'};margin-bottom:${compact?'2px':'4px'}">
-          <div style="font-size:${priceFs};font-weight:700;color:#1d4ed8">$89.99</div>
-          ${aboveRetail ? `<div style="font-size:${retailFs};color:#6b7280;text-decoration:line-through">Retail $124.00</div>` : ''}
-        </div>
-        ${barcodeHTML}
-      </div>`;
-  }
+  const makeBarcode = (barH, barScale) => {
+    const bw = [1,1,2,1,1,2,1,2,1,1,2,1,2,1,1,1,2,1,1,2,1,1,2,1,2,1,1,1];
+    const bh = [22,18,22,14,22,18,22,14,22,22,18,22,14,22,18,22,14,22,18,22,14,18,22,18,22,14,22,22];
+    const gap = barScale >= 1 ? '1px' : '0.5px';
+    return `<div style="display:flex;gap:${gap};height:${barH}px;align-items:flex-end">${
+      bw.map((w,i) => `<div style="background:#111;width:${w*barScale}px;height:${Math.round(bh[i]*barH/22)}px;flex-shrink:0"></div>`).join('')
+    }</div>`;
+  };
 
-  function itemTag(compact) {
-    const fs = compact ? '8px' : '11px';
-    const nameFs = compact ? '9px' : '13px';
-    const priceFs = compact ? '11px' : '16px';
-    return `
-      <div style="font-size:${fs};color:#374151;line-height:1.4;display:flex;flex-direction:column;height:100%">
-        <div style="font-size:${nameFs};font-weight:700;color:#111827;margin-bottom:${compact?'2px':'4px'}">HARDWOOD ADHESIVE STRIPS — 50 PK</div>
-        <div style="color:#6b7280;margin-bottom:${compact?'3px':'6px'}">SKU: HW-ADH-050</div>
-        <div style="font-size:${priceFs};font-weight:700;color:#1d4ed8;margin-bottom:${compact?'2px':'4px'}">$14.99</div>
-      </div>`;
-  }
+  const STYLE   = '2 In 1 Pro 200-1.00';
+  const COLOR   = '2 In 1 Pro Underlay 200';
+  const STYLE_N = '104AU';
+  const COLOR_N = '00001';
+  const SKU     = 'SHA5316-1(1)-None';
+  const SKU_NP  = `${STYLE_N}${COLOR_N}`;
+  const ITEM_N  = '549';
 
-  function tagContent(compact) {
-    if (tagType === 'remnant') return remnantTag(compact);
-    if (tagType === 'item')    return itemTag(compact);
-    return inventoryTag(compact);
-  }
-
-  const tagStyle = (w, h, pad) =>
-    `width:${w};height:${h};background:#fff;border:1px solid #d1d5db;border-radius:3px;padding:${pad};box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column`;
-
-  let inner = '';
-
+  /* ── 8.5×11 full-page tags ── */
   if (size === '8.5x11') {
-    // Sheet of 4 tags, 2×2 grid
-    inner = `
-      <div style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        ${[0,1,2,3].map(() => `<div style="${tagStyle('100%','160px','10px')}">${tagContent(true)}</div>`).join('')}
-      </div>`;
-  } else if (size === '4x1') {
-    // Horizontal strip — 4 in × 1 in (very wide, short)
-    inner = `
-      <div style="padding:24px 32px;display:flex;flex-direction:column;gap:12px">
-        ${[0,1,2].map(() => `
-          <div style="${tagStyle('100%','64px','8px 12px')}">
-            <div style="display:flex;align-items:center;gap:16px;height:100%">
-              <div style="flex:1;min-width:0;font-size:9px;font-weight:700;color:#111827;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-                ${tagType==='remnant' ? 'FRIEZE CUT PILE — SMOKE #2' : tagType==='item' ? 'HARDWOOD ADHESIVE STRIPS' : 'BERBER LOOP PILE — CAMEL #4'}
-              </div>
-              <div style="font-size:13px;font-weight:700;color:#1d4ed8;flex-shrink:0">
-                ${tagType==='remnant' ? '$89.99' : tagType==='item' ? '$14.99' : '$3.99/sqft'}
-              </div>
-              ${showBarcode ? `<div style="display:flex;gap:1px;align-items:flex-end;height:36px;flex-shrink:0">
-                ${Array.from({length:18}, (_,i) => `<div style="background:#1a1a1a;width:${i%3===0?2:1}px;height:${24+((i*7)%12)}px"></div>`).join('')}
-              </div>` : ''}
-            </div>
-          </div>`).join('')}
-      </div>`;
-  } else if (size === '4x2') {
-    // Standard 4×2 label cards
-    inner = `
-      <div style="padding:24px 32px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        ${[0,1,2,3].map(() => `<div style="${tagStyle('100%','130px','10px')}">${tagContent(true)}</div>`).join('')}
-      </div>`;
-  } else if (size === '4x6') {
-    // Tall label — single prominent card
-    inner = `
-      <div style="padding:32px;display:flex;justify-content:center">
-        <div style="${tagStyle('240px','360px','18px')}">
-          ${tagContent(false)}
+    const base = `font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;line-height:1.3;height:100%;box-sizing:border-box;`;
+
+    /* Landscape: Inventory */
+    if (tagType === 'inventory') {
+      return `<div style="${base}display:flex;padding:36px 44px;gap:0">
+        <div style="flex:1.5;display:flex;flex-direction:column;padding-right:36px;border-right:1px solid #e5e7eb;min-width:0">
+          <div style="font-size:80px;font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:8px">${ITEM_N}</div>
+          <div style="font-size:14px;color:#222">${STYLE}</div>
+          <div style="font-size:14px;color:#222;margin-bottom:8px">${COLOR}</div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:#6b7280;border-top:1px solid #e5e7eb;padding-top:5px">
+            <span>${SKU}</span><span>quant/pkg 1.00 #pkgs 1.0</span>
+          </div>
+          <div style="flex:1"></div>
+          <div>
+            ${showBarcode ? makeBarcode(24,1) : ''}
+            <div style="font-size:9px;color:#374151;margin-top:3px">${ITEM_N}</div>
+            <div style="font-size:9px;color:#374151">1_0</div>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;padding-left:36px">
+          <div style="font-size:12px;color:#6b7280;margin-bottom:6px">Price</div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:52px;font-weight:700;line-height:1">$36.84</span>
+            <span style="font-size:14px;color:#6b7280">Each</span>
+          </div>
+          ${showSqyd ? `<div style="font-size:12px;color:#6b7280;margin-top:5px">$330.56 / sqyd</div>` : ''}
+          <div style="flex:1"></div>
+          <div style="font-size:24px;font-weight:700;color:#111;text-align:right">Chan --Cha</div>
         </div>
       </div>`;
+
+    /* Landscape: Remnant */
+    } else if (tagType === 'remnant') {
+      return `<div style="${base}display:flex;padding:36px 44px;gap:0">
+        <div style="flex:1.5;display:flex;flex-direction:column;padding-right:36px;border-right:1px solid #e5e7eb;min-width:0">
+          <div style="font-size:80px;font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:8px">${ITEM_N}</div>
+          <div style="font-size:14px;color:#222">${STYLE}</div>
+          <div style="font-size:14px;color:#222;margin-bottom:8px">${COLOR}</div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:#6b7280;border-top:1px solid #e5e7eb;padding-top:5px">
+            <span>${SKU}</span><span>quant/pkg 1.00 #pkgs 0.0</span>
+          </div>
+          <div style="flex:1"></div>
+          <div>${showBarcode ? makeBarcode(24,1) : ''}</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;padding-left:36px">
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
+            <span style="font-size:13px;color:#6b7280">Was</span>
+            <span style="font-size:15px;color:#9ca3af;text-decoration:line-through">$40.00</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span style="font-size:13px;color:#6b7280">Now</span>
+            <span style="font-size:52px;font-weight:700;line-height:1">$36.00</span>
+          </div>
+          <div style="flex:1"></div>
+          <div style="font-size:12px;color:#6b7280;text-align:right">#pkgs 1.0</div>
+        </div>
+      </div>`;
+
+    /* Portrait: Inventory No Price — content top-left only */
+    } else {
+      return `<div style="${base}padding:0;position:relative">
+        <div style="display:inline-block;width:300px;border:1px solid #d1d5db;padding:14px 18px;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;box-sizing:border-box">
+          <div style="display:flex;align-items:baseline;gap:5px;margin-bottom:3px">
+            <span style="font-size:10px;font-weight:700">SKU:</span>
+            <span style="font-size:10px;font-weight:700">${SKU_NP}</span>
+          </div>
+          <div style="font-size:9.5px;color:#374151;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${STYLE} (${STYLE_N})</div>
+          <div style="font-size:9.5px;color:#374151;margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${COLOR} (${COLOR_N})</div>
+          <div style="display:flex;gap:14px;font-size:8px;color:#6b7280;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;padding:3px 0;margin-bottom:5px">
+            <span>Bin:</span><span>Dye Lot:</span><span>Res. Date:</span>
+          </div>
+          <div style="font-size:8px;color:#374151;margin-bottom:12px">Phy Balance: 1.00 Each</div>
+          <div style="display:flex;gap:20px;align-items:baseline;margin-bottom:${showBarcode ? '10px' : '0'}">
+            <span style="font-size:30px;font-weight:700;line-height:1">${ITEM_N}</span>
+            <span style="font-size:30px;font-weight:700;line-height:1">None</span>
+          </div>
+          ${showBarcode ? makeBarcode(18, 0.85) : ''}
+        </div>
+      </div>`;
+    }
   }
 
-  return `<div>${inner}</div>`;
+  if (size === '4x1') {
+    return `<div style="display:flex;height:100%;align-items:stretch;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a;box-sizing:border-box">
+      <div style="flex:1;min-width:0;padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid #e5e7eb">
+        <div>
+          <div style="font-size:9px;color:#222">${STYLE}</div>
+          <div style="font-size:9px;color:#222">${COLOR}</div>
+        </div>
+        <div>${showBarcode ? makeBarcode(16, 0.75) : ''}</div>
+      </div>
+      <div style="width:100px;flex-shrink:0;padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;text-align:right">
+        <div>
+          <div style="font-size:15px;font-weight:700;line-height:1">${ITEM_N}</div>
+          <div style="font-size:9px;color:#6b7280">None</div>
+        </div>
+        <div style="font-size:8px;color:#6b7280">q 1.00, #pkgs 0.00</div>
+      </div>
+    </div>`;
+  }
+
+  if (size === '4x2') {
+    if (tagType === 'inventory') {
+      return `<div style="padding:10px 12px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1px">
+          <span style="font-size:18px;font-weight:700">${ITEM_N}</span>
+          <span style="font-size:9px;color:#6b7280">Price</span>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:5px;margin-bottom:6px">
+          <span style="font-size:22px;font-weight:700">$36.84</span>
+          <span style="font-size:9px;color:#6b7280">Each</span>
+        </div>
+        <div style="font-size:9px;color:#222">${STYLE}</div>
+        <div style="height:5px"></div>
+        <div style="font-size:9px;color:#222">${COLOR}</div>
+        <div style="flex:1"></div>
+        ${showBarcode ? `<div>${makeBarcode(18,0.8)}</div>` : ''}
+      </div>`;
+    } else {
+      return `<div style="padding:10px 12px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a">
+        <div style="display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:4px;margin-bottom:4px">
+          <span style="font-size:16px;font-weight:700">${ITEM_N}</span>
+          <div style="text-align:center">
+            <div style="font-size:9px;color:#6b7280">Was</div>
+            <div style="font-size:11px;color:#9ca3af;text-decoration:line-through">$40.00</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:9px;color:#6b7280">Now</div>
+            <div style="font-size:20px;font-weight:700;line-height:1">$36.00</div>
+          </div>
+        </div>
+        <div style="font-size:9px;color:#222">${STYLE}</div>
+        <div style="height:5px"></div>
+        <div style="font-size:9px;color:#222">${COLOR}</div>
+        <div style="flex:1"></div>
+        ${showBarcode ? `<div>${makeBarcode(18,0.8)}</div>` : ''}
+      </div>`;
+    }
+  }
+
+  if (size === '4x6') {
+    return `<div style="padding:14px 16px;height:100%;box-sizing:border-box;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;color:#1a1a1a">
+      <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:3px">
+        <span style="font-size:9px;font-weight:700">SKU:</span>
+        <span style="font-size:9px;font-weight:700">${SKU_NP}</span>
+      </div>
+      <div style="font-size:8.5px;color:#374151">${STYLE} (${STYLE_N})</div>
+      <div style="font-size:8.5px;color:#374151;margin-bottom:6px">${COLOR} (${COLOR_N})</div>
+      <div style="display:flex;gap:12px;font-size:8px;color:#6b7280;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;padding:3px 0;margin-bottom:5px">
+        <span>Bin:</span><span>Dye Lot:</span><span>Res. Date:</span>
+      </div>
+      <div style="font-size:8px;color:#374151;margin-bottom:14px">Phy Balance: 1.00 Each</div>
+      <div style="display:flex;gap:20px;align-items:baseline">
+        <span style="font-size:30px;font-weight:700;line-height:1">${ITEM_N}</span>
+        <span style="font-size:30px;font-weight:700;line-height:1">None</span>
+      </div>
+      <div style="flex:1"></div>
+      <div style="border-top:1px dashed #d1d5db;padding-top:8px;transform:rotate(180deg);transform-origin:center">
+        <div style="display:flex;gap:20px;align-items:baseline;justify-content:center">
+          <span style="font-size:30px;font-weight:700;line-height:1">None</span>
+          <span style="font-size:30px;font-weight:700;line-height:1">${ITEM_N}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return '<div></div>';
 }
 
 /* ── Sales Order preview ─────────────────────────────────────────────────── */
@@ -5508,8 +5994,8 @@ function buildSOPreviewHTML() {
   const hasStar   = f => hasSel(f) || isGhost(f); // selected or ghost
 
   /* ── read UI state ── */
-  const logoPos  = getToggleValue('logo') || 'left';
-  const rawStyle = document.getElementById('table-style-sel')?.value || 'separated';
+  const logoPos  = getToggleValueForPreview('logo') || 'left';
+  const rawStyle = (previewDropdownGhost?.selId === 'table-style-sel' ? previewDropdownGhost.val : null) ?? document.getElementById('table-style-sel')?.value ?? 'separated';
   const commentsOnlyMode = (rawStyle === 'comments-only');
   const styleVal = commentsOnlyMode ? 'separated' : rawStyle;
   const rTitle   = getRTitleValue();
@@ -5526,7 +6012,7 @@ function buildSOPreviewHTML() {
   const ghostCoAddr  = isGhost('Company Address'); const ghostLocAddr  = isGhost('Location Address');
   const ghostCoPhone = isGhost('Company Phone/Email'); const ghostLocPhone = isGhost('Location Phone/Email');
   const showTs      = hasSel('Timestamp'); const ghostTs = isGhost('Timestamp');
-  const tsSpan      = showTs ? `<span>06/01/2026 10:04 AM</span>` : (ghostTs ? `<span style="opacity:0.35;font-style:italic">06/01/2026 10:04 AM</span>` : '');
+  const tsSpan      = showTs ? `<span>06/01/2026 10:04 AM</span>` : (ghostTs ? `<span class="so-ghost-inline">06/01/2026 10:04 AM</span>` : '');
   const showSoldTo      = hasSel('Sold To');      const showSoldToPhone = hasSel('Sold To Phone/Email');
   const showShipTo      = hasSel('Ship To');      const showShipToPhone = hasSel('Ship To Phone');
   const ghostSoldTo     = isGhost('Sold To');     const ghostSoldToPhone = isGhost('Sold To Phone/Email');
@@ -5560,6 +6046,9 @@ function buildSOPreviewHTML() {
   ];
   const ghostDateKey = DATE_VALS[previewGhostField] && !hasSel(previewGhostField) ? previewGhostField : null;
   if (ghostDateKey) dateRows.push({ vals: DATE_VALS[ghostDateKey], ghost: true });
+  if (previewGhostField === 'Custom Field' && !hasSel('Custom Field')) {
+    dateRows.push({ vals: [(document.getElementById('custom-field-label-input') || {}).value || 'Custom Field', 'CF-00123'], ghost: true });
+  }
 
   /* ── column defs — from activeColumns (dual-panel), plus ghost at pos 1 ── */
   const colPool = TYPE_CONFIG['Sales Order'].colPool;
@@ -5585,7 +6074,9 @@ function buildSOPreviewHTML() {
   }
   function tdS(c) {
     if (c.ghost) return c.r ? ' class="ghost-td td-r"' : ' class="ghost-td"';
-    return c.r ? ' class="td-r"' : '';
+    const cls = c.r ? ' class="td-r"' : '';
+    const wsnw = c.hug ? ' style="white-space:nowrap"' : '';
+    return cls + wsnw;
   }
 
   function buildCombinedTable(allCols, rows) {
@@ -5623,7 +6114,7 @@ function buildSOPreviewHTML() {
     const subStyle   = `padding:0`;
     const subInner   = (lbl, val) => `<div style="display:flex;justify-content:flex-end;padding:4px 10px;font-size:11px;border-top:1px solid rgba(0,0,0,.07);color:rgba(0,0,0,.6)"><span style="margin-right:16px">${lbl}</span><span>${val}</span></div>`;
     let tbodyRows = '';
-    const totalW = cols.reduce((s, c) => s + (parseInt(c.w) || 0), 0);
+    const totalW = cols.filter(c => !c.hug).reduce((s, c) => s + (parseInt(c.w) || 0), 0);
     const fScale = 1;
     const fontStyle = fScale < 0.999 ? `font-size:${(10 * fScale).toFixed(1)}px;--tbl-th-size:${(10 * fScale).toFixed(1)}px;` : '';
 
@@ -5631,17 +6122,17 @@ function buildSOPreviewHTML() {
     const rightKeys = new Set(['Qty', 'Units', 'Price', 'Total']);
     const contentCols2 = cols.filter(c => !rightKeys.has(c.key));
     const rightCols2   = cols.filter(c =>  rightKeys.has(c.key));
-    const colgroup = `<colgroup>${cols.map(c => `<col style="width:${c.w}">`).join('')}</colgroup>`;
+    const colgroup = `<colgroup>${cols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
     const mkHeader = (contentLabel) => {
       const contentTh = contentCols2.length
         ? `<th colspan="${contentCols2.length}" style="text-align:left">${contentLabel}</th>`
         : '';
-      const rightThs = rightCols2.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('');
+      const rightThs = rightCols2.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('');
       return `<thead><tr>${contentTh}${rightThs}</tr></thead>`;
     };
 
     // Expand combined rows for separated/groups; keep as single row for flat/classic
-    const expandedRows = (styleVal === 'separated' || styleVal === 'groups')
+    const expandedRows = (styleVal === 'separated' || styleVal === 'groups' || styleVal === 'groups-separated')
       ? rows.flatMap(r => r._t === 'pl' ? [
           { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
           { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
@@ -5658,12 +6149,12 @@ function buildSOPreviewHTML() {
       const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
         const tContent = tCols.filter(c => !rightKeys.has(c.key));
         const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
-        const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.w}">`).join('')}</colgroup>`;
+        const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
         const tSpan = tCols.length;
-        const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right">${c.hdr}</th>`).join('')}</tr></thead>`;
+        const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
         let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
         if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
-        return `<table class="so-table" style="${fontStyle}table-layout:fixed;margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
+        return `<table class="so-table" style="${fontStyle}margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
       };
       let html = '';
       if (pRows.length) {
@@ -5675,25 +6166,54 @@ function buildSOPreviewHTML() {
         html += mkSepTable(lCols, 'Labor', lRows, lSubtotal);
       }
       return html;
-    } else if (styleVal === 'groups') {
-      // Line items grouped by user-defined groups; distribute all rows across groups proportionally
+    } else if (styleVal === 'groups' || styleVal === 'groups-separated') {
       const n = expandedRows.length;
       const cuts = [Math.ceil(n * 0.5), Math.ceil(n * 0.8)];
       const MOCK_GROUPS = [
-        { label: 'Living Room', slice: [0,         cuts[0]] },
-        { label: 'Bedroom',     slice: [cuts[0],   cuts[1]] },
-        { label: 'Kitchen',     slice: [cuts[1],   n      ] },
+        { label: 'Living Room', slice: [0,       cuts[0]] },
+        { label: 'Bedroom',     slice: [cuts[0], cuts[1]] },
+        { label: 'Kitchen',     slice: [cuts[1], n      ] },
       ].filter(g => g.slice[0] < g.slice[1]);
-      MOCK_GROUPS.forEach(grp => {
-        const grpRows = expandedRows.slice(...grp.slice);
-        if (!grpRows.length) return;
-        tbodyRows += `<tr><td colspan="${colSpan}" style="${grpHdStyle}">${grp.label}</td></tr>`;
-        tbodyRows += grpRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-        if (showSubs) {
-          const grpSubtotal = grpRows.reduce((s, r) => s + parseDollar(r['Product Total']) + parseDollar(r['Labor Total']), 0);
-          tbodyRows += `<tr><td colspan="${colSpan}" style="${subStyle}">${subInner(grp.label + ' subtotal', fmtDollar(grpSubtotal))}</td></tr>`;
-        }
-      });
+      let html = '';
+      if (styleVal === 'groups') {
+        MOCK_GROUPS.forEach(grp => {
+          const grpRows = expandedRows.slice(...grp.slice);
+          if (!grpRows.length) return;
+          const grpHead = `<thead><tr>${contentCols2.length ? `<th colspan="${contentCols2.length}" style="text-align:left">${grp.label}</th>` : ''}${rightCols2.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
+          let tbody = grpRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+          if (showSubs) {
+            const grpSubtotal = grpRows.reduce((s, r) => s + parseDollar(r['Product Total']) + parseDollar(r['Labor Total']), 0);
+            tbody += `<tr><td colspan="${colSpan}" style="${subStyle}">${subInner(grp.label + ' subtotal', fmtDollar(grpSubtotal))}</td></tr>`;
+          }
+          html += `<table class="so-table" style="${fontStyle}margin-bottom:12px" data-zone="zone-table">${colgroup}${grpHead}<tbody>${tbody}</tbody></table>`;
+        });
+      } else {
+        // groups-separated: per-group Materials + Labor tables
+        const PRODUCT_ONLY = new Set(['Description', 'Color', 'Style', 'Material #', 'Product #', 'Dimensions']);
+        const LABOR_ONLY   = new Set(['Installer Name', 'Labor Type']);
+        const pCols = cols.filter(c => !LABOR_ONLY.has(c.key));
+        const lCols = cols.filter(c => !PRODUCT_ONLY.has(c.key));
+        const mkGrpSepTable = (tCols, label, dataRows, subtotalVal) => {
+          const tContent = tCols.filter(c => !rightKeys.has(c.key));
+          const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
+          const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
+          const tSpan = tCols.length;
+          const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
+          let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+          if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+          return `<table class="so-table" style="${fontStyle}margin-bottom:8px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
+        };
+        MOCK_GROUPS.forEach(grp => {
+          const grpRows = expandedRows.slice(...grp.slice);
+          if (!grpRows.length) return;
+          const pRows = grpRows.filter(r => r._t === 'p');
+          const lRows = grpRows.filter(r => r._t === 'l');
+          if (pRows.length) html += mkGrpSepTable(pCols, grp.label + ' — Materials', pRows, pRows.reduce((s,r) => s + parseDollar(r['Product Total']), 0));
+          if (lRows.length) html += mkGrpSepTable(lCols, grp.label + ' — Labor',     lRows, lRows.reduce((s,r) => s + parseDollar(r['Labor Total']),   0));
+          if (grp !== MOCK_GROUPS[MOCK_GROUPS.length - 1]) html += `<div style="margin-bottom:8px"></div>`;
+        });
+      }
+      return html;
     } else {
       tbodyRows = expandedRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
     }
@@ -5732,17 +6252,17 @@ function buildSOPreviewHTML() {
 
   const numericTotalsInner = numericRows.length
     ? `<div class="so-totals">${numericRows.map(r => {
-        const style = r.ghost ? ' style="opacity:0.35;font-style:italic"' : '';
-        return `<div class="so-total-row${r.cls}"${style}><span>${r.label}</span><span class="so-total-val">${r.val}</span></div>`;
+        const g = r.ghost ? ' so-ghost-inline' : '';
+        return `<div class="so-total-row${r.cls}${g}"><span>${r.label}</span><span class="so-total-val">${r.val}</span></div>`;
       }).join('')}</div>`
     : '';
 
   let totalsHTML = '';
   if (commentsRow) {
     // Always: Comments left, numeric totals right
-    const commentStyle = commentsRow.ghost ? ' style="opacity:0.35;font-style:italic"' : '';
+    const commentGhostCls = commentsRow.ghost ? ' so-ghost-inline' : '';
     totalsHTML = `<div class="so-comments-totals" data-zone="zone-totals">
-      <div class="so-comments-col"${commentStyle}>
+      <div class="so-comments-col${commentGhostCls}">
         <div class="so-comments-col-lbl">Comments</div>
         <div>${commentsRow.val}</div>
       </div>
@@ -5794,28 +6314,39 @@ function buildSOPreviewHTML() {
   }
 
   /* ── header / logo area ── */
-  const logoEl = `<img class="so-logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
-  const _g = t => `<span style="opacity:0.35;font-style:italic">${t}</span>`;
+  const logoEl = `<img class="so-logo" data-ghost="logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
+  const _g = t => `<span class="so-ghost-inline">${t}</span>`;
   const nameReal  = showLocName  ? 'Feargal McNamara &amp; Sons Denver'            : showCoName   ? 'Feargal McNamara &amp; Sons'          : null;
   const addrReal  = showLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': showCoAddr   ? '500 Commerce Dr<br>Boulder, CO 80302'  : null;
   const phoneReal = showLocPhone ? '(720) 555-0199<br>denver@feargalmcnamara.com'  : showCoPhone  ? '(303) 555-0100<br>info@feargalmcnamara.com' : null;
   const nameGhost  = !nameReal  && (ghostLocName  ? 'Feargal McNamara &amp; Sons Denver'            : ghostCoName  ? 'Feargal McNamara &amp; Sons'          : null);
   const addrGhost  = !addrReal  && (ghostLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': ghostCoAddr  ? '500 Commerce Dr<br>Boulder, CO 80302'  : null);
   const phoneGhost = !phoneReal && (ghostLocPhone ? '(720) 555-0199<br>denver@feargalmcnamara.com'  : ghostCoPhone ? '(303) 555-0100<br>info@feargalmcnamara.com' : null);
-  const showCompany = !!(nameReal || addrReal || phoneReal || nameGhost || addrGhost || phoneGhost);
-  const companyInfo = showCompany ? `<div class="so-company-info">${
-    [nameReal||(nameGhost&&_g(nameGhost)), addrReal||(addrGhost&&_g(addrGhost)), phoneReal||(phoneGhost&&_g(phoneGhost))].filter(Boolean).join('<br>')
-  }</div>` : '';
+  const _dgs = previewDropdownGhost?.selId;
+  const nameDropGhost  = !nameReal  && !nameGhost  && _dgs?.endsWith('-name-sel')  ? 'Feargal McNamara &amp; Sons'              : null;
+  const addrDropGhost  = !addrReal  && !addrGhost  && _dgs?.endsWith('-addr-sel')  ? '500 Commerce Dr<br>Boulder, CO 80302'     : null;
+  const phoneDropGhost = !phoneReal && !phoneGhost && _dgs?.endsWith('-phone-sel') ? '(303) 555-0100<br>info@feargalmcnamara.com' : null;
+  const showCompany = !!(nameReal || addrReal || phoneReal || nameGhost || addrGhost || phoneGhost || nameDropGhost || addrDropGhost || phoneDropGhost);
+  const nameEl  = nameReal       ? `<span data-ghost="co-name">${nameReal}</span>`
+                : nameGhost      ? `<span class="so-ghost-inline" data-ghost="co-name">${nameGhost}</span>`
+                : nameDropGhost  ? `<span class="so-ghost-inline" data-ghost="co-name">${nameDropGhost}</span>` : null;
+  const addrEl  = addrReal       ? `<span data-ghost="co-addr">${addrReal}</span>`
+                : addrGhost      ? `<span class="so-ghost-inline" data-ghost="co-addr">${addrGhost}</span>`
+                : addrDropGhost  ? `<span class="so-ghost-inline" data-ghost="co-addr">${addrDropGhost}</span>` : null;
+  const phoneEl = phoneReal      ? `<span data-ghost="co-phone">${phoneReal}</span>`
+                : phoneGhost     ? `<span class="so-ghost-inline" data-ghost="co-phone">${phoneGhost}</span>`
+                : phoneDropGhost ? `<span class="so-ghost-inline" data-ghost="co-phone">${phoneDropGhost}</span>` : null;
+  const companyInfo = showCompany ? `<div class="so-company-info">${[nameEl, addrEl, phoneEl].filter(Boolean).join('<br>')}</div>` : '';
 
   const metaTable = dateRows.length
-    ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' style="opacity:0.35;font-style:italic"' : e.required ? ' style="font-weight:600"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
+    ? `<table class="so-meta-table">${dateRows.map(e => `<tr${e.ghost ? ' class="so-ghost-row"' : e.required ? ' style="font-weight:600"' : ''}><td>${e.vals[0]}</td><td>${e.vals[1]}</td></tr>`).join('')}</table>`
     : '';
 
   const soTotalAmt = fmtDollar(previewLineCount * 378.00 + 1240.00);
   let headerHTML = '';
   if (logoPos === 'center') {
     headerHTML = `
-      ${titleText ? `<div class="so-doc-title-row">${titleText}</div>` : ''}
+      ${titleText ? `<div class="so-doc-title-row" data-ghost="rtitle">${titleText}</div>` : ''}
       ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
       <div class="so-hd" style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:flex-start">
         ${showCompany ? `<div class="so-hd-identity" data-zone="zone-company">${companyInfo}</div>` : '<div></div>'}
@@ -5824,7 +6355,7 @@ function buildSOPreviewHTML() {
       </div>`;
   } else {
     headerHTML = `
-      ${titleText ? `<div class="so-doc-title-row">${titleText}</div>` : ''}
+      ${titleText ? `<div class="so-doc-title-row" data-ghost="rtitle">${titleText}</div>` : ''}
       ${tsSpan ? `<div class="so-subtopbar">${tsSpan}</div>` : ''}
       <div class="so-hd">
         <div class="so-hd-identity" data-zone="zone-company">
@@ -5838,8 +6369,8 @@ function buildSOPreviewHTML() {
   /* ── address block (ghost-aware) ── */
   let addressHTML = '';
   if (showSoldTo || showShipTo || ghostSoldTo || ghostShipTo) {
-    const soldToPhone = showSoldToPhone ? '<br>(303) 555-1234 · james@example.com' : ghostSoldToPhone ? '<br><span style="opacity:0.35;font-style:italic">(303) 555-1234 · james@example.com</span>' : '';
-    const shipToPhone = showShipToPhone ? '<br>(303) 555-5678' : ghostShipToPhone ? '<br><span style="opacity:0.35;font-style:italic">(303) 555-5678</span>' : '';
+    const soldToPhone = showSoldToPhone ? '<br>(303) 555-1234 · james@example.com' : ghostSoldToPhone ? '<br><span class="so-ghost-inline">(303) 555-1234 · james@example.com</span>' : '';
+    const shipToPhone = showShipToPhone ? '<br>(303) 555-5678' : ghostShipToPhone ? '<br><span class="so-ghost-inline">(303) 555-5678</span>' : '';
     addressHTML = `<div class="so-addresses">`;
     if (showSoldTo)
       addressHTML += `<div data-zone="zone-sold-to"><div class="so-addr-lbl">Sold To</div><div class="so-addr-box">James Smith<br>123 Main St<br>Denver, CO 80202${soldToPhone}</div></div>`;
@@ -5855,7 +6386,7 @@ function buildSOPreviewHTML() {
   }
 
   /* ── assemble ── */
-  return `<div class="so">${headerHTML}${addressHTML}${preTableNotesHTML}${linesHTML}${totalsHTML}${footerHTML}</div>`;
+  return `<div class="so"><div data-zone="zone-header">${headerHTML}</div>${addressHTML}${preTableNotesHTML}${linesHTML}${totalsHTML}${footerHTML}</div>`;
 }
 
 /* ── Actions ────────────────────────────────────────────────────────────── */
@@ -6552,6 +7083,12 @@ function devToggle(which) {
     el.style.display = hidden ? '' : 'none';
     btn.classList.toggle('on', hidden);
   }
+}
+
+function toggleDevShowWidths() {
+  devShowWidths = !devShowWidths;
+  document.getElementById('dev-show-widths')?.classList.toggle('on', devShowWidths);
+  renderColPicker();
 }
 
 function devViewport(vp) {
