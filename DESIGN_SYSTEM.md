@@ -1,3 +1,3 @@
 # Design System
 
-[Rocket Design System](https://leaptools-rocket.replit.app)
+[Rocket Design System](https://github.com/leaptools/rocket-3))
