@@ -2038,13 +2038,6 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
 <!-- ── Dev bar ────────────────────────────────────────────────────────────── -->
 <div id="dev-bar">
   <span>Dev</span>
-  <button class="dev-toggle" id="dev-search" onclick="devToggle('search')">
-    <span class="dev-toggle-dot"></span>Search bar
-  </button>
-  <button class="dev-toggle" id="dev-assistant" onclick="devToggle('assistant')">
-    <span class="dev-toggle-dot"></span>Assistant
-  </button>
-  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <button class="dev-toggle on" id="dev-vp-desktop" onclick="devViewport('desktop')">Desktop</button>
   <button class="dev-toggle" id="dev-vp-tablet" onclick="devViewport('tablet')">Tablet</button>
   <button class="dev-toggle" id="dev-vp-mobile" onclick="devViewport('mobile')">Mobile</button>
@@ -2198,7 +2191,7 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
       </div>
 
       <!-- Search -->
-      <div class="search-bar-wrap" id="search-bar-wrap" style="display:none">
+      <div class="search-bar-wrap" id="search-bar-wrap">
         <div class="search-bar">
           <i class="ph ph-magnifying-glass search-icon"></i>
           <input type="text" class="search-input" id="field-search"
@@ -2439,7 +2432,7 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
     </div>
 
     <!-- Agent chat -->
-    <div class="agent-chat" id="agent-chat" style="display:none">
+    <div class="agent-chat" id="agent-chat">
       <div class="agent-chat-hd">
         <i class="ph ph-sparkle agent-chat-hd-icon"></i>
         <span class="agent-chat-hd-title">Report Assistant <span class="agent-chat-hd-sub">— selects fields from your template</span></span>
