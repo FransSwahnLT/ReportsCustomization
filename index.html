@@ -4085,12 +4085,13 @@ function tagTypeChange(type) {
 }
 
 function colHoverIn(key) {
-  if (!phaseHasGhost()) return;
+  if (!phaseHasGhost()) { showFieldTooltip(event?.target, key); return; }
   if (activeColumns.includes(key)) return; // already active — no ghost
   colGhostKey = key;
   refreshPreviewImmediate();
 }
 function colHoverOut() {
+  hideFieldTooltip();
   if (!colGhostKey) return;
   colGhostKey = null;
   refreshPreviewImmediate();
@@ -4472,10 +4473,13 @@ function mountCheckboxGroup(groupId) {
     </div>
   `;
 
-  // Hover → zone highlight
+  // Hover → zone highlight (phases 2+) or tooltip (MVP)
   container.querySelectorAll('.cb-row').forEach(row => {
-    row.addEventListener('mouseenter', () => highlightPreviewZone(row.dataset.field));
-    row.addEventListener('mouseleave', () => clearPreviewZone());
+    row.addEventListener('mouseenter', (e) => {
+      if (!phaseHasGhost()) { showFieldTooltip(e.currentTarget, row.dataset.field); return; }
+      highlightPreviewZone(row.dataset.field);
+    });
+    row.addEventListener('mouseleave', () => { hideFieldTooltip(); clearPreviewZone(); });
 
     // Touch long-press → peek preview (tablet / mobile)
     row.addEventListener('touchstart', () => {
@@ -4739,6 +4743,93 @@ let previewChipGhost     = null; // { groupName, val }
 const DROP_GHOST_ZONES  = { 'table-style-sel': 'zone-table' };
 const CHIP_GHOST_ZONES  = {};
 const FIELD_GHOST_ZONES = { 'Terms Start on New Page': 'zone-footer', 'Force Terms to Bottom': 'zone-footer' };
+
+/* ── Phase MVP tooltips ──────────────────────────────────────────────────── */
+const TOOLTIP_DEFS = {
+  // Column picker columns
+  'Line Number':    'Sequential item number shown in the first column',
+  'Description':    'Free-text product description for the line item',
+  'Style':          'Product or flooring style name',
+  'Color':          'Product color name',
+  'Material #':     'SKU or material reference number',
+  'Bin':            'Warehouse bin or storage location code',
+  'Manufacturer':   'Brand or manufacturer name',
+  'Split Material': 'Alternate material used in a split-room scenario',
+  'Installer Name': 'Name of the assigned installer for this line',
+  'Labor Type':     'Installation method — e.g. glue-down, nail-down, stretch-in',
+  'Qty':            'Quantity in the appropriate unit (SqYd, SqFt, LF, etc.)',
+  'Price':          'Unit price for the line item',
+  'Total':          'Calculated line total (Qty × Price)',
+  'Status':         'Current status of this line item — e.g. Ordered, Installed',
+  'Line Comments':  'Per-line notes printed as a sub-row beneath each item',
+  // Header / document fields
+  'Timestamp':               'Date and time the document was generated',
+  'Company Name':            'Your company\'s legal or trading name',
+  'Location Name':           'Branch or showroom name',
+  'Company Address':         'Your company\'s street address',
+  'Location Address':        'Branch or showroom street address',
+  'Company Phone/Email':     'Company-level contact phone and email',
+  'Location Phone/Email':    'Branch-level contact phone and email',
+  'Sold To':                 'Customer name and billing address',
+  'Sold To Phone/Email':     'Customer contact phone and email',
+  'Ship To':                 'Delivery or job site address',
+  'Ship To Phone':           'Delivery contact phone number',
+  'Net Due':                 'Payment due date shown on the document (e.g. Net 30)',
+  'Terms':                   'Short payment terms description',
+  'Bill Date':               'Invoice or billing date',
+  'PO #':                    'Customer purchase order or job reference number',
+  'Custom Field':            'A custom label and value field you can name yourself',
+  'Subtotal':                'Line-item sum before tax',
+  'Tax Box':                 'Applicable tax amount',
+  'Balance':                 'Remaining balance owed after payments',
+  'Comments':                'General document comments or notes',
+  'Payments':                'Payments already received against this document',
+  'Deposit':                 'Deposit or down-payment amount',
+  'Notes':                   'Additional notes printed near the footer',
+  'Footer Phone/Email':      'Contact information repeated in the document footer',
+  'Signature Block':         'Signature line for customer or installer approval',
+  'Terms and Conditions':    'Legal terms and conditions text block appended at the end',
+  'Terms Start on New Page': 'Forces the T&C section to begin on a fresh page',
+  'Force Terms to Bottom':   'Pushes T&C to the very last page of the document',
+  'Labor Total':             'Cumulative cost of all labor line items',
+  'Signature Line':          'Sign-off area for customer or installer',
+  'Location Name – Ship To': 'Branch or showroom name shown in the Ship To block',
+};
+
+let _tooltipEl = null;
+function _getTooltipEl() {
+  if (!_tooltipEl) {
+    _tooltipEl = document.createElement('div');
+    _tooltipEl.id = 'phase-tooltip';
+    document.body.appendChild(_tooltipEl);
+  }
+  return _tooltipEl;
+}
+
+function showFieldTooltip(target, key) {
+  if (devPhase !== 1) return;
+  const text = TOOLTIP_DEFS[key];
+  if (!text) return;
+  const el = _getTooltipEl();
+  el.textContent = text;
+  el.classList.add('visible');
+  if (target) {
+    const r = target.getBoundingClientRect();
+    let top = r.bottom + 6;
+    let left = r.left;
+    // Keep within viewport
+    requestAnimationFrame(() => {
+      const tw = el.offsetWidth;
+      if (left + tw > window.innerWidth - 8) left = window.innerWidth - tw - 8;
+      if (left < 8) left = 8;
+      el.style.top  = top + 'px';
+      el.style.left = left + 'px';
+    });
+  }
+}
+function hideFieldTooltip() {
+  _tooltipEl?.classList.remove('visible');
+}
 
 function highlightPreviewZone(fieldName) {
   const isSel = Object.values(FIELDS).some(g => g.sel.includes(fieldName));
@@ -7083,6 +7174,17 @@ function showToast(msg, icon = 'ph-check-circle') {
 .dev-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
 .dev-toggle.on { background: rgba(99,179,237,0.18); border-color: rgba(99,179,237,0.4); color: #7dd3fc; }
 .dev-toggle-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+/* MVP field tooltip */
+#phase-tooltip {
+  position: fixed; z-index: 9999; pointer-events: none;
+  max-width: 240px; padding: 6px 10px;
+  background: #1a1f2e; color: rgba(255,255,255,0.88);
+  font-size: 11.5px; line-height: 1.45; border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+  opacity: 0; transition: opacity 120ms;
+}
+#phase-tooltip.visible { opacity: 1; }
 
 /* Phase toggle group */
 .dev-phase-group { display: flex; border: 1px solid rgba(255,255,255,0.14); border-radius: 5px; overflow: hidden; }
