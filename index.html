@@ -979,7 +979,9 @@ body {
 .cpn-locked-item {
   display: flex; align-items: center; gap: 7px;
   padding: 8px 10px; font-size: 12px; color: var(--c-text-secondary);
+  cursor: pointer;
 }
+.cpn-locked-item:hover { background: var(--c-overlay-hover); }
 .cpn-lock-icon { font-size: 13px; color: var(--c-text-disabled); flex-shrink: 0; }
 .cpn-drag-list { display: flex; flex-direction: column; padding: 3px 0; min-height: 40px; }
 /* Active box subtitle + Product/Labor section */
@@ -2038,14 +2040,6 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
 <!-- ── Dev bar ────────────────────────────────────────────────────────────── -->
 <div id="dev-bar">
   <span>Dev</span>
-  <button class="dev-toggle on" id="dev-vp-desktop" onclick="devViewport('desktop')">Desktop</button>
-  <button class="dev-toggle" id="dev-vp-tablet" onclick="devViewport('tablet')">Tablet</button>
-  <button class="dev-toggle" id="dev-vp-mobile" onclick="devViewport('mobile')">Mobile</button>
-  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
-  <button class="dev-toggle" id="dev-show-widths" onclick="toggleDevShowWidths()">
-    <span class="dev-toggle-dot"></span>Show width
-  </button>
-  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <span>Phase:</span>
   <div class="dev-phase-group" id="dev-phase-group">
     <button class="dev-phase-btn" data-phase="1" onclick="setDevPhase(1)">MVP</button>
@@ -2053,6 +2047,14 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
     <button class="dev-phase-btn" data-phase="3" onclick="setDevPhase(3)">3</button>
     <button class="dev-phase-btn" data-phase="4" onclick="setDevPhase(4)">4</button>
   </div>
+  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
+  <button class="dev-toggle on" id="dev-vp-desktop" onclick="devViewport('desktop')">Desktop</button>
+  <button class="dev-toggle" id="dev-vp-tablet" onclick="devViewport('tablet')">Tablet</button>
+  <button class="dev-toggle" id="dev-vp-mobile" onclick="devViewport('mobile')">Mobile</button>
+  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
+  <button class="dev-toggle" id="dev-show-widths" onclick="toggleDevShowWidths()">
+    <span class="dev-toggle-dot"></span>Show width
+  </button>
   <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <span>Dealer:</span>
   <select id="dev-dealer-location" onchange="refreshPreviewImmediate()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);font-size:11px;padding:2px 6px;border-radius:5px;cursor:pointer;outline:none">
@@ -2191,7 +2193,7 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
       </div>
 
       <!-- Search -->
-      <div class="search-bar-wrap" id="search-bar-wrap">
+      <div class="search-bar-wrap" id="search-bar-wrap" style="display:none">
         <div class="search-bar">
           <i class="ph ph-magnifying-glass search-icon"></i>
           <input type="text" class="search-input" id="field-search"
@@ -2737,10 +2739,15 @@ function _fsOpen(trigger) {
     });
     if (!btn.classList.contains('selected')) {
       btn.addEventListener('mouseenter', () => {
+        if (!phaseHasGhost()) {
+          showFieldTooltip(document.getElementById('fs-menu'), 'fs:' + btn.dataset.val);
+          return;
+        }
         previewDropdownGhost = { selId: sel.id, val: btn.dataset.val };
         refreshPreviewImmediate();
       });
       btn.addEventListener('mouseleave', () => {
+        hideFieldTooltip();
         if (previewDropdownGhost?.selId === sel.id) { previewDropdownGhost = null; refreshPreviewImmediate(); }
       });
     }
@@ -2764,6 +2771,7 @@ function _fsClose() {
   if (menu) menu.classList.remove('open');
   if (_fsActiveTrigger) { _fsActiveTrigger.classList.remove('open'); _fsActiveTrigger = null; }
   if (previewDropdownGhost) { previewDropdownGhost = null; refreshPreviewImmediate(); }
+  hideFieldTooltip();
 }
 function initFsDrops(root) {
   (root || document).querySelectorAll('select.field-select:not([data-fs-init])').forEach(sel => {
@@ -2905,6 +2913,7 @@ function initChipGhosts() {
     const groupName = slider.dataset.group;
     slider.querySelectorAll('.toggle-slider-opt').forEach(opt => {
       opt.addEventListener('mouseenter', () => {
+        if (!phaseHasGhost()) return;
         if (opt.classList.contains('active')) return;
         previewChipGhost = { groupName, val: opt.dataset.value };
         refreshPreviewImmediate();
@@ -2919,6 +2928,7 @@ function initChipGhosts() {
 function initCsItemGhosts() {
   document.querySelectorAll('#cs-terms .cs-item').forEach(item => {
     item.addEventListener('mouseenter', () => {
+      if (!phaseHasGhost()) return;
       if (item.classList.contains('selected')) return;
       const doc = document.getElementById('preview-doc');
       doc?.querySelectorAll('[data-zone="zone-footer"]').forEach(el => el.classList.add('so-ghost-block'));
@@ -2981,21 +2991,21 @@ const TYPE_CONFIG = {
       'Notes':'zone-footer','Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer','Footer Phone/Email':'zone-footer','Signature Block':'zone-footer',
     },
     colPool: [
-      { key:'Line Number',     hdr:'#',           w:'76px',  minW:24,  r:false, tok:'S', hug:true },
-      { key:'Description',     hdr:'Description', w:'160px', minW:120, r:false, tok:'L' },
-      { key:'Style',           hdr:'Style',       w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Color',           hdr:'Color',       w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Material #',      hdr:'Mat. #',      w:'76px',  minW:40,  r:false, tok:'S' },
-      { key:'Bin',             hdr:'Bin',         w:'76px',  minW:40,  r:false, tok:'S' },
-      { key:'Manufacturer',    hdr:'Mfr.',        w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Split Material',  hdr:'Split',       w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Installer Name',  hdr:'Installer',   w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Labor Type',      hdr:'Type',        w:'96px',  minW:72,  r:false, tok:'M' },
-      { key:'Qty',             hdr:'Qty',         w:'76px',  minW:52,  r:true,  tok:'S', hug:true },
-      { key:'Price',           hdr:'Price',       w:'76px',  minW:52,  r:true,  tok:'S', hug:true },
-      { key:'Total',           hdr:'Total',       w:'76px',  minW:56,  r:true,  tok:'S', hug:true },
-      { key:'Status',          hdr:'Status',      w:'76px',  minW:40,  r:false, tok:'S' },
-      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:70,  r:false, subRow:true, uiLocked:true },
+      { key:'Line Number',     hdr:'#',           w:'76px',  minW:28,  r:false, tok:'S', hug:true },
+      { key:'Description',     hdr:'Description', w:'160px', minW:110, r:false, tok:'L' },
+      { key:'Style',           hdr:'Style',       w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Color',           hdr:'Color',       w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Material #',      hdr:'Mat. #',      w:'76px',  minW:48,  r:false, tok:'S' },
+      { key:'Bin',             hdr:'Bin',         w:'76px',  minW:48,  r:false, tok:'S' },
+      { key:'Manufacturer',    hdr:'Mfr.',        w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Split Material',  hdr:'Split',       w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Installer Name',  hdr:'Installer',   w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Labor Type',      hdr:'Type',        w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Qty',             hdr:'Qty',         w:'76px',  minW:48,  r:true,  tok:'S', hug:true },
+      { key:'Price',           hdr:'Price',       w:'76px',  minW:60,  r:true,  tok:'S', hug:true },
+      { key:'Total',           hdr:'Total',       w:'76px',  minW:64,  r:true,  tok:'S', hug:true },
+      { key:'Status',          hdr:'Status',      w:'76px',  minW:52,  r:false, tok:'S' },
+      { key:'Line Comments',   hdr:'Comments',    w:'140px', minW:80,  r:false, subRow:true, uiLocked:true },
     ],
     defaultActiveCols: ['Line Number','Description','Color','Qty','Price','Total','Installer Name','Labor Type'],
     footerTerms: true,
@@ -3661,7 +3671,7 @@ function renderColPicker() {
   const _renderLockedDisplayItem = (key, label, on) => {
     const def = poolMap[key];
     const widthBadge = devShowWidths && on && !def?.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, def)}px</span>` : '';
-    return `<div class="cpn-locked-item">
+    return `<div class="cpn-locked-item" onmouseenter="colHoverIn('${key}',this)" onmouseleave="colHoverOut()" onclick="cpnToggle('${key}',!activeColumns.includes('${key}'))">
       <i class="ph ph-lock-simple cpn-lock-icon"></i>
       <label class="cpn-toggle-label" onclick="event.stopPropagation()">
         <input type="checkbox" class="cpn-toggle-check" ${on ? 'checked' : ''}
@@ -3685,7 +3695,7 @@ function renderColPicker() {
         if (!phaseHasDrag()) {
           // Render as locked: same as _renderLockedDisplayItem but from draggable pool
           const widthBadge = devShowWidths && isOn && !c.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c)}px</span>` : '';
-          return `<div class="cpn-locked-item">
+          return `<div class="cpn-locked-item" onmouseenter="colHoverIn('${key}',this)" onmouseleave="colHoverOut()" onclick="cpnToggle('${key}',!activeColumns.includes('${key}'))">
             <i class="ph ph-lock-simple cpn-lock-icon"></i>
             <label class="cpn-toggle-label" onclick="event.stopPropagation()">
               <input type="checkbox" class="cpn-toggle-check" ${isOn ? 'checked' : ''}
@@ -3741,7 +3751,7 @@ function renderColPicker() {
           : `${autoFitWidths[f.paired] ?? getColPx(f.paired, pairedDef)}px`;
         widthBadge = `<span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${w}</span>`;
       }
-      return `<div class="cpn-locked-item${isOn ? '' : ' cpn-pl-dim'}">
+      return `<div class="cpn-locked-item${isOn ? '' : ' cpn-pl-dim'}" onmouseenter="colHoverIn('${f.name}',this)" onmouseleave="colHoverOut()" onclick="cpnPlToggle('${grp.id}','${f.name}',!(activeFieldSets['${grp.id}']?.has('${f.name}')))">
         <i class="ph ph-lock-simple cpn-lock-icon"></i>
         <label class="cpn-toggle-label" onclick="event.stopPropagation()">
           <input type="checkbox" class="cpn-toggle-check" ${isOn ? 'checked' : ''}
@@ -4084,8 +4094,8 @@ function tagTypeChange(type) {
   refreshPreviewImmediate();
 }
 
-function colHoverIn(key) {
-  if (!phaseHasGhost()) { showFieldTooltip(event?.target, key); return; }
+function colHoverIn(key, el) {
+  if (!phaseHasGhost()) { showFieldTooltip(el || event?.target, key); return; }
   if (activeColumns.includes(key)) return; // already active — no ghost
   colGhostKey = key;
   refreshPreviewImmediate();
@@ -4794,6 +4804,18 @@ const TOOLTIP_DEFS = {
   'Labor Total':             'Cumulative cost of all labor line items',
   'Signature Line':          'Sign-off area for customer or installer',
   'Location Name – Ship To': 'Branch or showroom name shown in the Ship To block',
+  // Field-select dropdown option tooltips
+  'fs:company':  'Uses your company-level data (shared across all locations)',
+  'fs:location': 'Uses the specific branch or location data for this document',
+  'fs:none':     'Hides this field — it won\'t appear on the document',
+  // SO col-picker sub-row fields
+  'Product Qty':   'Quantity of product for this line item',
+  'Product Units': 'Unit of measure for the product quantity (e.g. SqYd, SqFt)',
+  'Product Price': 'Unit price for the product',
+  'Product Total': 'Calculated product total (Qty × Price)',
+  'Labor Qty':     'Quantity of labor (hours or area) for this line',
+  'Labor Units':   'Unit of measure for the labor quantity',
+  'Labor Price':   'Hourly or per-unit price for labor',
 };
 
 let _tooltipEl = null;
