@@ -2053,6 +2053,14 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
     <span class="dev-toggle-dot"></span>Show width
   </button>
   <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
+  <span>Phase:</span>
+  <div class="dev-phase-group" id="dev-phase-group">
+    <button class="dev-phase-btn" data-phase="1" onclick="setDevPhase(1)">MVP</button>
+    <button class="dev-phase-btn" data-phase="2" onclick="setDevPhase(2)">2</button>
+    <button class="dev-phase-btn" data-phase="3" onclick="setDevPhase(3)">3</button>
+    <button class="dev-phase-btn" data-phase="4" onclick="setDevPhase(4)">4</button>
+  </div>
+  <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <span>Dealer:</span>
   <select id="dev-dealer-location" onchange="refreshPreviewImmediate()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);font-size:11px;padding:2px 6px;border-radius:5px;cursor:pointer;outline:none">
     <option value="us">US</option>
@@ -2684,15 +2692,27 @@ function render() {
 
 /* ── Card renderers ────────────────────────────────────────────────────── */
 function renderDefaultCard(t) {
+  if (isComingSoon(t.type)) {
+    return `<div class="tpl-card phase-locked"><div class="tpl-card-strip"><div class="tpl-strip-icon"><i class="ph ph-file-text"></i></div><span class="tpl-strip-name">${escHtml(t.name)}</span><span class="tpl-strip-badge cs-badge">Coming Soon</span></div><div class="tpl-card-body"><div class="tpl-body-row"><div class="tpl-body-text"><div class="tpl-sub">${truncDesc(t.desc)}</div></div><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-card-divider"></div><div class="tpl-card-footer"></div></div></div>`;
+  }
   return `<div class="tpl-card"><div class="tpl-card-strip"><div class="tpl-strip-icon"><i class="ph ph-file-text"></i></div><span class="tpl-strip-name">${escHtml(t.name)}</span>${t.isDefault && !hasCustomDefault(t.type) ? '<span class="tpl-strip-badge">Default</span>' : ''}</div><div class="tpl-card-body"><div class="tpl-body-row"><div class="tpl-body-text"><div class="tpl-sub">${truncDesc(t.desc)}</div></div><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-card-divider"></div><div class="tpl-card-footer"><button class="tpl-action-btn" onclick="viewTemplate('${t.id}')"><i class="ph ph-eye"></i> View</button><button class="tpl-action-btn" onclick="cloneTemplate('${t.id}', true)"><i class="ph ph-copy"></i> Clone</button></div></div></div>`;
 }
 function renderCustomCard(t) {
+  if (isComingSoon(t.type)) {
+    return `<div class="tpl-card phase-locked"><div class="tpl-card-strip"><div class="tpl-strip-icon"><i class="ph ph-file-text"></i></div><span class="tpl-strip-name">${escHtml(t.name)}</span><span class="tpl-strip-badge cs-badge">Coming Soon</span></div><div class="tpl-card-body"><div class="tpl-body-row"><div class="tpl-body-text"><div class="tpl-sub">${t.desc ? truncDesc(t.desc) : 'Based on ' + escHtml(t.basedOnName)}</div><div class="tpl-edited">${editedLabel(t.daysAgo)}</div></div><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-card-divider"></div><div class="tpl-card-footer"></div></div></div>`;
+  }
   return `<div class="tpl-card"><div class="tpl-card-strip"><div class="tpl-strip-icon"><i class="ph ph-file-text"></i></div><span class="tpl-strip-name">${escHtml(t.name)}</span>${t.isOrgDefault ? '<span class="tpl-strip-badge">Default</span>' : ''}</div><div class="tpl-card-body"><div class="tpl-body-row"><div class="tpl-body-text"><div class="tpl-sub">${t.desc ? truncDesc(t.desc) : 'Based on ' + escHtml(t.basedOnName)}</div><div class="tpl-edited">${editedLabel(t.daysAgo)}</div></div><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-card-divider"></div><div class="tpl-card-footer"><button class="tpl-action-btn" onclick="editTemplate('${t.id}')"><i class="ph ph-pencil-simple"></i> Edit</button><button class="tpl-action-btn" onclick="cloneTemplate('${t.id}', false)"><i class="ph ph-copy"></i> Clone</button><div class="tpl-action-sep"></div><button class="tpl-action-btn danger" onclick="deleteTemplate('${t.id}')"><i class="ph ph-trash"></i> Remove</button></div></div></div>`;
 }
 function renderDefaultListRow(t) {
+  if (isComingSoon(t.type)) {
+    return `<div class="tpl-list-row phase-locked"><div class="tpl-list-icon"><i class="ph ph-file-text"></i></div><div class="tpl-list-main"><div class="tpl-list-name">${escHtml(t.name)}<span class="tpl-strip-badge cs-badge" style="font-size:9px;padding:2px 5px">Coming Soon</span></div><div class="tpl-list-sub">${truncDesc(t.desc)}</div></div><div class="tpl-list-meta"><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-list-actions"></div></div>`;
+  }
   return `<div class="tpl-list-row"><div class="tpl-list-icon"><i class="ph ph-file-text"></i></div><div class="tpl-list-main"><div class="tpl-list-name">${escHtml(t.name)}${t.isDefault && !hasCustomDefault(t.type) ? '<span class="tpl-strip-badge">Default</span>' : ''}</div><div class="tpl-list-sub">${truncDesc(t.desc)}</div></div><div class="tpl-list-meta"><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-list-actions"><button class="tpl-action-btn" onclick="viewTemplate('${t.id}')"><i class="ph ph-eye"></i> View</button><button class="tpl-action-btn" onclick="cloneTemplate('${t.id}', true)"><i class="ph ph-copy"></i> Clone</button></div></div>`;
 }
 function renderCustomListRow(t) {
+  if (isComingSoon(t.type)) {
+    return `<div class="tpl-list-row phase-locked"><div class="tpl-list-icon"><i class="ph ph-file-text"></i></div><div class="tpl-list-main"><div class="tpl-list-name">${escHtml(t.name)}<span class="tpl-strip-badge cs-badge" style="font-size:9px;padding:2px 5px">Coming Soon</span></div><div class="tpl-list-sub">Based on ${escHtml(t.basedOnName)} &middot; ${editedLabel(t.daysAgo)}</div></div><div class="tpl-list-meta"><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-list-actions"></div></div>`;
+  }
   return `<div class="tpl-list-row"><div class="tpl-list-icon"><i class="ph ph-file-text"></i></div><div class="tpl-list-main"><div class="tpl-list-name">${escHtml(t.name)}${t.isOrgDefault ? '<span class="tpl-strip-badge">Default</span>' : ''}</div><div class="tpl-list-sub">Based on ${escHtml(t.basedOnName)} &middot; ${editedLabel(t.daysAgo)}</div></div><div class="tpl-list-meta"><div class="tpl-type-chip">${escHtml(t.type)}</div></div><div class="tpl-list-actions"><button class="tpl-action-btn" onclick="editTemplate('${t.id}')"><i class="ph ph-pencil-simple"></i> Edit</button><button class="tpl-action-btn" onclick="cloneTemplate('${t.id}', false)"><i class="ph ph-copy"></i> Clone</button><button class="tpl-action-btn danger" onclick="deleteTemplate('${t.id}')"><i class="ph ph-trash"></i> Remove</button></div></div>`;
 }
 function emptyHtml(title, body, icon) {
@@ -3133,6 +3153,18 @@ const PRINT_WIDTHS  = { portrait: 572, landscape: 832 }; // shell(700|960) - 128
 function getPrintWidth() { return PRINT_WIDTHS[pageOrientation]; }
 let colGhostKey     = null; // key being hovered in inventory → ghost at pos 0 in preview
 let devShowWidths   = false;
+let devPhase        = parseInt(localStorage.getItem('dev_phase') || '1');
+
+// Types locked per phase (coming soon)
+const PHASE_LOCKED = {
+  1: new Set(['Work Order', 'Purchase Order', 'Tags']),
+  2: new Set(['Purchase Order', 'Tags']),
+  3: new Set(['Purchase Order', 'Tags']),
+  4: new Set()
+};
+function isComingSoon(type) { return (PHASE_LOCKED[devPhase] || new Set()).has(type); }
+function phaseHasGhost()    { return devPhase >= 2; }
+function phaseHasDrag()     { return devPhase >= 3; }
 let activeFieldSets = {}; // { [groupId]: Set<fieldName> } — for fieldEditor sections
 let PAIRED_COL      = {}; // { [fieldName]: pairedKey }  e.g. {'Material Qty':'Qty'}
 
@@ -3177,6 +3209,11 @@ let cpScrollDir   = 0;    // -1 up | 0 none | 1 down
 
 /* ── Bootstrap ─────────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  // Sync phase toggle buttons to persisted phase
+  document.querySelectorAll('.dev-phase-btn').forEach(b => {
+    b.classList.toggle('on', parseInt(b.dataset.phase) === devPhase);
+  });
+
   // Start on templates view
   render();
 
@@ -3646,11 +3683,25 @@ function renderColPicker() {
     : '';
 
   /* ── Unified draggable list (all non-locked, non-uiLocked cols, in colOrder) ── */
+  // Phase < 3: render draggable cols as locked items (no drag handle, no width control)
   const draggableHTML = colOrder.length
     ? colOrder.map(key => {
         const c = poolMap[key];
         if (!c) return '';
         const isOn = activeColumns.includes(key);
+        if (!phaseHasDrag()) {
+          // Render as locked: same as _renderLockedDisplayItem but from draggable pool
+          const widthBadge = devShowWidths && isOn && !c.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c)}px</span>` : '';
+          return `<div class="cpn-locked-item">
+            <i class="ph ph-lock-simple cpn-lock-icon"></i>
+            <label class="cpn-toggle-label" onclick="event.stopPropagation()">
+              <input type="checkbox" class="cpn-toggle-check" ${isOn ? 'checked' : ''}
+                     onchange="cpnToggle('${key}',this.checked)">
+              <span class="cpn-toggle-sw"></span>
+            </label>
+            <span class="cp-col-label${isOn ? '' : ' cp-col-dimmed'}">${key}</span>${widthBadge}
+          </div>`;
+        }
         const hasW = colWidths[key] != null;
         const sliderVal = colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c);
         const widthBadge = devShowWidths && isOn && !c.hug ? `<span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${sliderVal}px</span>` : '';
@@ -4041,6 +4092,7 @@ function tagTypeChange(type) {
 }
 
 function colHoverIn(key) {
+  if (!phaseHasGhost()) return;
   if (activeColumns.includes(key)) return; // already active — no ghost
   colGhostKey = key;
   refreshPreviewImmediate();
@@ -4206,6 +4258,7 @@ let peekTimer  = null;
 let peekActive = false;
 
 function showPeek(ghostField, ghostCol) {
+  if (!phaseHasGhost()) return;
   peekActive = true;
   if (ghostField) previewGhostField = ghostField;
   if (ghostCol)   colGhostKey = ghostCol;
@@ -7038,6 +7091,26 @@ function showToast(msg, icon = 'ph-check-circle') {
 .dev-toggle.on { background: rgba(99,179,237,0.18); border-color: rgba(99,179,237,0.4); color: #7dd3fc; }
 .dev-toggle-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
+/* Phase toggle group */
+.dev-phase-group { display: flex; border: 1px solid rgba(255,255,255,0.14); border-radius: 5px; overflow: hidden; }
+.dev-phase-btn {
+  padding: 2px 7px; border: none; border-right: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.6); font-size: 11px;
+  cursor: pointer; transition: background 100ms, color 100ms;
+}
+.dev-phase-btn:last-child { border-right: none; }
+.dev-phase-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.dev-phase-btn.on { background: rgba(167,139,250,0.22); color: #c4b5fd; }
+
+/* Coming-soon card/row state */
+.tpl-strip-badge.cs-badge { background: rgba(0,0,0,0.12); color: rgba(0,0,0,0.45); }
+.tpl-card.phase-locked { cursor: default; }
+.tpl-card.phase-locked:hover { box-shadow: none; transform: none; }
+.tpl-card.phase-locked .tpl-card-divider,
+.tpl-card.phase-locked:hover .tpl-card-divider { opacity: 0; }
+.tpl-list-row.phase-locked { cursor: default; }
+.tpl-list-row.phase-locked:hover { background: var(--c-surface); }
+
 /* Viewport simulation */
 body.dev-vp-tablet  { max-width: 820px;  margin: 0 auto; overflow-x: hidden; }
 body.dev-vp-mobile  { max-width: 390px;  margin: 0 auto; overflow-x: hidden; }
@@ -7069,6 +7142,16 @@ body.dev-vp-mobile .settings-panel { width: 100% !important; flex: 1; flex-shrin
 </style>
 
 <script>
+function setDevPhase(n) {
+  devPhase = n;
+  localStorage.setItem('dev_phase', n);
+  document.querySelectorAll('.dev-phase-btn').forEach(b => {
+    b.classList.toggle('on', parseInt(b.dataset.phase) === n);
+  });
+  render();
+  if (typeof renderColPicker === 'function') renderColPicker();
+}
+
 function devToggle(which) {
   if (which === 'search') {
     const el = document.getElementById('search-bar-wrap');
