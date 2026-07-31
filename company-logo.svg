@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="82" viewBox="0 0 240 82" fill="none">
+  <!-- Placeholder company logo used in report previews -->
+  <rect x="6" y="13" width="56" height="56" rx="12" fill="#1F3A5F"/>
+  <path d="M20 53 L34 27 L41 40 L46 32 L54 53 Z" fill="#F5A623"/>
+  <circle cx="46" cy="26" r="4.5" fill="#FFFFFF"/>
+  <text x="74" y="43" font-family="Georgia, 'Times New Roman', serif" font-size="21" font-weight="bold" fill="#1F3A5F">Feargal McNamara</text>
+  <text x="74" y="63" font-family="Georgia, 'Times New Roman', serif" font-size="15" fill="#5B6B7F">&amp; Sons</text>
+</svg>
