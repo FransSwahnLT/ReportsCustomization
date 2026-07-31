@@ -65,7 +65,7 @@ body {
 
 /* ─── Top bar ────────────────────────────────────────────────────────────── */
 .topbar {
-  height: 52px;
+  height: 93px;
   background: var(--c-surface);
   border-bottom: 1px solid var(--c-divider);
   display: flex;
@@ -77,7 +77,7 @@ body {
 }
 .topbar-left { display: flex; align-items: center; gap: 4px; }
 .topbar-title {
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
@@ -224,7 +224,7 @@ body {
 .preview-page + .preview-page { margin-top: 12px; }
 .preview-page-viewport {
   position: absolute;
-  overflow: visible;
+  overflow: hidden;
 }
 .preview-page-scroll {
   position: absolute;
@@ -272,7 +272,7 @@ body {
 
 /* ─── Settings panel ─────────────────────────────────────────────────────── */
 .settings-panel {
-  width: 460px;
+  width: 336px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -976,6 +976,10 @@ body {
 }
 /* Active box */
 .cpn-divider { height: 1px; background: var(--c-divider); }
+.cpn-two-col { display: grid; grid-template-columns: 1fr 1fr; }
+.cpn-pl-two-col { display: grid; grid-template-columns: 1fr 1fr; }
+.cpn-pl-col { display: flex; flex-direction: column; }
+.cpn-pl-col:first-child { border-right: 1px solid var(--c-divider); }
 .cpn-locked-item {
   display: flex; align-items: center; gap: 7px;
   padding: 8px 10px; font-size: 12px; color: var(--c-text-secondary);
@@ -1529,17 +1533,31 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 .so-comments-col-lbl { font-weight: 600; margin-bottom: 4px; color: rgba(0,0,0,0.7); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
 .so-table { border-collapse: separate; border-spacing: 0; margin-bottom: 20px; font-size: 10px; width: 100%; }
 .so-table .td-r { white-space: nowrap; }
-.so-table th { background: rgba(0,0,0,0.06); color: #000; padding: 5px 10px; text-align: left; font-size: var(--tbl-th-size, 10px); font-weight: 700; letter-spacing: normal; text-transform: uppercase; white-space: nowrap; vertical-align: middle; border-top: 1px solid rgba(0,0,0,0.18); border-bottom: 1px solid rgba(0,0,0,0.18); }
-.so-table th:first-child { padding-left: 18px; border-left: 1px solid rgba(0,0,0,0.18); border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
-.so-table th:last-child  { padding-right: 18px; border-right: 1px solid rgba(0,0,0,0.18); border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+.so-table th { background: rgba(0,0,0,0.06); color: #000; padding: 4px 4px; text-align: left; font-size: var(--tbl-th-size, 10px); font-weight: 400; letter-spacing: normal; text-transform: uppercase; white-space: nowrap; vertical-align: middle; border-top: 1px solid rgba(0,0,0,0.18); border-bottom: 1px solid rgba(0,0,0,0.18); }
+.so-table th:first-child { padding-left: 8px; border-left: 1px solid rgba(0,0,0,0.18); border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.so-table th:last-child  { padding-right: 8px; border-right: 1px solid rgba(0,0,0,0.18); border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
 .so-table th:not(:first-child) { text-align: right; }
-.so-table td { padding: 7px 10px; border-bottom: 1px solid rgba(0,0,0,0.06); color: #000; overflow-wrap: normal; word-break: normal; }
-.so-table td:first-child { padding-left: 18px; }
-.so-table td:last-child  { padding-right: 18px; }
-.so-line-comment td { padding: 2px 10px 6px; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 9px; color: rgba(0,0,0,0.5); font-style: italic; }
-.so-line-comment td:first-child { padding-left: 18px; }
+.so-table td { padding: 4px 4px; color: #000; overflow-wrap: normal; word-break: normal; vertical-align: top; }
+.so-table td:first-child { padding-left: 8px; }
+.so-table td:last-child  { padding-right: 8px; }
+.so-line-comment td { padding: 2px 6px 6px 100px; }
+.so-line-comment td:first-child { padding-left: 100px; }
 .so-table td.td-r { text-align: right; }
-.so-table tr:last-child td { border-bottom: none; }
+/* Classic: per-column headers — override the global right-align rule */
+.so-table-classic th { text-align: left !important; }
+.so-table-classic th.th-r { text-align: right !important; }
+/* Labor sub-rows share the row above; keep the tight top padding */
+.so-labor-sub td { padding-top: 3px; }
+/* Classic & Groups: rows belonging to the same line item sit close together,
+   so the material/labor/comment grouping reads as one connected unit */
+.so-table-classic tr:has(+ .so-labor-sub) td,
+.so-table-groups tr:has(+ .so-labor-sub) td,
+.so-table-classic tr:has(+ .so-line-comment) td,
+.so-table-groups tr:has(+ .so-line-comment) td { padding-bottom: 1px; }
+.so-table-classic .so-labor-sub td,
+.so-table-groups .so-labor-sub td { padding-top: 1px; }
+.so-table-classic .so-line-comment td,
+.so-table-groups .so-line-comment td { padding-top: 1px; }
 /* ── WO multi-row line items ─────────────────────────────────────────────── */
 .wo-items { margin-bottom: 20px; font-size: 10px; color: #000; }
 .wo-items-hdr {
@@ -1548,13 +1566,12 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
   background: rgba(0,0,0,0.06);
   border: 1px solid rgba(0,0,0,0.18);
   border-radius: 4px;
-  padding: 5px 18px;
+  padding: 5px 10px;
   margin-bottom: 2px;
 }
 .wo-hdr-qty { margin-left: auto; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
-.wo-group { border-bottom: 1px solid rgba(0,0,0,0.07); padding: 2px 0 4px; }
-.wo-group:last-child { border-bottom: none; }
-.wo-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; }
+.wo-group { padding: 2px 0 4px; }
+.wo-row { display: flex; align-items: baseline; padding: 1px 10px; min-height: 16px; line-height: 1.6; }
 .wo-row-left  { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 6px; overflow: hidden; }
 .wo-row-right { display: flex; align-items: baseline; gap: 6px; flex-shrink: 0; }
 /* Cell classes */
@@ -1607,10 +1624,9 @@ body.dev-vp-mobile .btn-cancel { order: 2; }
 
 /* ── PO multi-row card layout ── */
 .po-items { margin-bottom: 20px; font-size: 10px; color: #000; }
-.po-items-hdr { display: flex; align-items: baseline; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.18); border-radius: 4px; padding: 5px 18px; margin-bottom: 2px; }
-.po-group { border-bottom: 1px solid rgba(0,0,0,.07); padding: 2px 0 4px; }
-.po-group:last-child { border-bottom: none; }
-.po-row { display: flex; align-items: baseline; padding: 1px 18px; min-height: 16px; line-height: 1.6; gap: 6px; }
+.po-items-hdr { display: flex; align-items: baseline; background: rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.18); border-radius: 4px; padding: 5px 10px; margin-bottom: 2px; }
+.po-group { padding: 2px 0 4px; }
+.po-row { display: flex; align-items: baseline; padding: 1px 10px; min-height: 16px; line-height: 1.6; gap: 6px; }
 .po-hdr-num  { width: 22px; flex-shrink: 0; }
 .po-hdr-mfr  { width: 60px; flex-shrink: 0; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
 .po-hdr-desc { flex: 1; font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: normal; color: #000; }
@@ -2057,11 +2073,18 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
   </button>
   <div style="width:1px;height:14px;background:rgba(255,255,255,0.15);margin:0 2px"></div>
   <span>Dealer:</span>
-  <select id="dev-dealer-location" onchange="refreshPreviewImmediate()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);font-size:11px;padding:2px 6px;border-radius:5px;cursor:pointer;outline:none">
-    <option value="us">US</option>
-    <option value="canada">Canada</option>
-    <option value="california">California</option>
-  </select>
+  <div class="dev-dealer-wrap" id="dev-dealer-wrap" style="position:relative;display:inline-block">
+    <button class="dev-dealer-btn" id="dev-dealer-btn" onclick="toggleDealerMenu()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);font-size:11px;padding:2px 22px 2px 6px;border-radius:5px;cursor:pointer;outline:none;position:relative">
+      <span id="dev-dealer-label">US</span>
+      <i class="ph ph-caret-down" style="position:absolute;right:5px;top:50%;transform:translateY(-50%);font-size:10px;opacity:0.6"></i>
+    </button>
+    <div id="dev-dealer-menu" style="display:none;position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid rgba(0,0,0,0.12);border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,0.12);z-index:9999;min-width:110px;overflow:hidden">
+      <button onclick="setDealerLocation('us','US')"       style="display:block;width:100%;padding:7px 12px;font-size:12px;text-align:left;background:none;border:none;cursor:pointer;color:#111" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">US</button>
+      <button onclick="setDealerLocation('canada','Canada')"     style="display:block;width:100%;padding:7px 12px;font-size:12px;text-align:left;background:none;border:none;cursor:pointer;color:#111" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">Canada</button>
+      <button onclick="setDealerLocation('california','California')" style="display:block;width:100%;padding:7px 12px;font-size:12px;text-align:left;background:none;border:none;cursor:pointer;color:#111" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='none'">California</button>
+    </div>
+  </div>
+  <input type="hidden" id="dev-dealer-location" value="us">
 </div>
 
 <div class="app-shell">
@@ -2112,10 +2135,6 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
 <header class="topbar">
   <span class="topbar-title">Report Templates</span>
   <div class="topbar-right">
-    <div class="view-toggle">
-      <button class="vt-btn active" id="vt-grid" onclick="setView('grid')" title="Grid view"><i class="ph ph-squares-four"></i></button>
-      <button class="vt-btn" id="vt-list" onclick="setView('list')" title="List view"><i class="ph ph-list-bullets"></i></button>
-    </div>
     <button class="btn btn-primary" onclick="openNewModal()"><i class="ph ph-plus"></i> New template</button>
   </div>
 </header>
@@ -2422,13 +2441,13 @@ body.dev-vp-mobile .main { padding-bottom: 94px; }
       </div>
     </div>
 
-    <!-- Line count picker -->
+    <!-- Line count picker (hidden in MVP/Phase 2) -->
     <div class="preview-line-picker" id="preview-line-picker">
       <span class="plp-label">Preview line items</span>
       <div class="plp-seg">
-        <button class="plp-opt active" onclick="setPreviewLineCount(5)">5</button>
+        <button class="plp-opt" onclick="setPreviewLineCount(5)">5</button>
         <button class="plp-opt" onclick="setPreviewLineCount(10)">10</button>
-        <button class="plp-opt" onclick="setPreviewLineCount(20)">20</button>
+        <button class="plp-opt active" onclick="setPreviewLineCount(20)">20</button>
         <button class="plp-opt" onclick="setPreviewLineCount(50)">50</button>
       </div>
     </div>
@@ -2670,8 +2689,12 @@ function matches(t) {
 function render() {
   const dContainer = document.getElementById('grid-default');
   const cContainer = document.getElementById('grid-custom');
-  const filteredDefault = DEFAULT_TEMPLATES.filter(matches);
-  const filteredCustom  = customTemplates.filter(matches);
+  const filteredDefault = DEFAULT_TEMPLATES.filter(t => !isComingSoon(t.type) && matches(t));
+  const filteredCustom  = customTemplates.filter(t => !isComingSoon(t.type) && matches(t));
+  // Sync new-modal type cards visibility
+  document.querySelectorAll('#type-picker-grid .type-card').forEach(btn => {
+    btn.style.display = isComingSoon(btn.dataset.type) ? 'none' : '';
+  });
   document.getElementById('count-default').textContent = filteredDefault.length || '';
   document.getElementById('count-custom').textContent  = filteredCustom.length  || '';
   dContainer.className = viewMode === 'grid' ? 'tpl-grid' : 'tpl-list';
@@ -2742,6 +2765,7 @@ function _fsOpen(trigger) {
     if (!btn.classList.contains('selected')) {
       btn.addEventListener('mouseenter', () => {
         if (!phaseHasGhost()) {
+          if (isHandheldViewport()) return; // hover disabled on handhelds
           showFieldTooltip(document.getElementById('fs-menu'), 'fs:' + btn.dataset.val);
           return;
         }
@@ -2994,8 +3018,8 @@ const TYPE_CONFIG = {
     },
     colPool: [
       { key:'Line Number',     hdr:'#',           w:'76px',  minW:28,  r:false, tok:'S', hug:true },
-      { key:'Description',     hdr:'Description', w:'160px', minW:110, r:false, tok:'L' },
       { key:'Style',           hdr:'Style',       w:'96px',  minW:68,  r:false, tok:'M' },
+      { key:'Description',     hdr:'Description', w:'160px', minW:110, r:false, tok:'L' },
       { key:'Color',           hdr:'Color',       w:'96px',  minW:68,  r:false, tok:'M' },
       { key:'Material #',      hdr:'Mat. #',      w:'76px',  minW:48,  r:false, tok:'S' },
       { key:'Bin',             hdr:'Bin',         w:'76px',  minW:48,  r:false, tok:'S' },
@@ -3063,27 +3087,31 @@ const TYPE_CONFIG = {
         },
       },
       { id:'sec-totals', title:'Totals & Signature', badgeKey:'totals', colPicker:false, styleToggle:false, groups:['ms-wo-totals'] },
+      { id:'sec-terms',  title:'Terms and Conditions', badgeKey:'terms', colPicker:false, styleToggle:false, groups:['ms-terms'] },
     ],
     fields: {
       'ms-wo-company': { label:'Company information', all:['Timestamp','Company Name','Location Name','Company Address','Location Address','Company Phone/Email','Location Phone/Email'], sel:['Company Name','Company Address'] },
       'ms-wo-address': { label:'Address & contact',   all:['Sold To','Sold To Phone/Email','Ship To','Ship To Phone'], sel:['Sold To','Ship To'] },
       'ms-wo-refs':    { label:'References',           all:['PO #','Custom Field'], sel:['PO #'] },
       'ms-wo-totals':  { label:'Totals & signature',  all:['Labor Total','Balance','Comments','Signature Line'], sel:['Labor Total','Balance','Signature Line'] },
+      'ms-terms':      { label:'Terms & conditions',  all:['Terms and Conditions','Terms Start on New Page','Force Terms to Bottom'], sel:['Terms and Conditions'] },
     },
     fieldZones: {
       'Company Name':'zone-company','Location Name':'zone-company','Company Address':'zone-company','Location Address':'zone-company','Company Phone/Email':'zone-company','Location Phone/Email':'zone-company',
       'Sold To':'zone-sold-to','Sold To Phone/Email':'zone-sold-to','Ship To':'zone-ship-to','Ship To Phone':'zone-ship-to','Custom Field':'zone-company',
       'Invoice #':'zone-dates','Sale Date':'zone-dates','Next Install':'zone-dates','Sales Rep':'zone-dates','Timestamp':'zone-company','PO #':'zone-dates','Custom Field':'zone-dates',
       'Labor Total':'zone-totals','Balance':'zone-totals','Comments':'zone-totals','Signature Line':'zone-totals',
+      'Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer',
     },
     colPool: [],
     defaultActiveCols: [],
-    footerTerms: false,
+    footerTerms: true,
   },
 
   'Purchase Order': {
     sections: [
       { id:'sec-header', title:'Header Fields', badgeKey:'header', colPicker:false, styleToggle:false, groups:['ms-po-address'] },
+      { id:'sec-terms',  title:'Terms and Conditions', badgeKey:'terms', colPicker:false, styleToggle:false, groups:['ms-terms'] },
       { id:'sec-po-lines', title:'Line Item Fields', badgeKey:'lines', colPicker:false, fieldEditor:true,
         fieldGroups: [
           { id:'po-description', label:'Description',
@@ -3116,10 +3144,12 @@ const TYPE_CONFIG = {
     ],
     fields: {
       'ms-po-address': { label:'Header fields', all:['Bill To','Vendor','Ship To','Timestamp','Comments','Location Name – Ship To'], sel:['Bill To','Vendor','Ship To'] },
+      'ms-terms':      { label:'Terms & conditions', all:['Terms and Conditions','Terms Start on New Page','Force Terms to Bottom'], sel:['Terms and Conditions'] },
     },
     fieldZones: {
       'Bill To':'zone-sold-to','Vendor':'zone-company','Ship To':'zone-ship-to',
       'Timestamp':'zone-dates','Comments':'zone-company','Location Name – Ship To':'zone-ship-to',
+      'Terms and Conditions':'zone-footer','Terms Start on New Page':'zone-footer','Force Terms to Bottom':'zone-footer',
     },
     colPool: [],
     defaultActiveCols: [],
@@ -3152,7 +3182,7 @@ const COL_TOKENS      = { S: 76, M: 96, L: 160 }; // S/M/L → px (backend defau
 let colWidths         = {};  // { [columnKey]: number } — slider override (priority over S/M/L)
 let autoFitWidths     = {};  // { [columnKey]: number } — Auto Fit result (flex cols only)
 let tableAdaptiveText = false; // scale table font to fit printable width
-let previewLineCount  = 5;    // mock row count driven by picker
+let previewLineCount  = 20;   // mock row count driven by picker
 let pageOrientation = 'portrait'; // 'portrait' | 'landscape'
 const PRINT_WIDTHS  = { portrait: 572, landscape: 832 }; // shell(700|960) - 128px padding
 function getPrintWidth() { return PRINT_WIDTHS[pageOrientation]; }
@@ -3189,23 +3219,28 @@ function getWONaturalWidth() {
 }
 
 // SO columns that are positionally locked (can't be dragged or removed)
-const SO_COL_LOCKED_LEFT  = new Set(['Line Number']);
+const SO_COL_LOCKED_LEFT  = new Set(['Line Number','Status']);
+const SO_LEFT_ORDER       = ['Line Number','Status']; // fixed order within the locked-left group
 const SO_COL_LOCKED_RIGHT = new Set(['Qty','Price','Total']);
+const SO_LABOR_KEYS       = new Set(['Installer Name','Labor Type']); // draggable-list "Labor" group
 function _isSoLocked(key) { return SO_COL_LOCKED_LEFT.has(key) || SO_COL_LOCKED_RIGHT.has(key); }
+function _cpGroupOf(key) { return SO_LABOR_KEYS.has(key) ? 'labor' : 'material'; }
 function _enforceSOLockedPositions() {
   if (activeType !== 'Sales Order') return;
-  const left   = activeColumns.filter(k => SO_COL_LOCKED_LEFT.has(k));
-  const right  = activeColumns.filter(k => SO_COL_LOCKED_RIGHT.has(k));
-  const middle = activeColumns.filter(k => !SO_COL_LOCKED_LEFT.has(k) && !SO_COL_LOCKED_RIGHT.has(k));
+  const leftSet = new Set(activeColumns.filter(k => SO_COL_LOCKED_LEFT.has(k)));
+  const left    = SO_LEFT_ORDER.filter(k => leftSet.has(k));
+  const right   = activeColumns.filter(k => SO_COL_LOCKED_RIGHT.has(k));
+  const middle  = activeColumns.filter(k => !SO_COL_LOCKED_LEFT.has(k) && !SO_COL_LOCKED_RIGHT.has(k));
   activeColumns = [...left, ...middle, ...right];
 }
 
 // Recompute activeColumns order from colOrder (preserves enabled set, respects locked positions)
 function _recomputeActiveColumns() {
   const enabled = new Set(activeColumns.filter(k => !_isSoLocked(k)));
-  const lineNum = activeColumns.filter(k => SO_COL_LOCKED_LEFT.has(k));
+  const leftSet = new Set(activeColumns.filter(k => SO_COL_LOCKED_LEFT.has(k)));
+  const left    = SO_LEFT_ORDER.filter(k => leftSet.has(k));
   const right   = activeColumns.filter(k => SO_COL_LOCKED_RIGHT.has(k));
-  return [...lineNum, ...colOrder.filter(k => enabled.has(k)), ...right];
+  return [...left, ...colOrder.filter(k => enabled.has(k)), ...right];
 }
 let cpDragKey     = null; // key currently being dragged
 let cpDragOverKey = null; // key the dragged item is over
@@ -3218,6 +3253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.dev-phase-btn').forEach(b => {
     b.classList.toggle('on', parseInt(b.dataset.phase) === devPhase);
   });
+  _applyPhaseWidthLock(devPhase);
 
   // Start on templates view
   render();
@@ -3352,8 +3388,13 @@ function applyTypeConfig(type) {
   colWidths = {};
   autoFitWidths = {};
   tableAdaptiveText = false;
-  previewLineCount = 5;
-  document.querySelectorAll('.plp-opt').forEach(b => b.classList.toggle('active', Number(b.textContent) === 5));
+  previewLineCount = 20;
+  document.querySelectorAll('.plp-opt').forEach(b => b.classList.toggle('active', Number(b.textContent) === 20));
+  // Hide line count picker in MVP / phase 2
+  const plpEl = document.getElementById('preview-line-picker');
+  if (plpEl) plpEl.style.display = devPhase <= 2 ? 'none' : '';
+  const drawerLp = document.querySelector('.drawer-lp');
+  if (drawerLp) drawerLp.style.display = devPhase <= 2 ? 'none' : '';
   pageOrientation = 'portrait';
   userZoomOverride = 1;
   updatePreviewZoom();
@@ -3473,16 +3514,10 @@ function _autoFitStandardLayout() {
     return;
   }
 
-  // Natural widths exceed landscape — switch to landscape and auto-fit
+  // Natural widths exceed landscape — auto-fit within portrait (never auto-switch)
   colWidths = {};
   autoFitWidths = {};
-  pageOrientation = 'landscape';
-  document.querySelectorAll('#orientation-toggle .toggle-slider-opt').forEach(el =>
-    el.classList.toggle('active', el.dataset.value === 'landscape')
-  );
-  updatePreviewZoom();
   _applyAutoFit();
-
   renderColPicker();
   refreshPreviewImmediate();
 }
@@ -3493,15 +3528,15 @@ function buildSectionsHTML(sections, footerTerms) {
     <div class="field">
       <label class="field-label" for="table-style-sel">Table style</label>
       <select class="field-select" id="table-style-sel" onchange="onTableStyleChange(this.value)" style="width:100%">
-        <option value="classic">Classic</option>
-        <option value="separated" selected>Separated</option>
+        <option value="classic" selected>Classic</option>
+        <option value="separated">Separated</option>
         <option value="groups">Groups</option>
         <option value="groups-separated">Groups + Separated</option>
         <option value="comments-only">Sales order comments only</option>
       </select>
     </div>
     <div class="check-row" style="margin-top:6px">
-      <input type="checkbox" class="check-box" id="chk-subtotals" checked>
+      <input type="checkbox" class="check-box" id="chk-subtotals" checked onchange="refreshPreviewImmediate()">
       <label class="check-label" for="chk-subtotals">Show subtotals</label>
     </div>`;
 
@@ -3668,8 +3703,10 @@ function renderColPicker() {
   const lineNumInPool = pool.find(c => c.key === 'Line Number');
   const lineCommDef = pool.find(c => c.key === 'Line Comments');
   const lineCommOn = activeColumns.includes('Line Comments');
+  const statusDef = pool.find(c => c.key === 'Status');
+  const statusOn = activeColumns.includes('Status');
 
-  /* ── Line Number + Line Comments: locked top section ── */
+  /* ── Line Number + Status + Line Comments: locked top section ── */
   const _renderLockedDisplayItem = (key, label, on) => {
     const def = poolMap[key];
     const widthBadge = devShowWidths && on && !def?.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, def)}px</span>` : '';
@@ -3680,37 +3717,43 @@ function renderColPicker() {
                onchange="cpnToggle('${key}',this.checked)">
         <span class="cpn-toggle-sw"></span>
       </label>
-      <span class="cp-col-label${on ? '' : ' cp-col-dimmed'}">${label}</span>${widthBadge}
+      <span class="cp-col-label${on ? '' : ' cp-col-dimmed'}">${label}</span>${widthBadge}${_tooltipIconHTML(key)}
     </div>`;
   };
-  const lineNumHTML = lineNumInPool
-    ? _renderLockedDisplayItem('Line Number', 'Line Number', lineNumOn) + (lineCommDef ? _renderLockedDisplayItem('Line Comments', 'Line Comments', lineCommOn) : '') + '<div class="cpn-divider"></div>'
+  const lineNumItems = [
+    lineNumInPool ? _renderLockedDisplayItem('Line Number', 'Line Number', lineNumOn) : '',
+    statusDef ? _renderLockedDisplayItem('Status', 'Status', statusOn) : '',
+    lineCommDef ? _renderLockedDisplayItem('Line Comments', 'Line Comments', lineCommOn) : '',
+  ].filter(Boolean);
+  const lineNumHTML = lineNumItems.length
+    ? `<div class="cpn-two-col">${lineNumItems.join('')}</div><div class="cpn-divider"></div>`
     : '';
 
   /* ── Unified draggable list (all non-locked, non-uiLocked cols, in colOrder) ── */
   // Phase < 3: render draggable cols as locked items (no drag handle, no width control)
   const draggableHTML = colOrder.length
-    ? colOrder.map(key => {
+    ? colOrder.map((key, i) => {
         const c = poolMap[key];
         if (!c) return '';
+        const divider = (activeType === 'Sales Order' && i > 0 && _cpGroupOf(colOrder[i - 1]) !== _cpGroupOf(key)) ? '<div class="cpn-divider"></div>' : '';
         const isOn = activeColumns.includes(key);
         if (!phaseHasDrag()) {
           // Render as locked: same as _renderLockedDisplayItem but from draggable pool
           const widthBadge = devShowWidths && isOn && !c.hug ? ` <span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c)}px</span>` : '';
-          return `<div class="cpn-locked-item" onmouseenter="colHoverIn('${key}',this)" onmouseleave="colHoverOut()" onclick="cpnToggle('${key}',!activeColumns.includes('${key}'))">
+          return `${divider}<div class="cpn-locked-item" onmouseenter="colHoverIn('${key}',this)" onmouseleave="colHoverOut()" onclick="cpnToggle('${key}',!activeColumns.includes('${key}'))">
             <i class="ph ph-lock-simple cpn-lock-icon"></i>
             <label class="cpn-toggle-label" onclick="event.stopPropagation()">
               <input type="checkbox" class="cpn-toggle-check" ${isOn ? 'checked' : ''}
                      onchange="cpnToggle('${key}',this.checked)">
               <span class="cpn-toggle-sw"></span>
             </label>
-            <span class="cp-col-label${isOn ? '' : ' cp-col-dimmed'}">${key}</span>${widthBadge}
+            <span class="cp-col-label${isOn ? '' : ' cp-col-dimmed'}">${key}</span>${widthBadge}${_tooltipIconHTML(key)}
           </div>`;
         }
         const hasW = colWidths[key] != null;
         const sliderVal = colWidths[key] ?? autoFitWidths[key] ?? getColPx(key, c);
         const widthBadge = devShowWidths && isOn && !c.hug ? `<span style="font-size:10px;color:var(--c-text-disabled);margin-left:auto">${sliderVal}px</span>` : '';
-        return `<div class="cp-active-item" data-key="${key}"
+        return `${divider}<div class="cp-active-item" data-key="${key}"
                      onmouseenter="colHoverIn('${key}')" onmouseleave="colHoverOut()"
                      ondragover="cpItemDragOver(event,'${key}')"
                      ondrop="cpItemDrop(event,'${key}')"
@@ -3725,6 +3768,7 @@ function renderColPicker() {
             </label>
             <span class="cp-col-label${isOn ? '' : ' cp-col-dimmed'}">${key}</span>
             ${widthBadge}
+            ${_tooltipIconHTML(key)}
             ${isOn && !c.subRow ? `<label class="cp-width-check-label" onclick="event.stopPropagation()" ondragstart="event.stopPropagation()" title="Custom width">
               <input type="checkbox" class="check-box" ${hasW ? 'checked' : ''}
                      onchange="cpWidthToggle('${key}',this)">
@@ -3740,10 +3784,11 @@ function renderColPicker() {
       }).join('')
     : '';
 
-  /* ── Product/Labor: locked bottom rows with toggles ── */
-  const plHTML = (secCfg?.fieldGroups || []).map(grp => {
+  /* ── Product/Labor: two-column layout with Product and Labor section titles ── */
+  const plGroups = secCfg?.fieldGroups || [];
+  const _plItems = (grp) => {
     const activeSet = activeFieldSets[grp.id] || new Set();
-    const items = grp.fields.map(f => {
+    return grp.fields.map(f => {
       const isOn = activeSet.has(f.name);
       let widthBadge = '';
       if (devShowWidths && isOn && f.paired) {
@@ -3760,11 +3805,13 @@ function renderColPicker() {
                  onchange="cpnPlToggle('${grp.id}','${f.name}',this.checked)">
           <span class="cpn-toggle-sw"></span>
         </label>
-        <span class="${isOn ? '' : 'cp-col-dimmed'}">${f.name}</span>${widthBadge}
+        <span class="${isOn ? '' : 'cp-col-dimmed'}">${f.name.replace(/^(Product|Labor)\s+/, '')}</span>${widthBadge}${_tooltipIconHTML(f.name)}
       </div>`;
     }).join('');
-    return items;
-  }).join('');
+  };
+  const plHTML = plGroups.length >= 2
+    ? `<div class="cpn-pl-two-col"><div class="cpn-pl-col"><div class="cpn-pl-group-label">Product</div>${_plItems(plGroups[0])}</div><div class="cpn-pl-col"><div class="cpn-pl-group-label">Labor</div>${_plItems(plGroups[1])}</div></div>`
+    : plGroups.map(grp => _plItems(grp)).join('');
 
   wrap.innerHTML = `
     <div class="cpn-box">
@@ -3809,8 +3856,10 @@ function cpnToggle(key, on) {
       const ac = activeColumns.indexOf(colOrder[i]);
       if (ac >= 0) { insertAfter = ac; break; }
     }
-    const rightStart = activeColumns.findIndex(k => SO_COL_LOCKED_RIGHT.has(k));
-    const insertAt = insertAfter >= 0 ? insertAfter + 1 : (rightStart >= 0 ? rightStart : activeColumns.length);
+    // Nothing earlier in colOrder is active yet — this column leads the middle section,
+    // so it belongs right after the locked-left columns (Line Number, Status).
+    const leftCount = activeColumns.filter(k => SO_COL_LOCKED_LEFT.has(k)).length;
+    const insertAt = insertAfter >= 0 ? insertAfter + 1 : leftCount;
     activeColumns.splice(insertAt, 0, key);
     _enforceSOLockedPositions();
   } else {
@@ -4097,7 +4146,11 @@ function tagTypeChange(type) {
 }
 
 function colHoverIn(key, el) {
-  if (!phaseHasGhost()) { showFieldTooltip(el || event?.target, key); return; }
+  if (!phaseHasGhost()) {
+    if (isHandheldViewport()) return; // hover disabled on handhelds — tap the info icon instead
+    showFieldTooltip(el || event?.target, key);
+    return;
+  }
   if (activeColumns.includes(key)) return; // already active — no ghost
   colGhostKey = key;
   refreshPreviewImmediate();
@@ -4150,6 +4203,7 @@ function cpDragEnd() {
 // Dragover an active item — show insertion marker (works for both sources)
 function cpItemDragOver(e, key) {
   if (!cpDragKey || cpDragKey === key) return;
+  if (activeType === 'Sales Order' && _cpGroupOf(cpDragKey) !== _cpGroupOf(key)) return;
   e.preventDefault();
   e.dataTransfer.dropEffect = 'move';
   cpDragOverKey = key;
@@ -4168,6 +4222,7 @@ function cpItemDragLeave(e) {
 function cpItemDrop(e, targetKey) {
   e.preventDefault();
   if (!cpDragKey || cpDragKey === targetKey) return;
+  if (activeType === 'Sales Order' && _cpGroupOf(cpDragKey) !== _cpGroupOf(targetKey)) return;
 
   const rect  = e.currentTarget.getBoundingClientRect();
   const after = e.clientY >= rect.top + rect.height / 2;
@@ -4439,17 +4494,7 @@ function mountFieldEditor(sec) {
           }
           renderColPicker();
         }
-        // WO: auto-switch to landscape when right columns exceed portrait width
-        if (activeType === 'Work Order') {
-          const needed = getWONaturalWidth();
-          if (needed > PRINT_WIDTHS.portrait && pageOrientation === 'portrait') {
-            pageOrientation = 'landscape';
-            document.querySelectorAll('#orientation-toggle .toggle-slider-opt').forEach(el =>
-              el.classList.toggle('active', el.dataset.value === 'landscape')
-            );
-            updatePreviewZoom();
-          }
-        }
+        // WO: no auto landscape switch — user controls orientation manually
         updateAllBadges();
         refreshPreviewImmediate();
       });
@@ -4480,6 +4525,7 @@ function mountCheckboxGroup(groupId) {
             data-field="${f}"
             ${data.sel.includes(f) ? 'checked' : ''}>
           <span class="cb-label-text">${f}</span>
+          ${_tooltipIconHTML(f)}
         </label>
       `).join('')}
     </div>
@@ -4488,7 +4534,11 @@ function mountCheckboxGroup(groupId) {
   // Hover → zone highlight (phases 2+) or tooltip (MVP)
   container.querySelectorAll('.cb-row').forEach(row => {
     row.addEventListener('mouseenter', (e) => {
-      if (!phaseHasGhost()) { showFieldTooltip(e.currentTarget, row.dataset.field); return; }
+      if (!phaseHasGhost()) {
+        if (isHandheldViewport()) return; // hover disabled on handhelds — tap the info icon instead
+        showFieldTooltip(e.currentTarget, row.dataset.field);
+        return;
+      }
       highlightPreviewZone(row.dataset.field);
     });
     row.addEventListener('mouseleave', () => { hideFieldTooltip(); clearPreviewZone(); });
@@ -4690,50 +4740,82 @@ function renderIntoPages(contentHTML, containerEl) {
   }
 
   const measurer = document.createElement('div');
-  measurer.style.cssText = `position:fixed;visibility:hidden;pointer-events:none;top:-9999px;width:${vpW}px;`;
+  measurer.style.cssText = `position:fixed;visibility:hidden;pointer-events:none;top:0;left:-5000px;width:${vpW}px;`;
   measurer.innerHTML = contentHTML;
   document.body.appendChild(measurer);
 
-  // Walk children of the outermost wrapper to assign each to a page without splitting
-  const outerEl = measurer.firstElementChild;
-  let pages;
-  let usesClipFallback = false;
-  if (outerEl && outerEl.children.length > 0) {
-    const outerOpen = outerEl.outerHTML.match(/^<[^>]+>/)[0];
-    const outerClose = `</${outerEl.tagName.toLowerCase()}>`;
-    const pageGroups = [[]];
-    let usedH = 0;
-    Array.from(outerEl.children).forEach(child => {
-      const h = child.offsetHeight;
-      if (usedH > 0 && usedH + h > vpH) {
-        pageGroups.push([]);
-        usedH = 0;
-      }
-      pageGroups[pageGroups.length - 1].push(child.outerHTML);
-      usedH += h;
-    });
-    pages = pageGroups.map(els => `${outerOpen}${els.join('')}${outerClose}`);
-  } else {
-    // Fallback: clip-scroll approach
-    const contentH = measurer.scrollHeight;
-    const n = Math.max(1, Math.ceil(contentH / vpH));
-    pages = Array.from({ length: n }, () => contentHTML);
-    usesClipFallback = true;
-  }
+  // Handle page-break-before: push element to start of next page
+  const measTop = measurer.getBoundingClientRect().top;
+  measurer.querySelectorAll('[data-pgbreak="before"]').forEach(el => {
+    const elTop = el.getBoundingClientRect().top - measTop;
+    if (elTop > 0) {
+      const pageIdx = Math.floor(elTop / vpH);
+      const nextStart = (pageIdx + 1) * vpH;
+      const pad = nextStart - elTop;
+      if (pad > 10 && pad < vpH) el.style.marginTop = (parseFloat(el.style.marginTop || 0) + pad) + 'px';
+    }
+  });
 
+  // Handle force-to-bottom: push element to bottom of its page
+  measurer.querySelectorAll('[data-force-bottom]').forEach(el => {
+    const mRect = measurer.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const elTop = elRect.top - mRect.top;
+    const elH = elRect.height;
+    const totalH = measurer.scrollHeight;
+    const nPages = Math.max(1, Math.ceil(totalH / vpH));
+    const targetTop = nPages * vpH - elH;
+    const pad = targetTop - elTop;
+    if (pad > 0) el.style.marginTop = (parseFloat(el.style.marginTop || 0) + pad) + 'px';
+  });
+
+  // Collect atomic (never-split) elements: table rows, WO/PO row groups + headers,
+  // and totals/signature blocks. A page break is never allowed to fall inside one of these —
+  // instead the whole element is pushed to the next page.
+  const atomicEls = measurer.querySelectorAll(
+    '[data-zone="zone-table"] tr, .wo-group, .po-group, .wo-items-hdr, .po-items-hdr, [data-zone="zone-totals"]'
+  );
+  const mRectFinal = measurer.getBoundingClientRect();
+  const atomics = Array.from(atomicEls).map(el => {
+    const r = el.getBoundingClientRect();
+    return { top: r.top - mRectFinal.top, bottom: r.bottom - mRectFinal.top };
+  }).sort((a, b) => a.top - b.top);
+
+  const contentH = measurer.scrollHeight;
+  const finalHTML = measurer.innerHTML;
   document.body.removeChild(measurer);
 
+  // Walk the content top to bottom, advancing one vpH-tall page at a time. If the next
+  // natural page boundary would fall inside an atomic element, pull the boundary back to
+  // just before that element so it renders whole on the following page instead.
+  const breaks = [0];
+  let cursor = 0;
+  let guard = 0;
+  while (cursor < contentH - 0.5 && guard++ < 500) {
+    let target = Math.min(cursor + vpH, contentH);
+    if (target >= contentH - 0.5) { breaks.push(contentH); break; }
+    const crossing = atomics.find(a => a.top < target - 0.5 && a.bottom > target + 0.5 && a.top > cursor + 0.5);
+    if (crossing) target = crossing.top;
+    if (target <= cursor + 0.5) target = Math.min(cursor + vpH, contentH); // pathological: element taller than a page
+    breaks.push(target);
+    cursor = target;
+  }
+
+  // Clip-scroll approach: each page shows a window into the full content. The window is
+  // clipped to the actual content used on that page (<= vpH), not a uniform vpH — otherwise
+  // a page that ends early (because a row got pushed to the next page) would keep showing
+  // content past its break, duplicating it at the top of the following page.
   let html = '';
-  pages.forEach((pageContent, i) => {
-    const scrollTop = usesClipFallback ? -i * vpH : 0;
+  for (let i = 0; i < breaks.length - 1; i++) {
+    const segH = Math.min(vpH, breaks[i + 1] - breaks[i]);
     html += `<div class="preview-page" style="height:${pageH}px">
-      <div class="preview-page-viewport" style="top:${padY}px;left:${padX}px;right:${padX}px;height:${vpH}px;">
-        <div class="preview-page-scroll" style="top:${scrollTop}px;">
-          ${pageContent}
+      <div class="preview-page-viewport" style="top:${padY}px;left:${padX}px;right:${padX}px;height:${segH}px;">
+        <div class="preview-page-scroll" style="top:${-breaks[i]}px;">
+          ${finalHTML}
         </div>
       </div>
     </div>`;
-  });
+  }
   containerEl.innerHTML = html;
 }
 
@@ -4853,7 +4935,32 @@ function showFieldTooltip(target, key) {
 }
 function hideFieldTooltip() {
   _tooltipEl?.classList.remove('visible');
+  _tooltipOpenIcon = null;
 }
+
+/* ── Handheld tooltip access: tap an info icon instead of hovering ───────── */
+function isHandheldViewport() {
+  return document.body.classList.contains('dev-vp-tablet')
+    || document.body.classList.contains('dev-vp-mobile')
+    || window.matchMedia('(max-width: 767px)').matches;
+}
+function _tooltipIconHTML(key) {
+  if (!TOOLTIP_DEFS[key]) return '';
+  return `<i class="ph ph-info field-info-icon" onclick="event.preventDefault();event.stopPropagation();toggleFieldTooltipClick(event.currentTarget,'${key.replace(/'/g, "\\'")}')"></i>`;
+}
+let _tooltipOpenIcon = null;
+function toggleFieldTooltipClick(iconEl, key) {
+  if (_tooltipOpenIcon === iconEl) { hideFieldTooltip(); return; }
+  showFieldTooltip(iconEl, key);
+  _tooltipOpenIcon = iconEl;
+}
+// Tooltip closes on scroll (position would go stale) or on interacting with anything else
+document.addEventListener('scroll', hideFieldTooltip, true);
+document.addEventListener('click', (e) => {
+  if (!_tooltipOpenIcon) return;
+  if (e.target === _tooltipOpenIcon || e.target.closest?.('#phase-tooltip')) return;
+  hideFieldTooltip();
+}, true);
 
 function highlightPreviewZone(fieldName) {
   const isSel = Object.values(FIELDS).some(g => g.sel.includes(fieldName));
@@ -5144,8 +5251,13 @@ function globalClickHandler(e) {
   });
   const searchWrap = document.getElementById('search-bar-wrap');
   const searchResults = document.getElementById('search-results');
-  if (searchResults.classList.contains('open') && !path.includes(searchWrap)) {
+  if (searchResults?.classList.contains('open') && !path.includes(searchWrap)) {
     searchResults.classList.remove('open');
+  }
+  const dealerWrap = document.getElementById('dev-dealer-wrap');
+  const dealerMenu = document.getElementById('dev-dealer-menu');
+  if (dealerMenu && dealerMenu.style.display !== 'none' && dealerWrap && !path.includes(dealerWrap)) {
+    dealerMenu.style.display = 'none';
   }
 }
 
@@ -5185,6 +5297,21 @@ function onRTitleChange(sel) {
 
 function getDealerLocation() {
   return document.getElementById('dev-dealer-location')?.value || 'us';
+}
+function toggleDealerMenu() {
+  const menu = document.getElementById('dev-dealer-menu');
+  if (!menu) return;
+  const open = menu.style.display !== 'none';
+  menu.style.display = open ? 'none' : 'block';
+}
+function setDealerLocation(val, label) {
+  const hidden = document.getElementById('dev-dealer-location');
+  const lbl    = document.getElementById('dev-dealer-label');
+  const menu   = document.getElementById('dev-dealer-menu');
+  if (hidden) hidden.value = val;
+  if (lbl)    lbl.textContent = label;
+  if (menu)   menu.style.display = 'none';
+  refreshPreviewImmediate();
 }
 
 function getRTitleValue() {
@@ -5406,11 +5533,11 @@ const PO_ROW_TPL = [
   { 'Manufacturer':'Karndean',   'Style':'Van Gogh',     'Style Number':'VG-890', 'Color':'White Ash',    'Color Number':'WA-03','Quantity':'15.00','Unit':'BX', 'Quantity Detail':'15 BX', 'Price':'$54.00','Total':'$810.00','Comments':'Measure confirm',   'Sidemark':'Master BR', 'SKU':'KAR-VG890-WA'  },
 ];
 const SO_ROW_TPL = [
-  { _t:'pl','Line Number':'','Description':'Carpet — St. Lucia','Style':'Std','Color':'Bark','Material #':'-99','Product Units':'SqYr','Product Quantity':'45.00','Product Price':'$12.50','Product Total':'$562.50','Bin':'A-1','Manufacturer':'Shaw','Split Material':'SHG-101 × 28 SqYr\nSHG-103 × 17 SqYr','Installer Name':'Jack Smith','Labor Type':'Carpet Install','Labor Units':'SqFt','Labor Quantity':'405.00','Labor Price':'$0.39','Labor Total':'$157.95','Status':'Active','Line Comments':'' },
-  { _t:'pl','Line Number':'','Description':'Hardwood — Heritage Oak','Style':'Std','Color':'Walnut','Material #':'HWD-204','Product Units':'SqFt','Product Quantity':'284.00','Product Price':'$8.75','Product Total':'$2,485.00','Bin':'B-2','Manufacturer':'Armstrong','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Hardwood Install','Labor Units':'SqFt','Labor Quantity':'284.00','Labor Price':'$1.10','Labor Total':'$312.40','Status':'Active','Line Comments':'Glue-down method' },
+  { _t:'pl','Line Number':'','Description':'Carpet — St. Lucia','Style':'Std','Color':'Bark','Material #':'-99','Product Units':'SqYr','Product Quantity':'45.00','Product Price':'$12.50','Product Total':'$562.50','Bin':'A-1','Manufacturer':'Shaw','Split Material':'SHG-101 × 28 SqYr\nSHG-103 × 17 SqYr','Installer Name':'Jack Smith','Labor Type':'Carpet Install','Labor Units':'SqFt','Labor Quantity':'405.00','Labor Price':'$0.39','Labor Total':'$157.95','Status':'Active','Line Comments':'Customer requested seams run parallel to the hallway, away from the main entrance. Please confirm nap direction with homeowner before cutting.' },
+  { _t:'pl','Line Number':'','Description':'Hardwood — Heritage Oak','Style':'Std','Color':'Walnut','Material #':'HWD-204','Product Units':'SqFt','Product Quantity':'284.00','Product Price':'$8.75','Product Total':'$2,485.00','Bin':'B-2','Manufacturer':'Armstrong','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Hardwood Install','Labor Units':'SqFt','Labor Quantity':'284.00','Labor Price':'$1.10','Labor Total':'$312.40','Status':'Active','Line Comments':'Glue-down method required over the existing concrete slab. Moisture test came back at 3.2 lbs, within spec, but let the adhesive cure a full 24 hours before foot traffic.' },
   { _t:'p','Line Number':'','Description':'Stair Nosing','Style':'Std','Color':'Walnut','Material #':'NOS-018','Product Units':'LF','Product Quantity':'24.00','Product Price':'$14.50','Product Total':'$348.00','Bin':'C-1','Manufacturer':'Armstrong','Split Material':'','Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'','Status':'Active','Line Comments':'' },
   { _t:'pl','Line Number':'','Description':'Carpet Pad','Style':'Std','Color':'White','Material #':'-99','Product Units':'SqYd','Product Quantity':'50.00','Product Price':'$4.25','Product Total':'$212.50','Bin':'A-3','Manufacturer':'Leggett','Split Material':'PAD-007 × 30 SqYd\nPAD-009 × 20 SqYd','Installer Name':'Jack Smith','Labor Type':'Pad Install','Labor Units':'SqYd','Labor Quantity':'50.00','Labor Price':'$0.25','Labor Total':'$12.50','Status':'Active','Line Comments':'' },
-  { _t:'l','Line Number':'','Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'','Bin':'','Manufacturer':'','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Tearout & Disposal','Labor Units':'SqYd','Labor Quantity':'95.00','Labor Price':'$0.35','Labor Total':'$33.25','Status':'Active','Line Comments':'Old carpet removal' },
+  { _t:'l','Line Number':'','Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'','Bin':'','Manufacturer':'','Split Material':'','Installer Name':'Maria Davis','Labor Type':'Tearout & Disposal','Labor Units':'SqYd','Labor Quantity':'95.00','Labor Price':'$0.35','Labor Total':'$33.25','Status':'Active','Line Comments':'Old carpet removal. Homeowner mentioned a pet stain near the closet, so bag that section separately and check the subfloor underneath for water damage before disposal.' },
 ];
 function cycleRows(tpl, n) {
   return Array.from({ length: n }, (_, i) => ({ ...tpl[i % tpl.length], 'Line Number': String(i + 1) }));
@@ -5677,7 +5804,7 @@ function buildWOPreviewHTML() {
   const sigContent = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px" data-zone="zone-totals"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Installer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
   const sigHTML = showSig ? sigContent : (ghostSig ? `<div class="so-ghost-block">${sigContent}</div>` : '');
 
-  const logoEl = `<img class="so-logo" data-ghost="logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
+  const logoEl = `<img class="so-logo" data-ghost="logo" src="company-logo.svg" alt="Logo">`;
   const _g = t => `<span class="so-ghost-inline">${t}</span>`;
   const nameReal  = showLocName  ? 'Feargal McNamara &amp; Sons Denver'            : showCoName   ? 'Feargal McNamara &amp; Sons'          : null;
   const addrReal  = showLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': showCoAddr   ? '500 Commerce Dr<br>Boulder, CO 80302'  : null;
@@ -5749,7 +5876,14 @@ function buildWOPreviewHTML() {
     addressHTML += `</div>`;
   }
 
-  return `<div class="so-page"><div data-zone="zone-header">${headerHTML}</div>${addressHTML}<div class="so-divider"></div>${linesHTML}${totalsHTML}${sigHTML}</div>`;
+  const showWoTerms   = hasSel('Terms and Conditions');
+  const woTermsNewPg  = hasSel('Terms Start on New Page');
+  const woTermsBot    = hasSel('Force Terms to Bottom');
+  const woTermsInner  = `<div class="so-footer-block" data-zone="zone-footer"><div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">All work guaranteed for 12 months. Payment due within 30 days.</div></div></div>`;
+  const woTermsAttrs  = (woTermsNewPg ? ' data-pgbreak="before"' : '') + (woTermsBot ? ' data-force-bottom' : '');
+  const woTermsHTML   = showWoTerms ? (woTermsAttrs ? `<div${woTermsAttrs}>${woTermsInner}</div>` : woTermsInner) : '';
+
+  return `<div class="so-page"><div data-zone="zone-header">${headerHTML}</div>${addressHTML}<div class="so-divider"></div>${linesHTML}${totalsHTML}${sigHTML}${woTermsHTML}</div>`;
 }
 
 /* ── Purchase Order preview ──────────────────────────────────────────────── */
@@ -5849,10 +5983,16 @@ function buildPOPreviewHTML() {
     <div class="so-total-row grand"><span>Total</span><span class="so-total-val">${fmtDollar(poSubtotal)}</span></div>
   </div></div>`;
 
-  /* ── footer — always rendered ── */
+  /* ── footer ── */
+  const showPoTerms  = hasSel('Terms and Conditions');
+  const poTermsNewPg = hasSel('Terms Start on New Page');
+  const poTermsBot   = hasSel('Force Terms to Bottom');
+  const poTermsInner = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">All goods subject to inspection upon delivery. Returns accepted within 14 days with prior authorization.</div></div>`;
+  const poTermsAttrs = (poTermsNewPg ? ' data-pgbreak="before"' : '') + (poTermsBot ? ' data-force-bottom' : '');
+  const poTermsBlock = showPoTerms ? (poTermsAttrs ? `<div${poTermsAttrs}>${poTermsInner}</div>` : poTermsInner) : '';
   const footerHTML = `<div class="so-footer-block" data-zone="zone-footer">
     <div style="margin-bottom:14px"><div class="so-footer-lbl">Notes</div><div class="so-footer-val">Deliver to side entrance. Contact site manager upon arrival.</div></div>
-    <div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">All goods subject to inspection upon delivery. Returns accepted within 14 days with prior authorization.</div></div>
+    ${poTermsBlock}
     <div style="margin-top:28px"><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Authorized By</div></div>
   </div>`;
 
@@ -6162,7 +6302,7 @@ function buildSOPreviewHTML() {
   const rTitle   = getRTitleValue();
   const showSubs = document.getElementById('chk-subtotals')?.checked ?? true;
 
-  const TITLE_MAP = { proposal: 'PROPOSAL', invoice: 'PROPOSAL / INVOICE' };
+  const TITLE_MAP = { proposal: 'PROPOSAL / SALES ORDER', invoice: 'PROPOSAL / INVOICE' };
   const titleText = TITLE_MAP[rTitle] ?? (rTitle === 'none' ? '' : rTitle.toUpperCase());
 
   /* ── company / header ── */
@@ -6227,16 +6367,22 @@ function buildSOPreviewHTML() {
   const ALL_ROWS = cycleRows(SO_ROW_TPL, previewLineCount);
 
   /* ── table cell helpers (ghost-aware) ── */
+  // Hug columns (Line Number, Qty/Price/Total) get a hard fixed width instead of a "1px"
+  // shrink-to-content hint — under table-layout:auto a bare hint gets inflated by however
+  // much leftover space that particular table has, so the same column renders a different
+  // width in every table. A real px value keeps it identical everywhere.
+  function _hugColW(c) { return (c.minW || parseInt(c.w) || 28) + 'px'; }
   function thS(c) {
     let s = c.r ? 'text-align:right' : 'text-align:left';
-    if (c.w) s += ';width:' + c.w;
+    if (c.hug) s += ';width:' + _hugColW(c);
+    else if (c.w) s += ';width:' + c.w;
     const cls = c.ghost ? ' class="ghost-th"' : '';
     return `${cls} style="${s}"`;
   }
   function tdS(c) {
     if (c.ghost) return c.r ? ' class="ghost-td td-r"' : ' class="ghost-td"';
     const cls = c.r ? ' class="td-r"' : '';
-    const wsnw = c.hug ? ' style="white-space:nowrap"' : '';
+    const wsnw = c.hug ? ` style="white-space:nowrap;width:${_hugColW(c)}"` : '';
     return cls + wsnw;
   }
 
@@ -6264,7 +6410,10 @@ function buildSOPreviewHTML() {
         if (r._t === 'p' || r._t === 'pl') return wof('Product Total') ? r['Product Total'] || '' : '';
         if (r._t === 'l') return wof('Labor Total') ? r['Labor Total'] || '' : '';
       }
-      if (c.key === 'Installer Name') return fmtInstaller(r[c.key] ?? '', parseInt(c.w));
+      if (c.key === 'Installer Name') {
+        const fullNameStyles = new Set(['separated', 'groups-separated']);
+        return fullNameStyles.has(styleVal) ? (r[c.key] ?? '') : fmtInstaller(r[c.key] ?? '', parseInt(c.w));
+      }
       return r[c.key] ?? '';
     };
     const commentRow = r => (showLineComments && r['Line Comments'])
@@ -6273,7 +6422,7 @@ function buildSOPreviewHTML() {
     const colSpan = cols.length;
     const grpHdStyle = `padding:6px 10px 3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(0,0,0,.38);background:rgba(0,0,0,.015)`;
     const subStyle   = `padding:0`;
-    const subInner   = (lbl, val) => `<div style="display:flex;justify-content:flex-end;padding:4px 10px;font-size:11px;border-top:1px solid rgba(0,0,0,.07);color:rgba(0,0,0,.6)"><span style="margin-right:16px">${lbl}</span><span>${val}</span></div>`;
+    const subInner   = (name, val) => `<div style="display:flex;justify-content:flex-end;padding:4px 8px;font-size:11px;border-top:1px solid rgba(0,0,0,.07);font-weight:700;color:#000"><span style="margin-right:16px"><span style="text-transform:uppercase">${name}</span> total</span><span>${val}</span></div>`;
     let tbodyRows = '';
     const totalW = cols.filter(c => !c.hug).reduce((s, c) => s + (parseInt(c.w) || 0), 0);
     const fScale = 1;
@@ -6283,7 +6432,7 @@ function buildSOPreviewHTML() {
     const rightKeys = new Set(['Qty', 'Units', 'Price', 'Total']);
     const contentCols2 = cols.filter(c => !rightKeys.has(c.key));
     const rightCols2   = cols.filter(c =>  rightKeys.has(c.key));
-    const colgroup = `<colgroup>${cols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
+    const colgroup = `<colgroup>${cols.map(c => `<col style="width:${c.hug ? _hugColW(c) : c.w}">`).join('')}</colgroup>`;
     const mkHeader = (contentLabel) => {
       const contentTh = contentCols2.length
         ? `<th colspan="${contentCols2.length}" style="text-align:left">${contentLabel}</th>`
@@ -6292,13 +6441,58 @@ function buildSOPreviewHTML() {
       return `<thead><tr>${contentTh}${rightThs}</tr></thead>`;
     };
 
-    // Expand combined rows for separated/groups; keep as single row for flat/classic
-    const expandedRows = (styleVal === 'separated' || styleVal === 'groups' || styleVal === 'groups-separated')
-      ? rows.flatMap(r => r._t === 'pl' ? [
-          { ...r, _t:'p', 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' },
-          { ...r, _t:'l', 'Description':'','Style':'','Color':'','Material #':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'' },
-        ] : [r])
+    // Expand combined rows. "Merged" keeps material+labor visually stacked in one table
+    // (Line Number shown once, on the material row). "Split" puts material/labor in separate
+    // tables, so the labor row needs its own Line Number to correlate back to the material row.
+    const LABOR_BLANK_ON_P = { 'Installer Name':'','Labor Type':'','Labor Units':'','Labor Quantity':'','Labor Price':'','Labor Total':'' };
+    const MATERIAL_BLANK_ON_L = { 'Description':'','Style':'','Color':'','Material #':'','Bin':'','Manufacturer':'','Split Material':'','Product Units':'','Product Quantity':'','Product Price':'','Product Total':'','Line Comments':'' };
+    const expandedRowsMerged = rows.flatMap(r => r._t === 'pl' ? [
+      { ...r, _t:'p', ...LABOR_BLANK_ON_P },
+      { ...r, _t:'l', 'Line Number':'','Status':'', ...MATERIAL_BLANK_ON_L },
+    ] : [r]);
+    const expandedRowsSplit = rows.flatMap(r => r._t === 'pl' ? [
+      { ...r, _t:'p', ...LABOR_BLANK_ON_P },
+      { ...r, _t:'l', ...MATERIAL_BLANK_ON_L }, // Line Number preserved — labor lives in its own table
+    ] : [r]);
+    const expandedRows = (styleVal === 'separated' || styleVal === 'groups-separated') ? expandedRowsSplit
+      : styleVal === 'groups' ? expandedRowsMerged
       : rows;
+
+    // ── Classic: expand rows, comments as a trailing full-width row, colspan headers ──
+    if (styleVal === 'classic') {
+      const classicRows = rows.flatMap(r => r._t === 'pl' ? [
+        { ...r, _t:'p', ...LABOR_BLANK_ON_P },
+        { ...r, _t:'l', 'Line Number':'','Status':'', ...MATERIAL_BLANK_ON_L },
+      ] : [r]);
+      // Installer Name / Labor Type render positionally under the first two material
+      // columns on the labor sub-row, rather than as their own columns.
+      const LABOR_POS_KEYS = new Set(['Installer Name', 'Labor Type']);
+      const cContent = cols.filter(c => !rightKeys.has(c.key) && !LABOR_POS_KEYS.has(c.key));
+      const cRight   = cols.filter(c =>  rightKeys.has(c.key));
+      const cLaborOn = { 0: cols.some(c => c.key === 'Installer Name'), 1: cols.some(c => c.key === 'Labor Type') };
+      const cLaborTargets = cContent.filter(c => c.key !== 'Line Number' && c.key !== 'Status');
+      const cCols     = [...cContent, ...cRight];
+      const cColgroup = `<colgroup>${cCols.map(c => `<col style="width:${c.hug ? _hugColW(c) : c.w}">`).join('')}</colgroup>`;
+      const cContentTh = cContent.length ? `<th colspan="${cContent.length}" style="text-align:left">Material / Labor</th>` : '';
+      const cRightThs  = cRight.map(c => `<th class="th-r" style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('');
+      const cThead = `<thead><tr>${cContentTh}${cRightThs}</tr></thead>`;
+      const cCellVal = (c, r) => {
+        if (r._t !== 'l') return cellVal(c, r);
+        if (rightKeys.has(c.key)) return cellVal(c, r);
+        const idx = cLaborTargets.indexOf(c);
+        if (idx === 0) return cLaborOn[0] ? (r['Installer Name'] || '') : '';
+        if (idx === 1) return cLaborOn[1] ? (r['Labor Type'] || '') : '';
+        return cellVal(c, r);
+      };
+      const cCommentRow = r => (showLineComments && r['Line Comments'])
+        ? `<tr class="so-line-comment"><td colspan="${cCols.length}">${r['Line Comments']}</td></tr>` : '';
+      const cTbody = classicRows.map(r => {
+        const cls = (r._t === 'l' && !r['Line Number']) ? ' class="so-labor-sub"' : '';
+        return `<tr${cls}>${cCols.map(c => `<td${tdS(c)}>${cCellVal(c,r)}</td>`).join('')}</tr>${cCommentRow(r)}`;
+      }).join('');
+      const cTotalW = cCols.filter(c => !c.hug).reduce((s,c) => s + (parseInt(c.w)||0), 0);
+      return `<table class="so-table so-table-classic" style="${fontStyle}min-width:${cTotalW}px" data-zone="zone-table">${cColgroup}${cThead}<tbody>${cTbody}</tbody></table>`;
+    }
 
     if (styleVal === 'separated') {
       const pRows = expandedRows.filter(r => r._t === 'p');
@@ -6310,11 +6504,11 @@ function buildSOPreviewHTML() {
       const mkSepTable = (tCols, label, dataRows, subtotalVal) => {
         const tContent = tCols.filter(c => !rightKeys.has(c.key));
         const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
-        const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
+        const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? _hugColW(c) : c.w}">`).join('')}</colgroup>`;
         const tSpan = tCols.length;
         const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
         let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-        if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+        if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label, fmtDollar(subtotalVal))}</td></tr>`;
         return `<table class="so-table" style="${fontStyle}margin-bottom:12px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
       };
       let html = '';
@@ -6337,16 +6531,37 @@ function buildSOPreviewHTML() {
       ].filter(g => g.slice[0] < g.slice[1]);
       let html = '';
       if (styleVal === 'groups') {
+        const LABOR_POS_KEYS = new Set(['Installer Name', 'Labor Type']);
+        const gContent  = cols.filter(c => !rightKeys.has(c.key) && !LABOR_POS_KEYS.has(c.key));
+        const gRight    = cols.filter(c =>  rightKeys.has(c.key));
+        const gLaborOn  = { 0: cols.some(c => c.key === 'Installer Name'), 1: cols.some(c => c.key === 'Labor Type') };
+        const gLaborTargets = gContent.filter(c => c.key !== 'Line Number' && c.key !== 'Status');
+        const gCols     = [...gContent, ...gRight];
+        const gNonRight = gContent;
+        const gColgroup = `<colgroup>${gCols.map(c => `<col style="width:${c.hug ? _hugColW(c) : c.w}">`).join('')}</colgroup>`;
+        const gCellVal  = (c, r) => {
+          if (r._t !== 'l') return cellVal(c, r);
+          if (rightKeys.has(c.key)) return cellVal(c, r);
+          const idx = gLaborTargets.indexOf(c);
+          if (idx === 0) return gLaborOn[0] ? (r['Installer Name'] || '') : '';
+          if (idx === 1) return gLaborOn[1] ? (r['Labor Type'] || '') : '';
+          return cellVal(c, r);
+        };
+        const gCommentRow = r => (showLineComments && r['Line Comments'])
+          ? `<tr class="so-line-comment"><td colspan="${gCols.length}">${r['Line Comments']}</td></tr>` : '';
         MOCK_GROUPS.forEach(grp => {
           const grpRows = expandedRows.slice(...grp.slice);
           if (!grpRows.length) return;
-          const grpHead = `<thead><tr>${contentCols2.length ? `<th colspan="${contentCols2.length}" style="text-align:left">${grp.label}</th>` : ''}${rightCols2.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
-          let tbody = grpRows.map(r => `<tr>${cols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
+          const grpHead = `<thead><tr>${gNonRight.length ? `<th colspan="${gNonRight.length}" style="text-align:left">${grp.label}</th>` : ''}${gRight.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
+          let tbody = grpRows.map(r => {
+            const cls = (r._t === 'l' && !r['Line Number']) ? ' class="so-labor-sub"' : '';
+            return `<tr${cls}>${gCols.map(c => `<td${tdS(c)}>${gCellVal(c,r)}</td>`).join('')}</tr>${gCommentRow(r)}`;
+          }).join('');
           if (showSubs) {
             const grpSubtotal = grpRows.reduce((s, r) => s + parseDollar(r['Product Total']) + parseDollar(r['Labor Total']), 0);
-            tbody += `<tr><td colspan="${colSpan}" style="${subStyle}">${subInner(grp.label + ' subtotal', fmtDollar(grpSubtotal))}</td></tr>`;
+            tbody += `<tr><td colspan="${gCols.length}" style="${subStyle}">${subInner(grp.label, fmtDollar(grpSubtotal))}</td></tr>`;
           }
-          html += `<table class="so-table" style="${fontStyle}margin-bottom:12px" data-zone="zone-table">${colgroup}${grpHead}<tbody>${tbody}</tbody></table>`;
+          html += `<table class="so-table so-table-groups" style="${fontStyle}margin-bottom:12px" data-zone="zone-table">${gColgroup}${grpHead}<tbody>${tbody}</tbody></table>`;
         });
       } else {
         // groups-separated: per-group Materials + Labor tables
@@ -6357,11 +6572,11 @@ function buildSOPreviewHTML() {
         const mkGrpSepTable = (tCols, label, dataRows, subtotalVal) => {
           const tContent = tCols.filter(c => !rightKeys.has(c.key));
           const tRight   = tCols.filter(c =>  rightKeys.has(c.key));
-          const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? '1px' : c.w}">`).join('')}</colgroup>`;
+          const tColgroup = `<colgroup>${tCols.map(c => `<col style="width:${c.hug ? _hugColW(c) : c.w}">`).join('')}</colgroup>`;
           const tSpan = tCols.length;
           const thead = `<thead><tr>${tContent.length ? `<th colspan="${tContent.length}" style="text-align:left">${label}</th>` : ''}${tRight.map(c => `<th style="text-align:right${c.hug ? ';white-space:nowrap' : ''}">${c.hdr}</th>`).join('')}</tr></thead>`;
           let tbody = dataRows.map(r => `<tr>${tCols.map(c => `<td${tdS(c)}>${cellVal(c,r)}</td>`).join('')}</tr>${commentRow(r)}`).join('');
-          if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label + ' subtotal', fmtDollar(subtotalVal))}</td></tr>`;
+          if (showSubs) tbody += `<tr><td colspan="${tSpan}" style="${subStyle}">${subInner(label, fmtDollar(subtotalVal))}</td></tr>`;
           return `<table class="so-table" style="${fontStyle}margin-bottom:8px" data-zone="zone-table">${tColgroup}${thead}<tbody>${tbody}</tbody></table>`;
         };
         MOCK_GROUPS.forEach(grp => {
@@ -6442,9 +6657,13 @@ function buildSOPreviewHTML() {
   const ghostTerms    = isGhost('Terms and Conditions');
   const ghostFooterPh = isGhost('Footer Phone/Email');
   const ghostSig      = isGhost('Signature Block');
+  const termsNewPage  = hasSel('Terms Start on New Page');
+  const termsBottom   = hasSel('Force Terms to Bottom');
 
   const noteBlock  = `<div style="margin-bottom:14px"><div class="so-footer-val">Thank you for your business! All work guaranteed for 12 months.</div></div>`;
-  const termsBlock = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.</div></div>`;
+  const termsInner = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Terms &amp; Conditions</div><div class="so-footer-val">Payment due within 30 days of invoice date. Late payments subject to 1.5% monthly interest.</div></div>`;
+  const termsAttrs = (termsNewPage ? ' data-pgbreak="before"' : '') + (termsBottom ? ' data-force-bottom' : '');
+  const termsBlock = termsAttrs ? `<div${termsAttrs}>${termsInner}</div>` : termsInner;
   const phBlock    = `<div style="margin-bottom:14px"><div class="so-footer-lbl">Contact</div><div class="so-footer-val">(303) 555-0100 · info@feargalmcnamara.com</div></div>`;
   const sigBlock   = `<div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px"><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Customer Signature</div></div><div><div style="border-top:1px solid rgba(0,0,0,.18);padding-top:6px;font-size:10px;color:rgba(0,0,0,.45)">Date</div></div></div>`;
 
@@ -6475,7 +6694,7 @@ function buildSOPreviewHTML() {
   }
 
   /* ── header / logo area ── */
-  const logoEl = `<img class="so-logo" data-ghost="logo" src="https://www.figma.com/api/mcp/asset/39557bcf-ae5e-4fef-b0ba-90184b8df4e5" alt="Logo">`;
+  const logoEl = `<img class="so-logo" data-ghost="logo" src="company-logo.svg" alt="Logo">`;
   const _g = t => `<span class="so-ghost-inline">${t}</span>`;
   const nameReal  = showLocName  ? 'Feargal McNamara &amp; Sons Denver'            : showCoName   ? 'Feargal McNamara &amp; Sons'          : null;
   const addrReal  = showLocAddr  ? '1765 Mamluk Drive, Ste 200<br>Denver, CO 80202': showCoAddr   ? '500 Commerce Dr<br>Boulder, CO 80302'  : null;
@@ -6693,13 +6912,14 @@ function handleSave() {
 (function () {
   const handle   = document.getElementById('drag-handle');
   const panel    = document.querySelector('.settings-panel');
-  const MIN_W    = 320;
+  const MIN_W    = 300;
   const MAX_W    = 700;
   let dragging   = false;
   let startX     = 0;
   let startWidth = 0;
 
   handle.addEventListener('mousedown', e => {
+    if (devPhase === 1) return; // panel width is fixed in MVP
     dragging   = true;
     startX     = e.clientX;
     startWidth = panel.offsetWidth;
@@ -7210,6 +7430,21 @@ function showToast(msg, icon = 'ph-check-circle') {
 }
 #phase-tooltip.visible { opacity: 1; }
 
+/* Handheld tooltip access: hidden on desktop, shown as a tappable icon on tablet/mobile */
+.field-info-icon {
+  display: none;
+  margin-left: 6px;
+  font-size: 13px;
+  color: var(--c-text-tertiary, rgba(0,0,0,0.35));
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.field-info-icon:hover { color: var(--c-text-secondary, rgba(0,0,0,0.55)); }
+@media (max-width: 767px) {
+  .field-info-icon { display: inline-flex; }
+}
+body:is(.dev-vp-tablet, .dev-vp-mobile) .field-info-icon { display: inline-flex; }
+
 /* Phase toggle group */
 .dev-phase-group { display: flex; border: 1px solid rgba(255,255,255,0.14); border-radius: 5px; overflow: hidden; }
 .dev-phase-btn {
@@ -7261,14 +7496,29 @@ body.dev-vp-mobile .settings-panel { width: 100% !important; flex: 1; flex-shrin
 </style>
 
 <script>
+// Settings panel width is fixed (not user-resizable) in MVP
+function _applyPhaseWidthLock(n) {
+  const dragHandle = document.getElementById('drag-handle');
+  if (dragHandle) dragHandle.style.display = n === 1 ? 'none' : '';
+  if (n === 1) {
+    const panelEl = document.querySelector('.settings-panel');
+    if (panelEl) { panelEl.style.width = ''; panelEl.style.flexShrink = ''; }
+  }
+}
 function setDevPhase(n) {
   devPhase = n;
   localStorage.setItem('dev_phase', n);
   document.querySelectorAll('.dev-phase-btn').forEach(b => {
     b.classList.toggle('on', parseInt(b.dataset.phase) === n);
   });
+  _applyPhaseWidthLock(n);
+  const plpEl = document.getElementById('preview-line-picker');
+  if (plpEl) plpEl.style.display = n <= 2 ? 'none' : '';
+  const drawerLp = document.querySelector('.drawer-lp');
+  if (drawerLp) drawerLp.style.display = n <= 2 ? 'none' : '';
   render();
   if (typeof renderColPicker === 'function') renderColPicker();
+  refreshPreviewImmediate();
 }
 
 function devToggle(which) {
